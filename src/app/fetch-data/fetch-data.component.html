@@ -1,0 +1,31 @@
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!shares"><em>Loading shares...</em></p>
+
+<li *ngIf="shares">
+  <ul>Count: <strong>{{shares.sharesCount}}</strong></ul>
+  <ul>USD: <strong>{{shares.pricePerShareUsd}}</strong></ul>
+  <ul>CZK: <strong>{{shares.pricePerShareCzk}}</strong></ul>
+  <ul>BTC: <strong>{{shares.pricePerShareBtc}}</strong></ul>
+</li>
+
+<!--<table class='table' *ngIf="shares">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let forecast of forecasts">
+      <td>{{ forecast.dateFormatted }}</td>
+      <td>{{ forecast.temperatureC }}</td>
+      <td>{{ forecast.temperatureF }}</td>
+      <td>{{ forecast.summary }}</td>
+    </tr>
+  </tbody>
+</table>-->
