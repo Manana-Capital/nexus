@@ -5,9 +5,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --extract-css --port 5002",
-    "build": "ng build --extract-css",
+    "build": "ng build --extract-css --prod --aot --base-href ./",
     "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
-    "test": "ng test",
+    "test": "echo 'No tests yet...'",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
