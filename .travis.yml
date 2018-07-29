@@ -17,3 +17,4 @@ deploy:
     on:
         branch: master # Build only from master
     local_dir: dist # Only copy the dist conents
+
