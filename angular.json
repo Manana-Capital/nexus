@@ -18,7 +18,11 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/CNAME",
+              "src/favicon.ico",
+              "src/favicon-16x16.png",
+              "src/favicon-32x32.png",
+              "src/apple-touch-icon.png"
             ],
             "styles": [
               "node_modules/simple-line-icons/css/simple-line-icons.css",
