@@ -15,6 +15,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { CountdownModule } from 'ngx-countdown';
 import { UEditorModule } from 'ngx-ueditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
+import { NxCardComponent } from './components/nx-card/nx-card.component';
 
 const THIRDMODULES = [
   NgZorroAntdModule,
@@ -46,6 +47,7 @@ const DIRECTIVES = [];
     // your components
     ...COMPONENTS,
     ...DIRECTIVES,
+    NxCardComponent,
   ],
   exports: [
     CommonModule,

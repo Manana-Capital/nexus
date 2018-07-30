@@ -52,7 +52,7 @@ export class AuthService implements OnInit, OnDestroy {
     openIdImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 60 * 60 * 4;
 
     const authWellKnownEndpoints = new AuthWellKnownEndpoints();
-    authWellKnownEndpoints.issuer = environment.BACKEND_URL.replace(/\/\s*$/, '');;
+    authWellKnownEndpoints.issuer = environment.BACKEND_URL.replace(/\/\s*$/, '');
     authWellKnownEndpoints.jwks_uri = environment.BACKEND_URL + '.well-known/openid-configuration/jwks';
     authWellKnownEndpoints.authorization_endpoint = environment.BACKEND_URL + 'connect/authorize';
     authWellKnownEndpoints.token_endpoint = environment.BACKEND_URL + 'connect/token';

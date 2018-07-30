@@ -4,12 +4,20 @@ import { I18NService } from './i18n/i18n.service';
 import {AuthService} from '@core/net/auth.service';
 
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import {FundsService} from '@core/api/generated/controllers/Funds';
+import {ClientsService} from '@core/api/generated/controllers/Clients';
+
+const generatedServices = [
+  FundsService,
+  ClientsService
+];
 
 @NgModule({
   providers: [
     I18NService,
     OidcSecurityService,
-    AuthService
+    AuthService,
+    ...generatedServices
   ],
 })
 export class CoreModule {

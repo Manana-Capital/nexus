@@ -16,6 +16,7 @@ import { mergeMap, catchError } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
+import {AuthService} from '@core/net/auth.service';
 
 /**
  * The default HTTP interceptor, see the registration details`app.module.ts`
@@ -26,6 +27,10 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   get msg(): NzMessageService {
     return this.injector.get(NzMessageService);
+  }
+
+  get auth(): AuthService {
+    return this.injector.get(AuthService);
   }
 
   private goTo(url: string) {
@@ -90,13 +95,25 @@ export class DefaultInterceptor implements HttpInterceptor {
   > {
 
     let url = req.url;
-    if (!url.startsWith('https://') && !url.startsWith('http://')) {
-      url = environment.SERVER_URL + url;
+    let isBackendCall = false;
+
+    if (url.startsWith('https://') || url.startsWith('http://')) {
+      url = req.url;
+    } else if(url.startsWith('/api')) {
+      let backendUrl = environment.BACKEND_URL.replace(/\/\s*$/, '');
+      url = backendUrl + req.url;
+      isBackendCall = true;
+    } else {
+      url = environment.SERVER_URL + req.url;
     }
 
+    const headers = isBackendCall ? this.auth.appendAuthHeader(req.headers) : req.headers;
     const newReq = req.clone({
-      url: url
+      url: url,
+      headers: headers
     });
+
+    //console.log('AUTH', this.auth, isBackendCall, headers);
 
     return next.handle(newReq).pipe(
       mergeMap((event: any) => {

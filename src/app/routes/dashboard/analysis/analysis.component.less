@@ -1,5 +1,34 @@
 @import '~@delon/theme/styles/default';
+
+trend {
+  display: flex;
+}
+
+.performance-row {
+  width: 150px;
+}
+
+.performance-number {
+  float: right;
+}
+
+.red {
+  color: @red-8;
+}
+
+.green {
+  color: @green-8;
+}
+
 :host ::ng-deep {
+
+  .up {
+    color: @green-6;
+  }
+  .down {
+    color: @red-6;
+  }
+
   .icon-group {
     transition: color 0.32s;
     color: @text-color-secondary;
