@@ -56,7 +56,9 @@ export class AppComponent implements OnInit {
         email: user.email
       };
       this.settings.setUser(currentUser);
+      this.aclService.setFull(true);
       this.aclService.setRole(user.role);
+      this.menuService.resume();
     });
   }
 }

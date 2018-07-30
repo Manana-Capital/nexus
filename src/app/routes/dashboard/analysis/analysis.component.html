@@ -9,6 +9,7 @@
 <!--<page-header></page-header>-->
 <div nz-row [nzGutter]="24" class="pt-lg">
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+
     <g2-card [title]="'总销售额'" total="¥ 126,560" contentHeight="44px" [action]="action1" [footer]="footer1">
       <ng-template #action1>
         <nz-tooltip [nzTitle]="'指标说明'">
@@ -28,6 +29,7 @@
       </ng-template>
     </g2-card>
   </div>
+
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
     <g2-card [title]="'访问量'" total="8,848" contentHeight="46px" [action]="action2" [footer]="footer2">
       <ng-template #action2>
@@ -79,139 +81,10 @@
     </g2-card>
   </div>
 </div>
-<nz-card [nzLoading]="loading" [nzBordered]="false" class="ant-card__body-nopadding sales-card">
-  <nz-tabset [nzTabBarExtraContent]="extraTemplate">
-    <nz-tab nzTitle="销售额">
-      <div nz-row>
-        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="16">
-          <div class="bar">
-            <g2-bar height="295" [title]="'销售额趋势'" [data]="data.salesData"></g2-bar>
-          </div>
-        </div>
-        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8">
-          <div class="rank-list">
-            <h4 class="rank-title">门店销售额排名</h4>
-            <ul>
-              <li *ngFor="let i of rankingListData; let idx = index">
-                <div>
-                  <span class="icon" [ngClass]="{'active': idx < 3}">{{idx+1}}</span>
-                  {{i.title}}
-                </div>
-                <span>{{i.total | number: '3.0'}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nz-tab>
-    <nz-tab nzTitle="访问量">
-      <div nz-row>
-        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="16">
-          <div class="bar">
-            <g2-bar height="295" [title]="'访问量趋势'" [data]="data.salesData"></g2-bar>
-          </div>
-        </div>
-        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8">
-          <div class="rank-list">
-            <h4 class="rank-title">门店访问量排名</h4>
-            <ul>
-              <li *ngFor="let i of rankingListData; let idx = index">
-                <div>
-                  <span class="icon" [ngClass]="{'active': idx < 3}">{{idx+1}}</span>
-                  {{i.title}}
-                </div>
-                <span>{{i.total | number: '3.0'}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nz-tab>
-    <ng-template #extraTemplate>
-      <div class="sales-extra-wrap">
-        <div class="sales-extra">
-          <a (click)="setDate('today')">今日</a>
-          <a (click)="setDate('week')">本周</a>
-          <a (click)="setDate('month')">本月</a>
-          <a (click)="setDate('year')">全年</a>
-        </div>
-        <nz-range-picker [(ngModel)]="date_range" style="display:inline-block; width: 256px;"></nz-range-picker>
-      </div>
-    </ng-template>
-  </nz-tabset>
-</nz-card>
-<div nz-row [nzGutter]="24">
-  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
-    <nz-card [nzLoading]="loading" [nzBordered]="false" nzTitle="线上热门搜索" [nzExtra]="extraOp">
-      <ng-template #extraOp>
-        <nz-dropdown>
-          <i class="anticon anticon-ellipsis" nz-dropdown></i>
-          <ul nz-menu>
-            <li nz-menu-item>操作一</li>
-            <li nz-menu-item>操作二</li>
-          </ul>
-        </nz-dropdown>
-      </ng-template>
-      <div nz-row [nzGutter]="64">
-        <div nz-col nzXs="24" nzSm="12" class="mb-md">
-          <number-info total="12,321" subTotal="17.1" status="up" [subTitle]="subTitle">
-            <ng-template #subTitle>
-              搜索用户数
-              <nz-tooltip [nzTitle]="'指标文案'">
-                <i nz-tooltip class="anticon anticon-info-circle-o ml-sm"></i>
-              </nz-tooltip>
-            </ng-template>
-          </number-info>
-          <g2-mini-area [line]="true" height="45" [data]="data.visitData2"></g2-mini-area>
-        </div>
-        <div nz-col nzXs="24" nzSm="12" class="mb-md">
-          <number-info subTitle="人均搜索次数" total="2.7" subTotal="26.2" status="down"></number-info>
-          <g2-mini-area [line]="true" height="45" [data]="data.visitData2"></g2-mini-area>
-        </div>
-      </div>
-      <simple-table [data]="data.searchData" [columns]="searchColumn" size="small" ps="5" [toTopInChange]="false">
-        <ng-template st-row="range" let-i>
-          <trend [flag]="i.status === 1 ? 'down' : 'up'">
-            <span>{{i.range}}%</span>
-          </trend>
-        </ng-template>
-      </simple-table>
-    </nz-card>
-  </div>
-  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
-    <nz-card [nzLoading]="loading" [nzBordered]="false" nzTitle="销售额类别占比" [nzBodyStyle]="{'padding.px': 24}" [nzExtra]="extra"
-      class="sales-card" style="min-height: 482px;">
-      <ng-template #extra>
-        <div class="sales-card-extra">
-          <nz-dropdown>
-            <i class="anticon anticon-icon-group" nz-dropdown nzType="ellipsis"></i>
-            <ul nz-menu>
-              <li nz-menu-item>操作一</li>
-              <li nz-menu-item>操作二</li>
-            </ul>
-          </nz-dropdown>
-          <div class="sales-type-radio">
-            <nz-radio-group [(ngModel)]="salesType" (ngModelChange)="changeSaleType()">
-              <label nz-radio-button [nzValue]="'all'">
-                <span>全部渠道</span>
-              </label>
-              <label nz-radio-button [nzValue]="'online'">
-                <span>线上</span>
-              </label>
-              <label nz-radio-button [nzValue]="'offline'">
-                <span>门店</span>
-              </label>
-            </nz-radio-group>
-          </div>
-        </div>
-      </ng-template>
-      <h4 class="margin:8px 0 32px 0;">销售额</h4>
-      <g2-pie [hasLegend]="true" subTitle="销售额" [height]="248" [lineWidth]="4" [total]="salesTotal" [data]="salesPieData" [valueFormat]="handlePieValueFormat">
-      </g2-pie>
-    </nz-card>
-  </div>
-</div>
-<nz-card [nzLoading]="loading" [nzBordered]="false" [nzBodyStyle]="{'padding': '0 0 32px'}" class="offline-card mt-lg">
+
+
+
+<!--<nz-card [nzLoading]="loading" [nzBordered]="false" [nzBodyStyle]="{'padding': '0 0 32px'}" class="offline-card mt-lg">
   <nz-tabset [(nzSelectedIndex)]="_activeTab" (nzSelectChange)="_tabChange($event)">
     <nz-tab *ngFor="let tab of data.offlineData; let i = index;" [nzTitle]="nzTabHeading">
       <ng-template #nzTabHeading>
@@ -231,4 +104,4 @@
       </div>
     </nz-tab>
   </nz-tabset>
-</nz-card>
+</nz-card>-->

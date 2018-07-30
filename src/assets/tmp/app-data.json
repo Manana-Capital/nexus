@@ -113,11 +113,11 @@
           "children": [
             {
               "text": "REST Api",
-              "link": "https://kotas.host/swagger/"
+              "link": "/system/restapi"
             },
             {
               "text": "Background jobs",
-              "link": "https://kotas.host/background"
+              "link": "/system/background-jobs"
             },
             {
               "text": "Settings",

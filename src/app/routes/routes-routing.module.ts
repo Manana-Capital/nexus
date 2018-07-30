@@ -11,6 +11,7 @@ import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import {ACLGuard} from '@delon/acl';
+import {ExternalViewComponent} from '../layout/external-component/external-view.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'charts', component: Exception404Component },
       { path: 'clients', component: Exception404Component },
       { path: 'funds', component: Exception404Component },
+      { path: 'system/restapi', component: ExternalViewComponent },
       { path: 'extras', loadChildren: './extras/extras.module#ExtrasModule' },
       { path: '403', component: Exception403Component, data: {title: 'Forbidden'} },
       { path: '404', component: Exception404Component, data: {title: 'Not found'} },
