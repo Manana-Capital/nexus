@@ -18,7 +18,7 @@ import { NoticeItem, NoticeIconList } from '@delon/abc';
 export class HeaderNotifyComponent {
   data: NoticeItem[] = [
     {
-      title: 'Notice',
+      title: 'Notifications',
       list: [],
       emptyText: 'You have viewed all notifications',
       emptyImage:
@@ -34,12 +34,12 @@ export class HeaderNotifyComponent {
       clearText: 'Clear message',
     },
     {
-      title: 'Upcoming',
+      title: 'Tasks',
       list: [],
-      emptyText: 'You have completed all the to-do',
+      emptyText: 'You have completed all tasks',
       emptyImage:
         'https://gw.alipayobjects.com/zos/rmsportal/HsIsxMZiWKrNUavQUXqx.svg',
-      clearText: 'Empty to-do',
+      clearText: 'Empty tasks',
     },
   ];
   count = 0;
@@ -74,7 +74,7 @@ export class HeaderNotifyComponent {
     if (this.loading) return;
     this.loading = true;
     setTimeout(() => {
-      this.data = this.updateNoticeData([
+      /*this.data = this.updateNoticeData([
         {
           id: '000000001',
           avatar:
@@ -177,7 +177,7 @@ export class HeaderNotifyComponent {
           status: 'processing',
           type: 'Upcoming',
         },
-      ]);
+      ]);*/
 
       this.loading = false;
     }, 1000);

@@ -19,8 +19,19 @@ export class NexusClient {
 
 @Injectable()
 export class AuthService implements OnInit, OnDestroy {
-  isAuthorizedSubscription: Subscription;
-  isAuthorized: boolean;
+
+  private _isAuthorizedSubscription: Subscription;
+  private _isAuthorized: boolean;
+  private _currentClientSubscription: Subscription;
+  private _currentClient: NexusClient;
+
+  public get isAuthorized(): boolean{
+    return this._isAuthorized;
+  }
+
+  public get currentClient(): NexusClient{
+    return this._currentClient;
+  }
 
   constructor(public oidcSecurityService: OidcSecurityService,
               private http: HttpClient,
@@ -28,7 +39,7 @@ export class AuthService implements OnInit, OnDestroy {
   ) {
     const openIdImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
     openIdImplicitFlowConfiguration.stsServer = environment.BACKEND_URL;
-    openIdImplicitFlowConfiguration.redirect_url = originUrl + '#/dashboard/v1?';
+    openIdImplicitFlowConfiguration.redirect_url = originUrl + '#/dashboard?';
     openIdImplicitFlowConfiguration.client_id = 'ng';
     openIdImplicitFlowConfiguration.response_type = 'id_token token';
     openIdImplicitFlowConfiguration.scope = 'openid profile nexus role';
@@ -38,7 +49,7 @@ export class AuthService implements OnInit, OnDestroy {
     openIdImplicitFlowConfiguration.auto_userinfo = true;
     openIdImplicitFlowConfiguration.log_console_warning_active = true;
     openIdImplicitFlowConfiguration.log_console_debug_active = false;
-    openIdImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 10;
+    openIdImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 60 * 60 * 4;
 
     const authWellKnownEndpoints = new AuthWellKnownEndpoints();
     authWellKnownEndpoints.issuer = environment.BACKEND_URL.replace(/\/\s*$/, '');;
@@ -63,14 +74,16 @@ export class AuthService implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized().subscribe(
+    this._isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized().subscribe(
       (isAuthorized: boolean) => {
-        this.isAuthorized = isAuthorized;
+        this._isAuthorized = isAuthorized;
       });
+    this._currentClientSubscription = this.userDataStream().subscribe(x => this._currentClient = x);
   }
 
   ngOnDestroy(): void {
-    this.isAuthorizedSubscription.unsubscribe();
+    this._isAuthorizedSubscription.unsubscribe();
+    this._currentClientSubscription.unsubscribe();
     this.oidcSecurityService.onModuleSetup.unsubscribe();
   }
 
@@ -92,17 +105,14 @@ export class AuthService implements OnInit, OnDestroy {
   }
 
   login() {
-    console.log('start login');
     this.oidcSecurityService.authorize();
   }
 
   refreshSession() {
-    console.log('start refreshSession');
     this.oidcSecurityService.authorize();
   }
 
   logout() {
-    console.log('start logoff');
     this.oidcSecurityService.logoff();
   }
 
@@ -124,15 +134,16 @@ export class AuthService implements OnInit, OnDestroy {
     return this.http.post<any>(url, body, { headers: this.getHeaders() });
   }
 
-  private getHeaders() {
+  public getHeaders() {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     return this.appendAuthHeader(headers);
   }
 
-  private appendAuthHeader(headers: HttpHeaders) {
+  public appendAuthHeader(headers: HttpHeaders) {
     const token = this.oidcSecurityService.getToken();
 
+    console.log('TOKEN', token);
     if (token === '') return headers;
 
     const tokenValue = 'Bearer ' + token;

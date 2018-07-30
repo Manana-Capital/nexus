@@ -29,7 +29,7 @@ export class LayoutDefaultComponent {
       }
       if (evt instanceof NavigationError) {
         this.isFetching = false;
-        _message.error(`无法加载${evt.url}路由`, { nzDuration: 1000 * 3 });
+        _message.error(`Unable to load ${evt.url} route`, { nzDuration: 1000 * 5 });
         return;
       }
       if (!(evt instanceof NavigationEnd)) {

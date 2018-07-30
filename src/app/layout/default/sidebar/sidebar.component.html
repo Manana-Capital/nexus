@@ -8,9 +8,9 @@
       </div>
     </div>
     <ul nz-menu>
-      <li nz-menu-item (click)="msgSrv.success('profile')">{{ 'profile' | translate }}</li>
-      <li nz-menu-item (click)="msgSrv.success('settings')">{{ 'settings' | translate }}</li>
-      <li nz-menu-item (click)="msgSrv.success('logout')">{{ 'logout' | translate }}</li>
+      <div nz-menu-item *ngIf="_isAuthorized" (click)="goProfile()"><i class="anticon anticon-user mr-sm"></i>{{ 'profile' | translate }}</div>
+      <div nz-menu-item *ngIf="_isAuthorized" (click)="logout()"><i class="anticon anticon-logout mr-sm"></i>{{ 'logout' | translate }}</div>
+      <div nz-menu-item *ngIf="!_isAuthorized" (click)="login()"><i class="anticon anticon-login mr-sm"></i>{{ 'login' | translate }}</div>
     </ul>
   </nz-dropdown>
   <sidebar-nav class="d-block py-lg"></sidebar-nav>

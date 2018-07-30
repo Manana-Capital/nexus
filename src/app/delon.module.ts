@@ -31,12 +31,12 @@ export function pageHeaderConfig(): AdPageHeaderConfig {
   return Object.assign(new AdPageHeaderConfig(), { home_i18n: 'home' });
 }
 
-import { DelonAuthConfig } from '@delon/auth';
+/*import { DelonAuthConfig } from '@delon/auth';
 export function delonAuthConfig(): DelonAuthConfig {
   return Object.assign(new DelonAuthConfig(), <DelonAuthConfig>{
     login_url: '/passport/login',
   });
-}
+}*/
 
 // endregion
 
@@ -75,7 +75,7 @@ export class DelonModule {
         },
         // { provide: SimpleTableConfig, useFactory: simpleTableConfig }
         { provide: AdPageHeaderConfig, useFactory: pageHeaderConfig },
-        { provide: DelonAuthConfig, useFactory: delonAuthConfig },
+        //{ provide: DelonAuthConfig, useFactory: delonAuthConfig },
       ],
     };
   }

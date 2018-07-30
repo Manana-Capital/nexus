@@ -1,5 +1,4 @@
 import { Injectable, Injector, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { zip } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -13,10 +12,7 @@ import { ACLService } from '@delon/acl';
 import { TranslateService } from '@ngx-translate/core';
 import { I18NService } from '../i18n/i18n.service';
 
-/**
- * 用于应用启动时
- * 一般用来获取应用所需要的基础数据等
- */
+
 @Injectable()
 export class StartupService {
   constructor(
@@ -39,7 +35,6 @@ export class StartupService {
         this.httpClient.get('assets/tmp/app-data.json'),
       )
         .pipe(
-          // 接收其他拦截器后产生的异常消息
           catchError(([langData, appData]) => {
             resolve(null);
             return [langData, appData];
@@ -53,15 +48,16 @@ export class StartupService {
 
             // application data
             const res: any = appData;
-            // 应用信息：包括站点名、描述、年份
+            // Application information: including site name, description, year
             this.settingService.setApp(res.app);
-            // 用户信息：包括姓名、头像、邮箱地址
+            // User information: including name, avatar, email address
             this.settingService.setUser(res.user);
-            // ACL：设置权限为全量
-            this.aclService.setFull(true);
-            // 初始化菜单
+            // ACL
+            this.aclService.setFull(false);
+            //this.aclService.setRole([]);
+            // Initialization menu
             this.menuService.add(res.menu);
-            // 设置页面标题的后缀
+            // Set the suffix of the page title
             this.titleService.suffix = res.app.name;
           },
           () => {},

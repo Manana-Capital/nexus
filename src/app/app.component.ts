@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { SettingsService, TitleService } from '@delon/theme';
+import {MenuService, SettingsService, TitleService} from '@delon/theme';
+import {ACLService} from '@delon/acl';
+import {AuthService} from '@core/net/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -31,8 +33,11 @@ export class AppComponent implements OnInit {
     el: ElementRef,
     renderer: Renderer2,
     private settings: SettingsService,
+    private aclService: ACLService,
+    private auth: AuthService,
     private router: Router,
     private titleSrv: TitleService,
+    private menuService: MenuService,
   ) {
   }
 
@@ -40,5 +45,18 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter(evt => evt instanceof NavigationEnd))
       .subscribe(() => this.titleSrv.setTitle());
+
+    this.auth.userDataStream().subscribe(user => {
+      console.log('USER', user);
+      if(!user)
+        return;
+      const currentUser = {
+        name: user.name,
+        avatar: './assets/tmp/img/avatar.png',
+        email: user.email
+      };
+      this.settings.setUser(currentUser);
+      this.aclService.setRole(user.role);
+    });
   }
 }
