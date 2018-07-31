@@ -11,12 +11,14 @@ import {NexusExceptionComponent} from './exception/nexus-exception.component';
 import {FundsDashboardComponent} from './dashboard/funds/funds-dashboard.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { FundCardComponent } from './dashboard/funds/fund-card/fund-card.component';
+import {Exception401Component} from './exception/401.component';
 
 const COMPONENTS = [
   FundsDashboardComponent,
   FundCardComponent,
 
   NexusExceptionComponent,
+  Exception401Component,
   Exception403Component,
   Exception404Component,
   Exception500Component

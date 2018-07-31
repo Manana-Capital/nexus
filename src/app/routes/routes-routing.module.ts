@@ -11,6 +11,7 @@ import { Exception500Component } from './exception/500.component';
 import {ACLGuard} from '@delon/acl';
 import {ExternalViewComponent} from '../layout/external-component/external-view.component';
 import {FundsDashboardComponent} from './dashboard/funds/funds-dashboard.component';
+import {Exception401Component} from './exception/401.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'funds', component: Exception404Component },
       { path: 'system/restapi', component: ExternalViewComponent },
       { path: 'extras', loadChildren: './extras/extras.module#ExtrasModule' },
+      { path: '401', component: Exception401Component, data: {title: 'Unauthorized'} },
       { path: '403', component: Exception403Component, data: {title: 'Forbidden'} },
       { path: '404', component: Exception404Component, data: {title: 'Not found'} },
       { path: '500', component: Exception500Component, data: {title: 'Server error'} },
