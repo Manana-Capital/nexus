@@ -14,9 +14,12 @@ export interface Fund {
   fundId?: number;
   key?: string;
   displayName?: string;
+  description?: string;
   owner?: __model.FundClient;
   isPublic?: boolean;
   isDisabled?: boolean;
+  isHidden?: boolean;
+  isUnderConstruction?: boolean;
   checkCronInterval?: string;
   /** format: int32 */
   ordering?: number;

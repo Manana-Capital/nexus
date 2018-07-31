@@ -43,13 +43,35 @@
         {
           "text": "Clients",
           "icon": "icon-people",
-          "link": "/clients"
+          "link": "/clients",
+          "children": [
+            {
+              "text": "Overview",
+              "link": "/clients/overview"
+            },
+            {
+              "text": "Deposit",
+              "link": "/clients/deposit"
+            },
+            {
+              "text": "Withdrawal",
+              "link": "/clients/withdrawal"
+            },
+            {
+              "text": "Transfer shares",
+              "link": "/clients/transfer"
+            }
+          ]
         },
         {
           "text": "Funds",
           "icon": "icon-layers",
           "link": "/funds",
           "children": [
+            {
+              "text": "Overview",
+              "link": "/funds/overview"
+            },
             {
               "text": "Configuration",
               "link": "/funds/configuration"

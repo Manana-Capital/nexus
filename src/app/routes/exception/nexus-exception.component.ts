@@ -30,6 +30,12 @@ export class NexusExceptionComponent {
   @Input()
   set type(value: 403 | 404 | 500) {
     const item = {
+      401: {
+        img:
+          'https://gw.alipayobjects.com/zos/rmsportal/wZcnGqRDyhPOEYFcZDnb.svg',
+        title: '401',
+        desc: 'Sorry, you don\'t have access to this page (unauthorized). Please login.',
+      },
       403: {
         img:
           'https://gw.alipayobjects.com/zos/rmsportal/wZcnGqRDyhPOEYFcZDnb.svg',

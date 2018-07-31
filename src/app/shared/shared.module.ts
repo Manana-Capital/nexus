@@ -16,6 +16,7 @@ import { CountdownModule } from 'ngx-countdown';
 import { UEditorModule } from 'ngx-ueditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
 import { NxCardComponent } from './components/nx-card/nx-card.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 const THIRDMODULES = [
   NgZorroAntdModule,
@@ -36,6 +37,7 @@ const DIRECTIVES = [];
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    NgxChartsModule,
     AlainThemeModule.forChild(),
     DelonABCModule,
     DelonACLModule,

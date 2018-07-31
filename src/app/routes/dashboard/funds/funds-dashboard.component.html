@@ -4,23 +4,52 @@
     Welcome to Mañana Capital back-office system
     <small>The information below shows price per share and performance of our funds.</small>
   </h1>
+
+  <div>
+    <nz-dropdown class="mx-sm" nzPlacement="bottomRight">
+      <button nz-button nz-dropdown>
+        <i class="anticon anticon-ellipsis"></i>
+      </button>
+      <ul nz-menu>
+        <li nz-menu-item (click)="refreshData()">Refresh data</li>
+      </ul>
+    </nz-dropdown>
+  </div>
+
 </div>
 
 <!--<page-header></page-header>-->
 <div nz-row [nzGutter]="24" class="pt-lg">
 
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-card>
+  </div>
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-card>
+  </div>
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-card>
+  </div>
+
 
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngFor="let fund of _funds">
-    <g2-card [bordered]="true" [title]="fund.displayName" [total]="'$ ' + (fund.pricePerShare.priceUsd | number:'1.2-2')"
-             contentHeight="84px" [action]="action1" [footer]="footer1">
+    <nx-fund-card [bordered]="true" [title]="fund.displayName" [total]="'$ ' + (fund.pricePerShare.priceUsd | number:'1.2-2')"
+             contentHeight="84px" [action]="action1" [footer]="footer1"
+                  [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
+    >
 
       <ng-template #action1>
-        <nz-tooltip [nzTitle]="'Public fund'">
+        <nz-tooltip [nzTitle]="fund.description">
           <i nz-tooltip class="anticon anticon-info-circle-o"></i>
         </nz-tooltip>
       </ng-template>
 
-      <trend [flag]="fund.performance.bigBang > 0 ? 'up' : 'down'" style="margin-top:2px;">
+      <trend [flag]="getFlagName(fund.performance.bigBang)" style="margin-top:2px;">
         <div class="performance-row">
           Big bang
           <span class="pl-sm performance-number"
@@ -31,7 +60,7 @@
         </div>
       </trend>
 
-      <trend [flag]="fund.performance.currentYear > 0 ? 'up' : 'down'">
+      <trend [flag]="getFlagName(fund.performance.currentYear)">
         <div class="performance-row">
         Year ({{_today.getUTCFullYear()}})
           <span class="pl-sm performance-number"
@@ -42,7 +71,7 @@
         </div>
       </trend>
 
-      <trend [flag]="fund.performance.currentMonth > 0 ? 'up' : 'down'">
+      <trend [flag]="getFlagName(fund.performance.currentMonth)">
         <div class="performance-row">
         Month ({{_today | date:'MMM'}})
           <span class="pl-sm performance-number"
@@ -53,7 +82,7 @@
         </div>
       </trend>
 
-      <trend [flag]="fund.performance.today > 0 ? 'up' : 'down'">
+      <trend [flag]="getFlagName(fund.performance.today)">
         <div class="performance-row">
         Today ({{_today | date:'EEE'}})
           <span class="pl-sm performance-number"
@@ -66,37 +95,33 @@
 
 
       <ng-template #footer1>
-        <p class="text-truncate mb0">{{fund.description}}
-          <!--<span class="ml-sm">￥12,423</span>-->
-        </p>
+
       </ng-template>
 
-    </g2-card>
+    </nx-fund-card>
   </div>
 
 
 </div>
 
+<nz-card [nzLoading]="_loading" [nzBordered]="true" [nzBodyStyle]="{'padding': '10px 30px 10px 0'}" class="mt-lg">
+  <div class="chart">
 
+    <ngx-charts-line-chart
+      [scheme]="_colorScheme"
+      [results]="_chartData"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Date"
+      yAxisLabel="Price (USD)"
+      [autoScale]="true"
+      [timeline]="true"
+    >
+    </ngx-charts-line-chart>
 
-<!--<nz-card [nzLoading]="loading" [nzBordered]="false" [nzBodyStyle]="{'padding': '0 0 32px'}" class="offline-card mt-lg">
-  <nz-tabset [(nzSelectedIndex)]="_activeTab" (nzSelectChange)="_tabChange($event)">
-    <nz-tab *ngFor="let tab of data.offlineData; let i = index;" [nzTitle]="nzTabHeading">
-      <ng-template #nzTabHeading>
-        <div nz-row [nzGutter]="8" style="width: 138px; margin: 8px 0;">
-          <div nz-col [nzSpan]="12">
-            <number-info [title]="tab.name" subTitle="转化率" gap="2" [total]="(tab.cvr * 100) + '%'" [theme]="i !== _activeTab && 'light'"></number-info>
-          </div>
-          <div nz-col [nzSpan]="12" style="padding-top: 36px;">
-            <g2-pie [animate]="false" [color]="i !== _activeTab && '#BDE4FF'" [inner]="0.55" [tooltip]="false" [padding]="[0, 0, 0, 0]"
-              [percent]="tab.cvr * 100" [height]="64">
-            </g2-pie>
-          </div>
-        </div>
-      </ng-template>
-      <div class="px-lg">
-        <g2-timeline [data]="tab.chart" [titleMap]="{ y1: '客流量', y2: '支付笔数' }"></g2-timeline>
-      </div>
-    </nz-tab>
-  </nz-tabset>
-</nz-card>-->
+  </div>
+</nz-card>

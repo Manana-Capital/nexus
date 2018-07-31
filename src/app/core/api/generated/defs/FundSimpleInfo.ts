@@ -17,6 +17,8 @@ export interface FundSimpleInfo {
   owner?: number;
   isPublic?: boolean;
   isDisabled?: boolean;
+  isHidden?: boolean;
+  isUnderConstruction?: boolean;
   checkCronInterval?: string;
   /** format: int32 */
   ordering?: number;

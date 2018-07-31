@@ -60,6 +60,7 @@
     "@delon/util": "^1.2.0",
     "@ngx-translate/core": "^10.0.1",
     "@ngx-translate/http-loader": "^3.0.1",
+    "@swimlane/ngx-charts": "^9.0.0",
     "ajv": "^6.4.0",
     "angular-auth-oidc-client": "6.0.2",
     "core-js": "^2.5.4",

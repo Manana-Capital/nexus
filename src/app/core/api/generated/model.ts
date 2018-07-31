@@ -22,6 +22,8 @@ export * from './defs/NewFundDto';
 export * from './defs/FundInfo';
 export * from './defs/FundPricePerShare';
 export * from './defs/FundPerformance';
+export * from './defs/FundPriceTick';
+export * from './defs/BtcPriceTick';
 export * from './defs/FundConnectorDto';
 export * from './defs/TotalBalanceDto';
 export * from './defs/SharesSimpleInfo';

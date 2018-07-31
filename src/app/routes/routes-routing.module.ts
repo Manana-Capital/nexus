@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
 // layout
 import { LayoutDefaultComponent } from '../layout/default/default.component';
-// dashboard pages
-import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 
 // single pages
 import { Exception403Component } from './exception/403.component';
@@ -12,6 +10,7 @@ import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import {ACLGuard} from '@delon/acl';
 import {ExternalViewComponent} from '../layout/external-component/external-view.component';
+import {FundsDashboardComponent} from './dashboard/funds/funds-dashboard.component';
 
 const routes: Routes = [
   {
@@ -19,7 +18,7 @@ const routes: Routes = [
     component: LayoutDefaultComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardAnalysisComponent  },
+      { path: 'dashboard', component: FundsDashboardComponent  },
       {
         path: 'portfolio',
         component: Exception404Component,

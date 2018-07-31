@@ -1,0 +1,20 @@
+@import "../../../../../styles";
+
+.card {
+  &:hover {
+    cursor: pointer;
+    .footer-selection {
+      background-color: @primary-3;
+    }
+  }
+}
+
+.footer-selection {
+  width: 100%;
+  height: 5px;
+  background-color: transparent;
+}
+
+.footer-selected {
+  background-color: @primary-5;
+}

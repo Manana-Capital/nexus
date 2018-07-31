@@ -2,17 +2,19 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '@shared/shared.module';
 import { RouteRoutingModule } from './routes-routing.module';
-// dashboard pages
-import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 
 // single pages
 import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import {NexusExceptionComponent} from './exception/nexus-exception.component';
+import {FundsDashboardComponent} from './dashboard/funds/funds-dashboard.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { FundCardComponent } from './dashboard/funds/fund-card/fund-card.component';
 
 const COMPONENTS = [
-  DashboardAnalysisComponent,
+  FundsDashboardComponent,
+  FundCardComponent,
 
   NexusExceptionComponent,
   Exception403Component,
@@ -22,7 +24,7 @@ const COMPONENTS = [
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
-  imports: [SharedModule, RouteRoutingModule],
+  imports: [SharedModule, RouteRoutingModule, NgxChartsModule],
   declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT],
   entryComponents: COMPONENTS_NOROUNT
 })

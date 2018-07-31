@@ -65,7 +65,13 @@ export class DefaultInterceptor implements HttpInterceptor {
         // }
         break;
       case 401:
+        this.msg.error('Unauthorized, please login first');
+        this.goTo(`/${event.status}`);
+        break;
       case 403:
+        this.msg.error('Forbidden, contact support');
+        this.goTo(`/${event.status}`);
+        break;
       case 404:
       case 500:
         this.goTo(`/${event.status}`);
@@ -76,7 +82,7 @@ export class DefaultInterceptor implements HttpInterceptor {
             'Unknown error, most of it is caused by the backend not supporting CORS or invalid configuration.',
             event,
           );
-          this.msg.error(event.message);
+          this.msg.error('Server error, please try again');
         }
         break;
     }

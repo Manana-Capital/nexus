@@ -12,6 +12,8 @@ import * as __model from '../model';
 export interface FundInfo {
   pricePerShare?: __model.FundPricePerShare;
   performance?: __model.FundPerformance;
+  ticks?: __model.FundPriceTick[];
+  btcTicks?: __model.BtcPriceTick[];
   /** format: int32 */
   id?: number;
   key?: string;
@@ -21,6 +23,8 @@ export interface FundInfo {
   owner?: number;
   isPublic?: boolean;
   isDisabled?: boolean;
+  isHidden?: boolean;
+  isUnderConstruction?: boolean;
   checkCronInterval?: string;
   /** format: int32 */
   ordering?: number;
