@@ -50,6 +50,8 @@ export class FundsDashboardComponent implements OnInit {
   }
 
   private loadFundsInfo() {
+    this._funds = [];
+    this._loading = true;
     this.fundsApi.apiFundsComplexGet()
 /*      .pipe(
         delay(5000)
