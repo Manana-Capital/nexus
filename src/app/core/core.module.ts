@@ -6,10 +6,14 @@ import {AuthService} from '@core/net/auth.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import {FundsService} from '@core/api/generated/controllers/Funds';
 import {ClientsService} from '@core/api/generated/controllers/Clients';
+import {ProfileService} from '@core/api/generated/controllers/Profile';
+import {PortfolioService} from '@core/api/generated/controllers/Portfolio';
 
 const generatedServices = [
   FundsService,
-  ClientsService
+  ClientsService,
+  ProfileService,
+  PortfolioService
 ];
 
 @NgModule({

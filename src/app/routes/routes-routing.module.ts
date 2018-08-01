@@ -22,7 +22,7 @@ const routes: Routes = [
       { path: 'dashboard', component: FundsDashboardComponent  },
       {
         path: 'portfolio',
-        component: Exception404Component,
+        loadChildren: './portfolio/portfolio.module#PortfolioModule',
         canActivate: [ACLGuard],
         data: { guard: 'Client' },
       },
@@ -30,7 +30,7 @@ const routes: Routes = [
       { path: 'clients', component: Exception404Component },
       { path: 'funds', component: Exception404Component },
       { path: 'system/restapi', component: ExternalViewComponent },
-      { path: 'extras', loadChildren: './extras/extras.module#ExtrasModule' },
+      { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
       { path: '401', component: Exception401Component, data: {title: 'Unauthorized'} },
       { path: '403', component: Exception403Component, data: {title: 'Forbidden'} },
       { path: '404', component: Exception404Component, data: {title: 'Not found'} },

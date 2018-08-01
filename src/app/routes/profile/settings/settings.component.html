@@ -1,0 +1,154 @@
+<nz-row [nzGutter]="24" class="py-lg">
+
+  <nz-col [nzSpan]="6">
+    <nz-card nzTitle="Personal settings" class="ant-card__body-nopadding">
+      <a (click)="active=1" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===1}">Profile</a>
+      <a (click)="active=2" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===2}">Account</a>
+      <a (click)="active=4" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===4}">Notifications</a>
+    </nz-card>
+    <nz-card nzTitle="Funds settings" class="ant-card__body-nopadding">
+      <a (click)="active=5" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===5}">Private funds</a>
+    </nz-card>
+  </nz-col>
+
+  <nz-col [nzSpan]="18">
+
+    <nz-card nzTitle="Client's profile" *ngIf="active===1">
+      <nz-row [nzGutter]="64">
+        <nz-col [nzSpan]="16">
+          <form nz-form [formGroup]="profileForm" (ngSubmit)="profileSave($event, profileForm.value)" [nzLayout]="'vertical'">
+            <nz-form-item>
+              <nz-form-label nzFor="firstName" nzRequired>First name</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="firstName" id="firstName">
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                  <nz-form-explain *ngIf="firstName.errors['required']">Required</nz-form-explain>
+                  <nz-form-explain *ngIf="firstName.errors['pattern']">Invalid format (avoid white spaces, numbers)</nz-form-explain>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="lastName" nzRequired>Last name</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="lastName" id="lastName">
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                  <nz-form-explain *ngIf="lastName.errors['required']">Required</nz-form-explain>
+                  <nz-form-explain *ngIf="lastName.errors['pattern']">Invalid format (avoid white spaces, numbers)</nz-form-explain>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="email">Email</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="email" id="email">
+                <nz-form-explain *ngIf="email.valid">Login into the system with this email (only Google email is supported)
+                </nz-form-explain>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                  <nz-form-explain *ngIf="email.errors['email']">Invalid email format</nz-form-explain>
+                </div>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Roles</nz-form-label>
+              <nz-form-control>
+                <nz-tag *ngFor="let role of currentProfile?.roles">
+                  {{role}}
+                </nz-tag>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button [nzType]="'primary'" [disabled]="profileForm.invalid">Update profile</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-col>
+        <nz-col [nzSpan]="8">
+          <h4>Profile picture</h4>
+          <img src="./assets/tmp/img/avatar.png" style="width: 100%;">
+          <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" class="d-block mt-md text-center">
+            <button nz-button>Upload new picture</button>
+          </nz-upload>
+        </nz-col>
+      </nz-row>
+    </nz-card>
+
+
+    <nz-card nzTitle="Change password (and/or username)" *ngIf="active===2">
+      <nz-row [nzGutter]="64">
+        <nz-col [nzSpan]="16">
+          <form nz-form [nzLayout]="'vertical'">
+            <nz-form-item>
+              <nz-form-label nzFor="username">Username</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="pwd.newUsername" name="username" id="username">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="old_password">Old password</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="pwd.oldPassword" name="old_password" id="old_password" type="password">
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzFor="new_password" nzRequired>New password</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="pwd.newPassword" name="new_password" id="new_password" type="password" required>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="confirm_new_password">Confirm new password</nz-form-label>
+              <nz-form-control>
+                <input nz-input [(ngModel)]="pwd.newPasswordRepeat" name="confirm_new_password" id="confirm_new_password" type="password"
+                  required>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <button nz-button (click)="pwdSave()" [nzType]="'primary'">Change password</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-col>
+      </nz-row>
+    </nz-card>
+
+    <nz-card nzTitle="Notifications" *ngIf="active===4">
+      <!--<p class="pb-md">Choose how you receive notifications. These notification settings apply to the repositories you’re watching.</p>
+      <nz-list nzBordered>
+        <nz-list-item class="d-block">
+          <h4>Automatically watch repositories</h4>
+          <p class="py-sm">When you’re given push access to a repository, automatically receive notifications for it.</p>
+          <label nz-checkbox [ngModel]="true">Automatically watch</label>
+        </nz-list-item>
+        <nz-list-item class="d-block">
+          <h4>Participating</h4>
+          <p class="py-sm">Notifications for the conversations you are participating in, or if someone cites you with an @mention.</p>
+          <label nz-checkbox [ngModel]="true">Email</label>
+          <label nz-checkbox [ngModel]="true">Web</label>
+        </nz-list-item>
+        <nz-list-item class="d-block">
+          <h4>Watching</h4>
+          <p class="py-sm">Notifications for all repositories or conversations you’re watching.</p>
+          <label nz-checkbox [ngModel]="true">Email</label>
+          <label nz-checkbox [ngModel]="true">Web</label>
+        </nz-list-item>
+      </nz-list>-->
+    </nz-card>
+
+
+
+    <nz-card class="ant-card__body-nopadding" *ngIf="active===5" [nzBordered]="false">
+      <div class="border rounded-md text-center p-lg bg-grey-lighter">
+        <h3>No private funds configured</h3>
+        <p class="py-md">Private funds are visible only to you.
+          It provides ability to monitor your assets on private exchange accounts.</p>
+        <button nz-button [nzType]="'primary'" [disabled]="true">
+          Register a new private fund
+        </button>
+      </div>
+    </nz-card>
+
+
+  </nz-col>
+</nz-row>

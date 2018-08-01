@@ -43,13 +43,16 @@ export class AuthService implements OnInit, OnDestroy {
     openIdImplicitFlowConfiguration.client_id = 'ng';
     openIdImplicitFlowConfiguration.response_type = 'id_token token';
     openIdImplicitFlowConfiguration.scope = 'openid profile nexus role';
-    openIdImplicitFlowConfiguration.post_logout_redirect_uri = originUrl;
-    openIdImplicitFlowConfiguration.forbidden_route = '/forbidden';
-    openIdImplicitFlowConfiguration.unauthorized_route = '/unauthorized';
+    openIdImplicitFlowConfiguration.post_logout_redirect_uri = originUrl + '#/dashboard?';
+    openIdImplicitFlowConfiguration.forbidden_route = '/403';
+    openIdImplicitFlowConfiguration.unauthorized_route = '/401';
     openIdImplicitFlowConfiguration.auto_userinfo = true;
     openIdImplicitFlowConfiguration.log_console_warning_active = true;
     openIdImplicitFlowConfiguration.log_console_debug_active = false;
     openIdImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 60 * 60 * 4;
+    //openIdImplicitFlowConfiguration.silent_redirect_url = originUrl + '#/dashboard?';
+    openIdImplicitFlowConfiguration.silent_renew = true;
+    openIdImplicitFlowConfiguration.silent_renew_offset_in_seconds = 10;
 
     const authWellKnownEndpoints = new AuthWellKnownEndpoints();
     authWellKnownEndpoints.issuer = environment.BACKEND_URL.replace(/\/\s*$/, '');
@@ -143,7 +146,7 @@ export class AuthService implements OnInit, OnDestroy {
   public appendAuthHeader(headers: HttpHeaders) {
     const token = this.oidcSecurityService.getToken();
 
-    console.log('TOKEN', token);
+    //console.log('TOKEN', token);
     if (token === '') return headers;
 
     const tokenValue = 'Bearer ' + token;

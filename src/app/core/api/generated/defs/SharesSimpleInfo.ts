@@ -8,6 +8,8 @@
  */
 
 export interface SharesSimpleInfo {
+  /** format: int32 */
+  targetFundId?: number;
   /** format: double */
   pricePerShareBtc?: number;
   /** format: double */

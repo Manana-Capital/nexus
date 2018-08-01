@@ -64,6 +64,12 @@ export class DefaultInterceptor implements HttpInterceptor {
         //     }
         // }
         break;
+      case 400:
+        const response = this.handleBackendResponse(event);
+        if(response)
+          return response;
+        this.msg.error('Bad input, please correct parameters and repeat');
+        break;
       case 401:
         this.msg.error('Unauthorized, please login first');
         this.goTo(`/${event.status}`);
@@ -129,5 +135,31 @@ export class DefaultInterceptor implements HttpInterceptor {
       }),
       catchError((err: HttpErrorResponse) => this.handleData(err)),
     );
+  }
+
+  private handleBackendResponse(event: HttpResponse<any> | HttpErrorResponse) {
+    if (event instanceof HttpErrorResponse) {
+      if (event.error && event.error.errors) {
+        this.msg.error(event.error.errors[0].message);
+        return of(event);
+      } else {
+        return null;
+      }
+    }
+
+    if (event instanceof HttpResponse) {
+         const body: any = event.body;
+         if (body && body.status !== 0) {
+           this.msg.error(this.extractBackendError(body.msg));
+           return throwError({});
+         } else {
+             return null;
+         }
+     }
+     return null;
+  }
+
+  private extractBackendError(msg) {
+    return msg;
   }
 }

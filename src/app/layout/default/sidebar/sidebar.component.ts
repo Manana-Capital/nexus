@@ -36,6 +36,6 @@ export class SidebarComponent {
   }
 
   goProfile() {
-    this.router.navigate(['extras/settings']);
+    this.router.navigate(['profile/settings']);
   }
 }

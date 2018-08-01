@@ -17,6 +17,11 @@ export interface ApiFundsPostParams {
   newFund?: __model.NewFundDto;
 }
 
+export interface ApiFundsComplexByFundidGetParams {
+  /** format: int32 */
+  fundid: number;
+}
+
 export interface AssignConnectorParams {
   fundConnector?: __model.FundConnectorDto;
 }
@@ -41,8 +46,16 @@ export class FundsService {
   }
 
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsComplexGet */
-  complex(): Observable<__model.FundInfo[]> {
+  apiFundsComplexGet(): Observable<__model.FundInfo[]> {
     return this.http.get<__model.FundInfo[]>(`/api/funds/complex`);
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsComplexByFundidGet */
+  apiFundsComplexByFundidGet(params: ApiFundsComplexByFundidGetParams): Observable<__model.FundInfo> {
+    const pathParams = {
+      fundid: params.fundid,
+    };
+    return this.http.get<__model.FundInfo>(`/api/funds/complex/${pathParams.fundid}`);
   }
 
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsAssign-connectorPost */

@@ -1,0 +1,49 @@
+<page-header>
+  <ng-template #content>
+    <div class="page-header">
+      <div class="avatar">
+        <nz-avatar nzSrc="/assets/tmp/img/suitcase.png"></nz-avatar>
+      </div>
+      <div class="desc">
+        <div class="desc-title">Hello, {{currentPortfolio?.client?.firstName}}！</div>
+        <div>
+          The information below shows your portfolio.
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #extra>
+    <div class="page-extra">
+      <div>
+        <p>Active funds</p>
+        <p>{{currentPortfolio?.activeFunds}}
+          <span> / {{currentPortfolio?.totalFunds}}</span>
+        </p>
+      </div>
+      <div>
+        <p>Account age</p>
+        <p>{{currentPortfolio?.accountAgeDays}} days</p>
+      </div>
+    </div>
+  </ng-template>
+</page-header>
+
+<nz-card [nzBordered]="false">
+  <div nz-row>
+    <div nz-col [nzXs]="24" [nzSm]="8" class="header-info">
+      <span class="text-grey-dark">Total Profit</span>
+      <span class="d-block display-2">$ {{currentPortfolio?.totalProfit | number:'1.2-2'}}</span>
+      <em></em>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="8" class="header-info">
+      <span class="text-grey-dark">Total Assets (USD)</span>
+      <span class="d-block display-2">$ {{currentPortfolio?.totalAssetsUsd | number:'1.2-2'}}</span>
+      <em></em>
+    </div>
+    <div nz-col [nzXs]="24" [nzSm]="8" class="header-info">
+      <span class="text-grey-dark">Total Assets (CZK)</span>
+      <span class="d-block display-2">{{currentPortfolio?.totalAssetsCzk | number:'1.2-2'}} Kč</span>
+      <em></em>
+    </div>
+  </div>
+</nz-card>
