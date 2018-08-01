@@ -55,7 +55,7 @@ export class AuthService implements OnInit, OnDestroy {
     openIdImplicitFlowConfiguration.silent_renew_offset_in_seconds = 10;
 
     const authWellKnownEndpoints = new AuthWellKnownEndpoints();
-    authWellKnownEndpoints.issuer = environment.ISSUER_URL.replace(/\/\s*$/, '');
+    authWellKnownEndpoints.issuer = environment.BACKEND_URL.replace(/\/\s*$/, '');
     authWellKnownEndpoints.jwks_uri = environment.BACKEND_URL + '.well-known/openid-configuration/jwks';
     authWellKnownEndpoints.authorization_endpoint = environment.BACKEND_URL + 'connect/authorize';
     authWellKnownEndpoints.token_endpoint = environment.BACKEND_URL + 'connect/token';
