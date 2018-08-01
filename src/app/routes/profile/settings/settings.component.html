@@ -1,6 +1,6 @@
 <nz-row [nzGutter]="24" class="py-lg">
 
-  <nz-col [nzSpan]="6">
+  <nz-col nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6">
     <nz-card nzTitle="Personal settings" class="ant-card__body-nopadding">
       <a (click)="active=1" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===1}">Profile</a>
       <a (click)="active=2" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===2}">Account</a>
@@ -11,7 +11,7 @@
     </nz-card>
   </nz-col>
 
-  <nz-col [nzSpan]="18">
+  <nz-col nz-col nzXs="24" nzSm="24" nzMd="18" nzLg="18">
 
     <nz-card nzTitle="Client's profile" *ngIf="active===1">
       <nz-row [nzGutter]="64">
@@ -57,6 +57,14 @@
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
+              <nz-form-label>Username</nz-form-label>
+              <nz-form-control>
+                <input nz-input [value]="currentProfile?.username" [disabled]="true">
+                <nz-form-explain *ngIf="email.valid">Modify username in the Account tab
+                </nz-form-explain>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
               <nz-form-control>
                 <button nz-button [nzType]="'primary'" [disabled]="profileForm.invalid">Update profile</button>
               </nz-form-control>
@@ -77,30 +85,32 @@
     <nz-card nzTitle="Change password (and/or username)" *ngIf="active===2">
       <nz-row [nzGutter]="64">
         <nz-col [nzSpan]="16">
-          <form nz-form [nzLayout]="'vertical'">
+          <form nz-form [nzLayout]="'vertical'" autocomplete="off">
             <nz-form-item>
-              <nz-form-label nzFor="username">Username</nz-form-label>
+              <nz-form-label nzFor="access_name">Username</nz-form-label>
               <nz-form-control>
-                <input nz-input [(ngModel)]="pwd.newUsername" name="username" id="username">
+                <input id="username" style="display:none" type="text" name="fakeusernameremembered">
+                <input nz-input [(ngModel)]="pwd.newUsername" name="access_name" id="access_name" autocomplete="nope">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-label nzFor="old_password">Old password</nz-form-label>
+              <nz-form-label nzFor="old_pass">Old password</nz-form-label>
               <nz-form-control>
-                <input nz-input [(ngModel)]="pwd.oldPassword" name="old_password" id="old_password" type="password">
+                <input id="password" style="display:none" type="password" name="fakepasswordremembered">
+                <input nz-input [(ngModel)]="pwd.oldPassword" name="old_pass" id="old_pass" type="password"  autocomplete="off">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label nzFor="new_password" nzRequired>New password</nz-form-label>
               <nz-form-control>
-                <input nz-input [(ngModel)]="pwd.newPassword" name="new_password" id="new_password" type="password" required>
+                <input nz-input [(ngModel)]="pwd.newPassword" name="new_pass" id="new_pass" type="password" required autocomplete="new-password">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>
               <nz-form-label nzRequired nzFor="confirm_new_password">Confirm new password</nz-form-label>
               <nz-form-control>
-                <input nz-input [(ngModel)]="pwd.newPasswordRepeat" name="confirm_new_password" id="confirm_new_password" type="password"
-                  required>
+                <input nz-input [(ngModel)]="pwd.newPasswordRepeat" name="confirm_new_pass" id="confirm_new_pass" type="password"
+                  required autocomplete="new-password">
               </nz-form-control>
             </nz-form-item>
             <nz-form-item>

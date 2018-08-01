@@ -88,6 +88,6 @@ export class ProfileSettingsComponent implements OnInit {
 
   private updateProfileForm(currentProfile: ProfileInfoDto) {
     this.profileForm.patchValue(currentProfile);
-    this.pwd.newPassword = currentProfile.username;
+    this.pwd.newUsername = currentProfile.username;
   }
 }
