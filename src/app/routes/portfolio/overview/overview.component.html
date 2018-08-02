@@ -44,7 +44,7 @@
               class="d-block display-2"
               [class.red]="_currentPortfolio?.totalAssetsCzk < 0"
               [class.green]="_currentPortfolio?.totalAssetsCzk > 0">
-          {{_currentPortfolio?.totalAssetsCzk | number:'1.2-2'}} Kč
+          {{_currentPortfolio?.totalProfitCzk | number:'1.2-2'}} Kč
         </span>
       </div>
       <em></em>
