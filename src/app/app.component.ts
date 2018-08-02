@@ -50,15 +50,28 @@ export class AppComponent implements OnInit {
       console.log('USER', user);
       if(!user)
         return;
-      const currentUser = {
-        name: user.name,
-        avatar: './assets/tmp/img/avatar.png',
-        email: user.email
-      };
-      this.settings.setUser(currentUser);
-      this.aclService.setFull(true);
-      this.aclService.setRole(user.role);
-      this.menuService.resume();
+      this.setCurrentClient(user);
     });
+  }
+
+  private setCurrentClient(user) {
+    const currentClient = {
+      name: user.name,
+      avatar: './assets/tmp/img/avatar.png',
+      email: user.email
+    };
+    this.settings.setUser(currentClient);
+    this.aclService.setFull(false);
+    const roles = this.sanitizeRolesArray(user.role);
+    this.aclService.setRole(roles);
+    this.menuService.resume();
+  }
+
+  private sanitizeRolesArray(roles): string[] {
+    if(!roles)
+      return [];
+    if(roles.constructor === Array)
+      return roles;
+    return [roles];
   }
 }

@@ -54,7 +54,7 @@
               "link": "/clients/deposit"
             },
             {
-              "text": "Withdrawal",
+              "text": "Withdraw",
               "link": "/clients/withdrawal"
             },
             {
@@ -74,19 +74,8 @@
             },
             {
               "text": "Configuration",
-              "link": "/funds/configuration"
-            },
-            {
-              "text": "Deposit",
-              "link": "/funds/deposit"
-            },
-            {
-              "text": "Withdrawal",
-              "link": "/funds/withdrawal"
-            },
-            {
-              "text": "Transfer shares",
-              "link": "/funds/transfer"
+              "link": "/funds/configuration",
+              "acl": "Manager"
             }
           ]
         },

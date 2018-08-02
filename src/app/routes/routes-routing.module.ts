@@ -24,7 +24,7 @@ const routes: Routes = [
         path: 'portfolio',
         loadChildren: './portfolio/portfolio.module#PortfolioModule'
       },
-      { 
+      {
         path: 'profile',
         loadChildren: './profile/profile.module#ProfileModule'
       },
