@@ -13,14 +13,12 @@ import { HeaderFullScreenComponent } from './default/header/components/fullscree
 import { HeaderI18nComponent } from './default/header/components/i18n.component';
 import { HeaderStorageComponent } from './default/header/components/storage.component';
 import { HeaderUserComponent } from './default/header/components/user.component';
-import { ExternalViewComponent } from './external-component/external-view.component';
 
 const COMPONENTS = [
   LayoutDefaultComponent,
   LayoutFullScreenComponent,
   HeaderComponent,
-  SidebarComponent,
-  ExternalViewComponent
+  SidebarComponent
 ];
 
 const HEADERCOMPONENTS = [
@@ -37,7 +35,7 @@ const HEADERCOMPONENTS = [
 @NgModule({
   imports: [SharedModule],
   providers: [],
-  declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ExternalViewComponent],
+  declarations: [...COMPONENTS, ...HEADERCOMPONENTS],
   exports: [...COMPONENTS],
 })
 export class LayoutModule {}

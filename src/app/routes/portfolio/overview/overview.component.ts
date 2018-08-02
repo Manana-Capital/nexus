@@ -9,13 +9,14 @@ import {PortfolioInfo} from '@core/api/generated/defs/PortfolioInfo';
 })
 export class OverviewComponent implements OnInit {
 
-  currentPortfolio: PortfolioInfo;
+  _currentPortfolio: PortfolioInfo;
+  _displaySecondaryTotalProfit: boolean = false;
 
   constructor(
     private portfolioService: PortfolioService
   ) {
-    this.portfolioService.portfolio().subscribe(data => {
-      this.currentPortfolio = data;
+    this.portfolioService.apiPortfolioGet().subscribe(data => {
+      this._currentPortfolio = data;
     });
   }
 

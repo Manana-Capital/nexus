@@ -12,6 +12,8 @@ import {FundsDashboardComponent} from './dashboard/funds/funds-dashboard.compone
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { FundCardComponent } from './dashboard/funds/fund-card/fund-card.component';
 import {Exception401Component} from './exception/401.component';
+import {ExternalRestApiComponent} from './external-pages/external-rest-api.component';
+import {ExternalBackgroundJobsComponent} from './external-pages/external-background-jobs.component';
 
 const COMPONENTS = [
   FundsDashboardComponent,
@@ -21,7 +23,10 @@ const COMPONENTS = [
   Exception401Component,
   Exception403Component,
   Exception404Component,
-  Exception500Component
+  Exception500Component,
+
+  ExternalRestApiComponent,
+  ExternalBackgroundJobsComponent
 ];
 const COMPONENTS_NOROUNT = [];
 

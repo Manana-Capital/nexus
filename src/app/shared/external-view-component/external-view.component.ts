@@ -9,7 +9,7 @@ import {DomSanitizer,SafeResourceUrl,} from '@angular/platform-browser';
 export class ExternalViewComponent implements OnInit {
 
   @Input()
-  targetUrl: string = 'https://kotas.host/swagger/';
+  targetUrl: string = '';
 
   url: SafeResourceUrl;
 

@@ -1,7 +1,7 @@
 import {
   Component,
   TemplateRef,
-  Input,
+  Input, OnInit,
 } from '@angular/core';
 import { toBoolean } from '@delon/util';
 
@@ -12,7 +12,7 @@ import { toBoolean } from '@delon/util';
   host: { '[class.ad-g2-card]': 'true' },
   preserveWhitespaces: false,
 })
-export class FundCardComponent {
+export class FundCardComponent implements OnInit {
 
   @Input()
   isSelected: boolean = false;
@@ -57,6 +57,7 @@ export class FundCardComponent {
   }
 
   @Input() total = '';
+  @Input() totalSecondary = '';
 
   _height = 'auto';
   _orgHeight: any;
@@ -85,4 +86,11 @@ export class FundCardComponent {
     this._loading = toBoolean(value);
   }
   private _loading = false;
+
+  _showTotalSecondary: boolean = false;
+
+  ngOnInit(): void {
+    if(!this.totalSecondary)
+      this.totalSecondary = this.total;
+  }
 }

@@ -16,13 +16,13 @@
     <div class="page-extra">
       <div>
         <p>Active funds</p>
-        <p>{{currentPortfolio?.activeFunds}}
-          <span> / {{currentPortfolio?.totalFunds}}</span>
+        <p>{{_currentPortfolio?.activeFunds}}
+          <span> / {{_currentPortfolio?.totalFunds}}</span>
         </p>
       </div>
       <div>
         <p>Account age</p>
-        <p>{{currentPortfolio?.accountAgeDays}} days</p>
+        <p>{{_currentPortfolio?.accountAgeDays}} days</p>
       </div>
     </div>
   </ng-template>
@@ -30,19 +30,33 @@
 
 <nz-card [nzBordered]="false">
   <div nz-row>
-    <div nz-col [nzXs]="24" [nzSm]="8" class="header-info">
-      <span class="text-grey-dark">Total Profit</span>
-      <span class="d-block display-2">$ {{currentPortfolio?.totalProfit | number:'1.2-2'}}</span>
+    <div nz-col [nzXs]="24" [nzSm]="8" class="header-info" >
+      <div (mouseenter)="_displaySecondaryTotalProfit=true"
+           (mouseleave)="_displaySecondaryTotalProfit=false">
+        <span class="text-grey-dark">Total Profit</span>
+        <span *ngIf="!_displaySecondaryTotalProfit"
+              class="d-block display-2"
+              [class.red]="_currentPortfolio?.totalProfitUsd < 0"
+              [class.green]="_currentPortfolio?.totalProfitUsd > 0">
+          $ {{_currentPortfolio?.totalProfitUsd | number:'1.2-2'}}
+        </span>
+        <span *ngIf="_displaySecondaryTotalProfit"
+              class="d-block display-2"
+              [class.red]="_currentPortfolio?.totalAssetsCzk < 0"
+              [class.green]="_currentPortfolio?.totalAssetsCzk > 0">
+          {{_currentPortfolio?.totalAssetsCzk | number:'1.2-2'}} Kč
+        </span>
+      </div>
       <em></em>
     </div>
     <div nz-col [nzXs]="24" [nzSm]="8" class="header-info">
       <span class="text-grey-dark">Total Assets (USD)</span>
-      <span class="d-block display-2">$ {{currentPortfolio?.totalAssetsUsd | number:'1.2-2'}}</span>
+      <span class="d-block display-2">$ {{_currentPortfolio?.totalAssetsUsd | number:'1.2-2'}}</span>
       <em></em>
     </div>
     <div nz-col [nzXs]="24" [nzSm]="8" class="header-info">
       <span class="text-grey-dark">Total Assets (CZK)</span>
-      <span class="d-block display-2">{{currentPortfolio?.totalAssetsCzk | number:'1.2-2'}} Kč</span>
+      <span class="d-block display-2">{{_currentPortfolio?.totalAssetsCzk | number:'1.2-2'}} Kč</span>
       <em></em>
     </div>
   </div>

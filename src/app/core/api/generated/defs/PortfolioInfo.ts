@@ -18,7 +18,11 @@ export interface PortfolioInfo {
   /** format: int32 */
   accountAgeDays?: number;
   /** format: double */
-  totalProfit?: number;
+  totalProfitUsd?: number;
+  /** format: double */
+  totalProfitBtc?: number;
+  /** format: double */
+  totalProfitCzk?: number;
   /** format: double */
   totalAssetsUsd?: number;
   /** format: double */

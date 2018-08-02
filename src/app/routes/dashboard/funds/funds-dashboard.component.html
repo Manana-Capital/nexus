@@ -38,8 +38,10 @@
 
 
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngFor="let fund of _funds">
-    <nx-fund-card [bordered]="true" [title]="fund.displayName" [total]="'$ ' + (fund.pricePerShare.priceUsd | number:'1.2-2')"
-             contentHeight="84px" [action]="action1" [footer]="footer1"
+    <nx-fund-card [bordered]="true" [title]="fund.displayName"
+                  [total]="'$ ' + (fund.pricePerShare.priceUsd | number:'1.2-2')"
+                  [totalSecondary]="(fund.pricePerShare.priceCzk | number:'1.2-2') + ' Kč'"
+                  contentHeight="84px" [action]="action1" [footer]="footer1"
                   [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
     >
 

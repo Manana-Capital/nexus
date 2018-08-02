@@ -10,7 +10,12 @@
                 <ng-container *ngIf="_action; else _actionTpl">{{ _action }}</ng-container>
               </span>
           </div>
-          <p *ngIf="total" class="total" [innerHTML]="total"></p>
+          <div class="total-container" (mouseenter)="_showTotalSecondary = true" (mouseleave)="_showTotalSecondary = false">
+            <p *ngIf="!_showTotalSecondary" class="total" [innerHTML]="total"></p>
+            <p *ngIf="_showTotalSecondary" class="total" [innerHTML]="totalSecondary"></p>
+            <!--<div class="total-description-container"><small class="total-description">price per share</small></div>-->
+          </div>
+
         </div>
       </div>
       <div class="desc" [ngStyle]="{'height':_height}">

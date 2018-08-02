@@ -17,6 +17,7 @@ import { UEditorModule } from 'ngx-ueditor';
 import { NgxTinymceModule } from 'ngx-tinymce';
 import { NxCardComponent } from './components/nx-card/nx-card.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {ExternalViewComponent} from '@shared/external-view-component/external-view.component';
 
 const THIRDMODULES = [
   NgZorroAntdModule,
@@ -27,7 +28,9 @@ const THIRDMODULES = [
 // endregion
 
 // region: your componets & directives
-const COMPONENTS = [];
+const COMPONENTS = [
+  ExternalViewComponent
+];
 const DIRECTIVES = [];
 // endregion
 

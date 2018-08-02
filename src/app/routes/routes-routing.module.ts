@@ -9,9 +9,10 @@ import { Exception403Component } from './exception/403.component';
 import { Exception404Component } from './exception/404.component';
 import { Exception500Component } from './exception/500.component';
 import {ACLGuard} from '@delon/acl';
-import {ExternalViewComponent} from '../layout/external-component/external-view.component';
 import {FundsDashboardComponent} from './dashboard/funds/funds-dashboard.component';
 import {Exception401Component} from './exception/401.component';
+import {ExternalRestApiComponent} from './external-pages/external-rest-api.component';
+import {ExternalBackgroundJobsComponent} from './external-pages/external-background-jobs.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'charts', component: Exception404Component },
       { path: 'clients', component: Exception404Component },
       { path: 'funds', component: Exception404Component },
-      { path: 'system/restapi', component: ExternalViewComponent },
+      { path: 'system/restapi', component: ExternalRestApiComponent },
+      { path: 'system/background-jobs', component: ExternalBackgroundJobsComponent},
       { path: '401', component: Exception401Component, data: {title: 'Unauthorized'} },
       { path: '403', component: Exception403Component, data: {title: 'Forbidden'} },
       { path: '404', component: Exception404Component, data: {title: 'Not found'} },
