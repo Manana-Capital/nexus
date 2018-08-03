@@ -29,4 +29,7 @@ export interface PortfolioInfo {
   totalAssetsBtc?: number;
   /** format: double */
   totalAssetsCzk?: number;
+  activeFundsInfo?: __model.PortfolioFundInfo[];
+  deposits?: __model.PortfolioTransaction[];
+  withdrawals?: __model.PortfolioTransaction[];
 }

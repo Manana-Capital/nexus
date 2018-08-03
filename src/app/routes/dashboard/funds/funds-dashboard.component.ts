@@ -58,7 +58,6 @@ export class FundsDashboardComponent implements OnInit {
       )*/
       .subscribe(data => {
         this._funds = data;
-
         this.selectFund(this._funds.find(x => x.id === 1));
 
         this._loading = false;
@@ -76,7 +75,10 @@ export class FundsDashboardComponent implements OnInit {
     }));
     const btc = fund.btcTicks.map(x => ({
       name: new Date(x.timestamp),
-      value: x.pricePerShare
+      value: x.pricePerShare,
+      priceClose: x.close,
+      volume: x.volume,
+      extra: x.close
     }));
     return this.formatChartData(prices, btc);
   }

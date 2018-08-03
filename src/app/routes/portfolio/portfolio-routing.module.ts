@@ -5,6 +5,7 @@ import {OverviewComponent} from './overview/overview.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'overview', pathMatch: 'full' },
+  { path: 'overview/:clientId', component: OverviewComponent, data: {title: 'My portfolio'} },
   { path: 'overview', component: OverviewComponent, data: {title: 'My portfolio'} },
 ];
 

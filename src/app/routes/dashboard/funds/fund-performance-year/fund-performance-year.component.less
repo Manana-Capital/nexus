@@ -1,0 +1,42 @@
+@import "../../../../../styles";
+
+.profit {
+  color: rgba(56,135,66,1);
+}
+
+.profit-n {
+  color: rgba(56,135,66,0.5);
+}
+
+.loss {
+  color: rgba(182,16,16,0.80);
+}
+
+.loss-n {
+  color: rgba(182,16,16,0.5);
+}
+
+//.ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th
+
+:host ::ng-deep {
+  @media screen and (max-width: @screen-sm) {
+    .ant-table-small > .ant-table-content > .ant-table-header > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-thead > tr > th,
+    .ant-table-small > .ant-table-content > .ant-table-header > table > .ant-table-tbody > tr > td,
+    .ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-tbody > tr > td,
+    .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-header > table > .ant-table-tbody > tr > td,
+    .ant-table-small > .ant-table-content > .ant-table-scroll > .ant-table-body > table > .ant-table-tbody > tr > td,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-header > table > .ant-table-tbody > tr > td,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-header > table > .ant-table-tbody > tr > td,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-left > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-tbody > tr > td,
+    .ant-table-small > .ant-table-content > .ant-table-fixed-right > .ant-table-body-outer > .ant-table-body-inner > table > .ant-table-tbody > tr > td {
+      padding: 3px;
+    }
+  }
+}

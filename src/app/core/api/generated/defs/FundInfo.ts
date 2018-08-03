@@ -14,6 +14,7 @@ export interface FundInfo {
   performance?: __model.FundPerformance;
   ticks?: __model.FundPriceTick[];
   btcTicks?: __model.BtcPriceTick[];
+  performanceYears?: __model.FundPerformanceYear[];
   /** format: int32 */
   id?: number;
   key?: string;
