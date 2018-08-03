@@ -42,8 +42,8 @@
         </span>
         <span *ngIf="_displaySecondaryTotalProfit"
               class="d-block display-2"
-              [class.red]="_currentPortfolio?.totalAssetsCzk < 0"
-              [class.green]="_currentPortfolio?.totalAssetsCzk > 0">
+              [class.red]="_currentPortfolio?.totalProfitCzk < 0"
+              [class.green]="_currentPortfolio?.totalProfitCzk > 0">
           {{_currentPortfolio?.totalProfitCzk | number:'1.2-2'}} Kč
         </span>
       </div>
