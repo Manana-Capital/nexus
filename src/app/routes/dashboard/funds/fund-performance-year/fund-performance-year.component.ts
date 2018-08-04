@@ -31,7 +31,7 @@ export class FundPerformanceYearComponent implements OnInit {
       },
       {
         type: 'number',
-        title: 'Mañana',
+        title: 'Fund',
         index: 'manana',
         render: 'manana',
         //sorter: (a, b) => a.manana - b.manana,

@@ -1,5 +1,11 @@
 <nz-card [nzBordered]="false" >
   <div nz-row>
+    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
+      <span class="text-grey-dark">Shares</span>
+      <span class="d-block display-2"
+      >{{fund?.shares | number:'1.2-2'}}</span>
+      <em></em>
+    </div>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
       <div>
         <span class="text-grey-dark">Profit</span>
