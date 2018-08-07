@@ -13,6 +13,7 @@ import {FundsDashboardComponent} from './dashboard/funds/funds-dashboard.compone
 import {Exception401Component} from './exception/401.component';
 import {ExternalRestApiComponent} from './external-pages/external-rest-api.component';
 import {ExternalBackgroundJobsComponent} from './external-pages/external-background-jobs.component';
+import {StatisticsComponent} from './dashboard/statistics/statistics.component';
 
 const routes: Routes = [
   {
@@ -21,13 +22,10 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: FundsDashboardComponent  },
+      { path: 'statistics', component: StatisticsComponent  },
       {
-        path: 'portfolio',
-        loadChildren: './portfolio/portfolio.module#PortfolioModule'
-      },
-      {
-        path: 'profile',
-        loadChildren: './profile/profile.module#ProfileModule'
+        path: 'private',
+        loadChildren: './private/private.module#PrivateModule'
       },
       { path: 'charts', component: Exception404Component },
       { path: 'clients', component: Exception404Component },

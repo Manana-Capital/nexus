@@ -15,11 +15,14 @@ import {Exception401Component} from './exception/401.component';
 import {ExternalRestApiComponent} from './external-pages/external-rest-api.component';
 import {ExternalBackgroundJobsComponent} from './external-pages/external-background-jobs.component';
 import { FundPerformanceYearComponent } from './dashboard/funds/fund-performance-year/fund-performance-year.component';
+import { StatisticsComponent } from './dashboard/statistics/statistics.component';
 
 const COMPONENTS = [
   FundsDashboardComponent,
   FundCardComponent,
   FundPerformanceYearComponent,
+
+  StatisticsComponent,
 
   NexusExceptionComponent,
   Exception401Component,
@@ -33,8 +36,15 @@ const COMPONENTS = [
 const COMPONENTS_NOROUNT = [];
 
 @NgModule({
-  imports: [SharedModule, RouteRoutingModule, NgxChartsModule],
-  declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT, FundPerformanceYearComponent],
+  imports: [
+    SharedModule,
+    RouteRoutingModule,
+    NgxChartsModule
+  ],
+  declarations: [
+    ...COMPONENTS,
+    ...COMPONENTS_NOROUNT
+  ],
   entryComponents: COMPONENTS_NOROUNT
 })
 export class RoutesModule {}

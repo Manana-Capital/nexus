@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PortfolioFundInfo} from '@core/api/generated/defs/PortfolioFundInfo';
+import {PortfolioFundInfo} from 'app/core/api/generated/defs/PortfolioFundInfo';
 
 @Component({
   selector: 'nx-portfolio-fund',

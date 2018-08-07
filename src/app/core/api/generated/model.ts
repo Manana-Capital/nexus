@@ -35,3 +35,4 @@ export * from './defs/UpdateProfileDto';
 export * from './defs/UpdateProfilePasswordDto';
 export * from './defs/SharesSimpleInfo';
 export * from './defs/PricePerShare';
+export * from './defs/StatsDto';

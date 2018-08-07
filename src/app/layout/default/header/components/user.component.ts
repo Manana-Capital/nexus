@@ -50,6 +50,6 @@ export class HeaderUserComponent implements OnInit, OnDestroy {
   }
 
   goProfile() {
-    this.router.navigate(['profile/settings']);
+    this.router.navigate(['private/profile']);
   }
 }

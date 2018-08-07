@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 import {MenuService, SettingsService, TitleService} from '@delon/theme';
 import {ACLService} from '@delon/acl';
 import {AuthService} from '@core/net/auth.service';
+declare var gtag: any;
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
     private auth: AuthService,
     private router: Router,
     private titleSrv: TitleService,
-    private menuService: MenuService,
+    private menuService: MenuService
   ) {
   }
 
@@ -65,6 +66,8 @@ export class AppComponent implements OnInit {
     const roles = this.sanitizeRolesArray(user.role);
     this.aclService.setRole(roles);
     this.menuService.resume();
+
+    gtag('set', {'user_id': user.sub});
   }
 
   private sanitizeRolesArray(roles): string[] {

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {PortfolioService} from '@core/api/generated/controllers/Portfolio';
-import {PortfolioInfo} from '@core/api/generated/defs/PortfolioInfo';
+import {PortfolioService} from 'app/core/api/generated/controllers/Portfolio';
+import {PortfolioInfo} from 'app/core/api/generated/defs/PortfolioInfo';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'nx-overview',
+  selector: 'nx-portfolio-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.less']
 })
-export class OverviewComponent implements OnInit {
+export class PortfolioOverviewComponent implements OnInit {
 
   _currentPortfolio: PortfolioInfo;
   _loading: boolean = true;

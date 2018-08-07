@@ -64,5 +64,7 @@
   "pro-user": "Account",
   "pro-login": "Login",
   "pro-register": "Register",
-  "pro-register-result": "Register Result"
+  "pro-register-result": "Register Result",
+  "close": "Close",
+  "clear": "Clear"
 }

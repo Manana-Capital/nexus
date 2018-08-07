@@ -29,7 +29,8 @@ const THIRDMODULES = [
 
 // region: your componets & directives
 const COMPONENTS = [
-  ExternalViewComponent
+  ExternalViewComponent,
+  NxCardComponent,
 ];
 const DIRECTIVES = [];
 // endregion
@@ -52,7 +53,6 @@ const DIRECTIVES = [];
     // your components
     ...COMPONENTS,
     ...DIRECTIVES,
-    NxCardComponent,
   ],
   exports: [
     CommonModule,

@@ -14,6 +14,12 @@ import { ScrollService, MenuService, SettingsService } from '@delon/theme';
 })
 export class LayoutDefaultComponent {
   isFetching = false;
+  _localization = {
+    close: 'Close',
+    closeOther: 'Close other',
+    closeRight: 'Close right',
+    clear: 'Clear',
+  };
 
   constructor(
     router: Router,

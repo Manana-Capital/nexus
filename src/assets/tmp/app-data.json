@@ -22,9 +22,14 @@
           "link": "/dashboard"
         },
         {
+          "text": "Statistics",
+          "icon": "icon-pie-chart",
+          "link": "/statistics"
+        },
+        {
           "text": "My portfolio",
           "icon": "icon-briefcase",
-          "link": "/portfolio",
+          "link": "/private/portfolio",
           "acl": "Client"
         }
       ]

@@ -8,12 +8,14 @@ import {FundsService} from '@core/api/generated/controllers/Funds';
 import {ClientsService} from '@core/api/generated/controllers/Clients';
 import {ProfileService} from '@core/api/generated/controllers/Profile';
 import {PortfolioService} from '@core/api/generated/controllers/Portfolio';
+import {StatisticsService} from '@core/api/generated/controllers/Statistics';
 
 const generatedServices = [
   FundsService,
   ClientsService,
   ProfileService,
-  PortfolioService
+  PortfolioService,
+  StatisticsService
 ];
 
 @NgModule({
