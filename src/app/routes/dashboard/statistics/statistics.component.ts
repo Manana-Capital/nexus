@@ -9,7 +9,13 @@ import {StatisticsService} from '@core/api/generated/controllers/Statistics';
 })
 export class StatisticsComponent implements OnInit {
 
-  _data: StatsDto;
+  _data: StatsDto = {
+    activeExchanges: [],
+    activeBots: 0,
+    tradedAmountBtc: 0,
+    tradedAmountUsd: 0,
+    tradedTransactionsCount: 0
+  };
 
   constructor(
     private _statsService: StatisticsService

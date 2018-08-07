@@ -1,11 +1,11 @@
 <div nz-row [nzGutter]="16" class="pt-lg">
 
-  <div nz-col  nzXs="24" nzSm="12" [nzMd]="8" class="mb-md">
+  <div nz-col  nzXs="24" nzSm="12" nzMd="8" class="mb-md">
     <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" class="bg-white rounded-md p-md">
-      <div nz-col [nzSpan]="8">
+      <div nz-col [nzSpan]="4">
         Range
       </div>
-      <div nz-col [nzSpan]="16" class="text-right">
+      <div nz-col [nzSpan]="20" class="text-right">
         from
         <strong>{{_data.tradedFrom | date}}</strong>
         to
@@ -55,7 +55,13 @@
 
 <div nz-row nzGutter="16">
   <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-    <nz-card nzTitle="Bots" class="ant-card__body-nopadding" [nzBordered]="false">
+    <nz-card [nzTitle]="titleTemplate" class="ant-card__body-nopadding" [nzBordered]="false">
+
+      <ng-template #titleTemplate>
+        <i class="fas fa-robot" style="margin-right: 10px"></i>
+        <span>Bots</span>
+      </ng-template>
+
       <div nz-row [nzType]="'flex'" [nzJustify]="'center'" [nzAlign]="'middle'" [nzGutter]="8">
         <div nz-col [nzSpan]="12" class="text-center">
           active

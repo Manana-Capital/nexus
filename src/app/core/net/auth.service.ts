@@ -53,6 +53,7 @@ export class AuthService implements OnInit, OnDestroy {
     //openIdImplicitFlowConfiguration.silent_redirect_url = originUrl + '#/dashboard?';
     openIdImplicitFlowConfiguration.silent_renew = true;
     openIdImplicitFlowConfiguration.silent_renew_offset_in_seconds = 10;
+    openIdImplicitFlowConfiguration.storage = localStorage;
 
     const authWellKnownEndpoints = new AuthWellKnownEndpoints();
     authWellKnownEndpoints.issuer = environment.BACKEND_URL.replace(/\/\s*$/, '');
