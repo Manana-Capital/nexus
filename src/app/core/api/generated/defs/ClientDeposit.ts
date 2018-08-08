@@ -24,5 +24,7 @@ export interface ClientDeposit {
   amountCzk?: number;
   note?: string;
   client?: __model.FundClient;
+  /** format: int32 */
+  targetFundFundId?: number;
   targetFund?: __model.Fund;
 }

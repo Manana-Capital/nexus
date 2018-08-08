@@ -1,0 +1,92 @@
+<form nz-form [formGroup]="_form" (ngSubmit)="submitForm()">
+
+  <nz-form-item>
+    <nz-form-label nzSpan="5" nzRequired>Fund</nz-form-label>
+    <nz-form-control [nzSpan]="19">
+      <nz-select formControlName="targetFundId">
+        <nz-option *ngFor="let fund of funds" [nzLabel]="fund.displayName" [nzValue]="fund.id"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <div *ngIf="state.transactionType === 'transfer'">
+
+    <nz-form-item>
+      <nz-form-label nzSpan="5" nzRequired>From</nz-form-label>
+      <nz-form-control [nzSpan]="19">
+        <nz-select formControlName="fromClientId">
+          <nz-option *ngFor="let client of clients" [nzLabel]="getClientDisplay(client)" [nzValue]="client.fundClientId"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzSpan="5" nzRequired>To</nz-form-label>
+      <nz-form-control [nzSpan]="19">
+        <nz-select formControlName="toClientId">
+          <nz-option *ngFor="let client of clients" [nzLabel]="getClientDisplay(client)" [nzValue]="client.fundClientId"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+  </div>
+
+  <div *ngIf="state.transactionType !== 'transfer'">
+
+    <nz-form-item>
+      <nz-form-label nzSpan="5" nzRequired>Client</nz-form-label>
+      <nz-form-control [nzSpan]="19">
+        <nz-select formControlName="clientId">
+          <nz-option *ngFor="let client of clients" [nzLabel]="getClientDisplay(client)" [nzValue]="client.fundClientId"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+  </div>
+
+  <nz-form-item>
+    <nz-form-label nzSpan="5" nzRequired>Date</nz-form-label>
+    <nz-form-control [nzSpan]="19">
+      <nz-date-picker formControlName="created" [nzShowTime]="true">
+      </nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzSpan="5">Shares</nz-form-label>
+    <nz-form-control nzSpan="19">
+      <nz-input-number formControlName="shares">
+      </nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzSpan="5">USD</nz-form-label>
+    <nz-form-control nzSpan="19">
+      <nz-input-number formControlName="amountUsd">
+      </nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzSpan="5">BTC</nz-form-label>
+    <nz-form-control nzSpan="19">
+      <nz-input-number formControlName="amountBtc">
+      </nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzSpan="5">Note</nz-form-label>
+    <nz-form-control nzSpan="19">
+      <textarea nz-input formControlName="note" [placeholder]="'Information about ' + state.transactionType"
+                [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control nzSpan="19" nzOffset="5">
+      <button nz-button nzType="primary" [nzLoading]="isProcessing" [disabled]="_form.invalid" >Preview {{state.transactionType}}</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

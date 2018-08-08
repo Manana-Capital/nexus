@@ -18,7 +18,7 @@ export class NexusClient {
 }
 
 @Injectable()
-export class AuthService implements OnInit, OnDestroy {
+export class AuthService implements OnDestroy {
 
   private _isAuthorizedSubscription: Subscription;
   private _isAuthorized: boolean;
@@ -75,9 +75,7 @@ export class AuthService implements OnInit, OnDestroy {
         this.doCallbackLogicIfRequired();
       });
     }
-  }
 
-  ngOnInit() {
     this._isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized().subscribe(
       (isAuthorized: boolean) => {
         this._isAuthorized = isAuthorized;

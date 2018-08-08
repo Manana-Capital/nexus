@@ -16,6 +16,8 @@ export interface Connector {
   displayName?: string;
   configuration?: string;
   isDisabled?: boolean;
+  /** format: int32 */
+  targetFundFundId?: number;
   targetFund?: __model.Fund;
   balances?: __model.PortfolioBalance[];
   totalBalances?: __model.PortfolioTotalBalance[];

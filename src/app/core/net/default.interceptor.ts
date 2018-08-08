@@ -65,6 +65,8 @@ export class DefaultInterceptor implements HttpInterceptor {
         // }
         break;
       case 400:
+      case 405:
+      case 406:
         const response = this.handleBackendResponse(event);
         if(response)
           return response;
@@ -140,8 +142,8 @@ export class DefaultInterceptor implements HttpInterceptor {
   private handleBackendResponse(event: HttpResponse<any> | HttpErrorResponse) {
     if (event instanceof HttpErrorResponse) {
       if (event.error && event.error.errors) {
-        this.msg.error(event.error.errors[0].message);
-        return of(event);
+        this.msg.error(event.error.errors[0].message, { nzDuration: 1000 * 6, nzPauseOnHover: true });
+        return throwError(event);
       } else {
         return null;
       }
@@ -150,7 +152,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (event instanceof HttpResponse) {
          const body: any = event.body;
          if (body && body.status !== 0) {
-           this.msg.error(this.extractBackendError(body.msg));
+           this.msg.error(this.extractBackendError(body.msg),  { nzDuration: 1000 * 6, nzPauseOnHover: true });
            return throwError({});
          } else {
              return null;

@@ -19,5 +19,7 @@ export interface PortfolioBalance {
   amount?: number;
   currency?: string;
   targetConnector?: __model.Connector;
+  /** format: int32 */
+  targetFundFundId?: number;
   targetFund?: __model.Fund;
 }

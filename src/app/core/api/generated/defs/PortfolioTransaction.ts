@@ -8,6 +8,8 @@
  */
 
 export interface PortfolioTransaction {
+  /** format: int32 */
+  clientId?: number;
   /** format: date-time */
   created?: string;
   /** format: double */

@@ -28,7 +28,6 @@ const routes: Routes = [
         loadChildren: './private/private.module#PrivateModule'
       },
       { path: 'charts', component: Exception404Component },
-      { path: 'clients', component: Exception404Component },
       { path: 'funds', component: Exception404Component },
       { path: 'system/restapi', component: ExternalRestApiComponent },
       { path: 'system/background-jobs', component: ExternalBackgroundJobsComponent},

@@ -24,5 +24,7 @@ export interface PortfolioTotalBalance {
   /** format: double */
   shares?: number;
   targetConnector?: __model.Connector;
+  /** format: int32 */
+  targetFundFundId?: number;
   targetFund?: __model.Fund;
 }

@@ -7,3 +7,33 @@
 .green {
   color: @green-8;
 }
+
+
+.red-bg {
+  background-color: #f5c6cb;
+}
+
+.green-bg {
+  background-color: #c3e6cb;
+}
+
+.limit-width {
+  max-width: 100px;
+}
+
+@media (max-width: 767px) {
+  .hide-small {
+    display: none;
+  }
+  .limit-width {
+    max-width: 60px;
+  }
+
+  td {
+    padding: 0 !important;
+  }
+
+  th {
+    padding: 0 !important;
+  }
+}
