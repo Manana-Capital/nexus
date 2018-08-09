@@ -34,4 +34,9 @@ export class PortfolioService {
     };
     return this.http.get<__model.PortfolioInfo>(`/api/portfolio/${pathParams.clientid}`);
   }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Portfolio/ApiPortfolioAllGet */
+  all(): Observable<__model.PortfolioInfo[]> {
+    return this.http.get<__model.PortfolioInfo[]>(`/api/portfolio/all`);
+  }
 }

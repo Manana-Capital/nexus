@@ -1,44 +1,14 @@
-<page-header>
-  <ng-template #content>
-    <div class="page-header">
-      <div class="avatar">
-        <nz-avatar nzSrc="/assets/tmp/img/suitcase.png"></nz-avatar>
-      </div>
-      <div class="desc">
-        <div class="desc-title">Hello, {{_currentPortfolio?.client?.firstName}}！</div>
-        <div>
-          The information below shows your portfolio.
-        </div>
-      </div>
-    </div>
-  </ng-template>
-  <ng-template #extra>
-    <div class="page-extra">
-      <div>
-        <p>Active funds</p>
-        <p>{{_currentPortfolio?.activeFunds}}
-          <span> / {{_currentPortfolio?.totalFunds}}</span>
-        </p>
-      </div>
-      <div>
-        <p>Account age</p>
-        <p>{{_currentPortfolio?.accountAgeDays}} days</p>
-      </div>
-    </div>
-  </ng-template>
-</page-header>
-
-<nz-card [nzBordered]="false" [nzLoading]="_loading" >
+<nz-card [nzBordered]="false" [nzLoading]="loading" >
   <div nz-row>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
       <div>
         <span class="text-grey-dark">Total Profit</span>
         <span class="d-block display-2"
-              [class.red]="_currentPortfolio?.totalProfitUsd < 0"
-              [class.green]="_currentPortfolio?.totalProfitUsd > 0"
-              nz-tooltip [nzTitle]="(_currentPortfolio?.totalProfitCzk | number:'1.2-2') + ' Kč'" nzPlacement="bottom"
+              [class.red]="currentPortfolio?.totalProfitUsd < 0"
+              [class.green]="currentPortfolio?.totalProfitUsd > 0"
+              nz-tooltip [nzTitle]="(currentPortfolio?.totalProfitCzk | number:'1.2-2') + ' Kč'" nzPlacement="bottom"
         >
-          $ {{_currentPortfolio?.totalProfitUsd | number:'1.2-2'}}
+          $ {{currentPortfolio?.totalProfitUsd | number:'1.2-2'}}
         </span>
       </div>
       <em></em>
@@ -57,8 +27,8 @@
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
       <span class="text-grey-dark">Total Assets</span>
       <span class="d-block display-2"
-            nz-tooltip [nzTitle]="(_currentPortfolio?.totalAssetsCzk | number:'1.2-2') + ' Kč'" nzPlacement="bottom"
-      >$ {{_currentPortfolio?.totalAssetsUsd | number:'1.2-2'}}</span>
+            nz-tooltip [nzTitle]="(currentPortfolio?.totalAssetsCzk | number:'1.2-2') + ' Kč'" nzPlacement="bottom"
+      >$ {{currentPortfolio?.totalAssetsUsd | number:'1.2-2'}}</span>
       <em></em>
     </div>
     <!--<div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
@@ -69,19 +39,9 @@
   </div>
 </nz-card>
 
-<!--<nz-card *ngIf="_currentPortfolio?.activeFundsInfo" [nzLoading]="_loading" [nzBordered]="false">
-
-  <nz-tabset nzTabPosition="left" [nzType]="'line'" [nzShowPagination]="false">
-    <nz-tab *ngFor="let info of _currentPortfolio?.activeFundsInfo" [nzTitle]="info.fund.displayName">
-      <nx-portfolio-fund [fund]="info"></nx-portfolio-fund>
-    </nz-tab>
-  </nz-tabset>
-
-</nz-card>-->
-
 
 <nz-tabset nzTabPosition="top" [nzType]="'line'" [nzShowPagination]="false" class="funds">
-  <nz-tab *ngFor="let info of _currentPortfolio?.activeFundsInfo" [nzTitle]="info.fund.displayName">
+  <nz-tab *ngFor="let info of currentPortfolio?.activeFundsInfo" [nzTitle]="info.fund.displayName">
     <nx-portfolio-fund [fund]="info"></nx-portfolio-fund>
   </nz-tab>
 </nz-tabset>

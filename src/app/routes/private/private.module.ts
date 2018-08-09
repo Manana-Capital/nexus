@@ -8,6 +8,8 @@ import { TransactionComponent } from './clients/transaction/transaction.componen
 import {TransactionStep1Component} from './clients/transaction/steps/transaction-step1.component';
 import {TransactionStep2Component} from './clients/transaction/steps/transaction-step2.component';
 import {TransactionStep3Component} from './clients/transaction/steps/transaction-step3.component';
+import {PortfolioOverviewPageComponent} from './portfolio/overview/overview-page.component';
+import { ClientsOverviewComponent } from './clients/clients-overview/clients-overview.component';
 
 
 const COMPONENTS_NOROUNT = [
@@ -22,6 +24,8 @@ const COMPONENTS_NOROUNT = [
 const COMPONENTS = [
   ProfileSettingsComponent,
   TransactionComponent,
+  PortfolioOverviewPageComponent,
+  ClientsOverviewComponent,
 ];
 
 @NgModule({

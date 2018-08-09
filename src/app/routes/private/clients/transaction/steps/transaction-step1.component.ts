@@ -46,9 +46,9 @@ export class TransactionStep1Component implements OnInit {
         null,
         Validators.compose([Validators.required]),
       ],
-      fromClientId: [null, [Validators.required]],
-      toClientId: [null, [Validators.required]],
-      clientId: [null, [Validators.required]],
+      fromClientId: [null, this.state.transactionType === 'transfer' ? [Validators.required] : []],
+      toClientId: [null, this.state.transactionType === 'transfer' ? [Validators.required] : []],
+      clientId: [null, this.state.transactionType !== 'transfer' ? [Validators.required] : []],
       shares: [
         0,
         Validators.compose([

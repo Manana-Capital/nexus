@@ -1,0 +1,20 @@
+<page-header [title]="'Clients'">
+</page-header>
+
+<nz-spin *ngIf="_loading" [nzSize]="'large'"></nz-spin>
+
+<nz-collapse nzAccordion>
+  <nz-collapse-panel *ngFor="let portfolio of _data" [nzHeader]="clientHeader">
+
+    <ng-template #clientHeader>
+      {{getClientDisplay(portfolio.client)}}
+      <nz-tag *ngFor="let role of portfolio.client.roles">
+        {{role}}
+      </nz-tag>
+    </ng-template>
+
+    <nx-portfolio-overview [currentPortfolio]="portfolio" [loading]="false"></nx-portfolio-overview>
+  </nz-collapse-panel>
+</nz-collapse>
+
+
