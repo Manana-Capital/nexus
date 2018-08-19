@@ -41,9 +41,20 @@
       "acl": "Employee",
       "children": [
         {
-          "text": "Charts",
-          "icon": "icon-chart",
-          "link": "/charts"
+          "text": "Funds",
+          "icon": "icon-layers",
+          "link": "/private/funds",
+          "children": [
+            {
+              "text": "Overview",
+              "link": "/private/funds/overview"
+            },
+            {
+              "text": "Configuration",
+              "link": "/private/funds/configuration",
+              "acl": "Manager"
+            }
+          ]
         },
         {
           "text": "Clients",
@@ -69,22 +80,6 @@
           ]
         },
         {
-          "text": "Funds",
-          "icon": "icon-layers",
-          "link": "/funds",
-          "children": [
-            {
-              "text": "Overview",
-              "link": "/funds/overview"
-            },
-            {
-              "text": "Configuration",
-              "link": "/funds/configuration",
-              "acl": "Manager"
-            }
-          ]
-        },
-        {
           "text": "Products",
           "icon": "icon-social-dropbox",
           "children": [
@@ -103,6 +98,11 @@
               "link": "/products/arbitrage"
             }
           ]
+        },
+        {
+          "text": "Charts",
+          "icon": "icon-chart",
+          "link": "/charts"
         }
       ]
     },

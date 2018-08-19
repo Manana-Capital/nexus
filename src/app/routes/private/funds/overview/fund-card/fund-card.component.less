@@ -1,0 +1,34 @@
+@import "../../../../../../styles";
+
+.card {
+  &:hover {
+    cursor: pointer;
+    .footer-selection {
+      background-color: @primary-3;
+    }
+  }
+}
+
+.footer-selection {
+  width: 100%;
+  height: 5px;
+  background-color: transparent;
+}
+
+.footer-selected {
+  background-color: @primary-5;
+}
+
+.total-container {
+  display: flex;
+}
+
+.total-description-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.total-description {
+  padding-left: 5px;
+  padding-bottom: 5px;
+}

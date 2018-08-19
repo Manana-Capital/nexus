@@ -4,6 +4,7 @@ import {ProfileSettingsComponent} from './profile/settings/settings.component';
 import {TransactionComponent} from './clients/transaction/transaction.component';
 import {PortfolioOverviewPageComponent} from './portfolio/overview/overview-page.component';
 import {ClientsOverviewComponent} from './clients/clients-overview/clients-overview.component';
+import {FundsOverviewComponent} from './funds/overview/funds-overview.component';
 
 
 const routes: Routes = [
@@ -13,11 +14,16 @@ const routes: Routes = [
   { path: 'profile', component: ProfileSettingsComponent, data: {title: 'Profile'} },
   { path: 'clients', children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
-      { path: 'overview', component: ClientsOverviewComponent },
+      { path: 'overview', component: ClientsOverviewComponent, data: {title: 'Clients'} },
       { path: 'transaction/:type', component: TransactionComponent },
       { path: 'transaction', redirectTo: 'transaction/deposit', pathMatch: 'full' },
     ]
   },
+  { path: 'funds', children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: FundsOverviewComponent, data: {title: 'Funds'} }
+    ]
+  }
 ];
 
 @NgModule({

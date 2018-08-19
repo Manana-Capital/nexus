@@ -3,7 +3,6 @@ import { NzMessageService } from 'ng-zorro-antd';
 import {FundsService} from '@core/api/generated/controllers/Funds';
 import {FundInfo} from '@core/api/generated/defs/FundInfo';
 import {AuthService} from '@core/net/auth.service';
-import {map, delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard-funds',

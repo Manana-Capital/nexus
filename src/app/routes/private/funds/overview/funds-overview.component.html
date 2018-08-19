@@ -1,0 +1,133 @@
+<page-header [title]="'Funds'">
+  <ng-template #extra>
+    <div class="hidden-md" style="margin-top: -60px; text-align: center; width: 195px;">
+      <img class="img-fluid" src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png">
+    </div>
+  </ng-template>
+  Balances of our funds
+  <div class="d-flex pt-md">
+    <a class="d-flex pr-lg" (click)="refreshData()">
+      <i class="fas fa-sync-alt"></i>Refresh
+    </a>
+  </div>
+</page-header>
+
+<div nz-row [nzGutter]="24" class="pt-lg">
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-overview-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-overview-card>
+  </div>
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-overview-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-overview-card>
+  </div>
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-overview-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-overview-card>
+  </div>
+
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngFor="let fund of _funds">
+
+    <nx-fund-overview-card [bordered]="true" [title]="fund.fund.displayName"
+                  [total]="'$ ' + (fund.amountUsd | number:'1.0-0')"
+                  [totalSecondary]="'$ ' + (fund.amountUsd | number:'1.0-0')"
+                  contentHeight="84px" [action]="action1" [footer]="footer1"
+                  [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
+    >
+
+      <ng-template #action1>
+        <nz-tooltip [nzTitle]="fund.fund.description">
+          <i nz-tooltip class="anticon anticon-info-circle-o"></i>
+        </nz-tooltip>
+      </ng-template>
+
+      <trend style="margin-top:2px;">
+        <div class="performance-row">
+          CZK
+          <span class="pl-sm performance-number">
+          {{fund.amountCzk | number:'1.0-0'}}
+          </span>
+        </div>
+      </trend>
+
+      <trend>
+        <div class="performance-row">
+          BTC
+          <span class="pl-sm performance-number">
+          {{fund.amountBtc | number:'1.0-0'}}
+          </span>
+        </div>
+      </trend>
+
+      <trend>
+        <div class="performance-row">
+          Shares
+          <span class="pl-sm performance-number">
+          {{fund.shares | number:'1.0-0'}}
+          </span>
+        </div>
+      </trend>
+
+      <ng-template #footer1>
+
+      </ng-template>
+
+    </nx-fund-overview-card>
+  </div>
+
+
+</div>
+
+<div nz-row [nzGutter]="24" class="pt-lg" *ngIf="_selectedFund">
+  <div *ngFor="let balance of _selectedFund.balances"
+       nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+    <nz-card
+              [nzBodyStyle]="{padding: '0'}"
+              [nzTitle]="balance.exchangeName"
+              [nzBordered]="true" class="mt-lg"
+    >
+      <nz-list nzSize="small" class="exchange-balance">
+        <nz-list-item>
+          <div class="amount-row">
+            <span>USD</span>
+            <span class="amount-number">
+            {{balance.amountUsd | number:'1.0-0'}}
+            </span>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <div class="amount-row">
+            <span>CZK</span>
+            <span class="amount-number">
+            {{balance.amountCzk | number:'1.0-0'}}
+            </span>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <div class="amount-row">
+            <span>BTC</span>
+            <span class="amount-number">
+            {{balance.amountBtc | number:'1.2-4'}}
+            </span>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <div class="amount-row">
+            <span>Shares</span>
+            <span class="amount-number">
+            {{balance.shares | number:'1.0-0'}}
+            </span>
+          </div>
+        </nz-list-item>
+      </nz-list>
+      <div>
+        <nx-fund-balance [exchangeName]="balance.exchangeName" [data]="balance.balances"></nx-fund-balance>
+      </div>
+    </nz-card>
+  </div>
+</div>
+

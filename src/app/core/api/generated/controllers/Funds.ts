@@ -67,4 +67,9 @@ export class FundsService {
     });
     return this.http.post<void>(`/api/funds/assign-connector`, bodyParamsWithoutUndefined);
   }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsBalancesGet */
+  balances(): Observable<__model.FundTotalBalanceInfo[]> {
+    return this.http.get<__model.FundTotalBalanceInfo[]>(`/api/funds/balances`);
+  }
 }

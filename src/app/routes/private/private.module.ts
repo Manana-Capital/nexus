@@ -10,6 +10,9 @@ import {TransactionStep2Component} from './clients/transaction/steps/transaction
 import {TransactionStep3Component} from './clients/transaction/steps/transaction-step3.component';
 import {PortfolioOverviewPageComponent} from './portfolio/overview/overview-page.component';
 import { ClientsOverviewComponent } from './clients/clients-overview/clients-overview.component';
+import {FundOverviewCardComponent} from './funds/overview/fund-card/fund-card.component';
+import {FundsOverviewComponent} from './funds/overview/funds-overview.component';
+import { FundBalanceComponent } from './funds/overview/fund-balance/fund-balance.component';
 
 
 const COMPONENTS_NOROUNT = [
@@ -18,7 +21,10 @@ const COMPONENTS_NOROUNT = [
 
   TransactionStep1Component,
   TransactionStep2Component,
-  TransactionStep3Component
+  TransactionStep3Component,
+
+  FundOverviewCardComponent,
+  FundBalanceComponent
 ];
 
 const COMPONENTS = [
@@ -26,6 +32,7 @@ const COMPONENTS = [
   TransactionComponent,
   PortfolioOverviewPageComponent,
   ClientsOverviewComponent,
+  FundsOverviewComponent
 ];
 
 @NgModule({

@@ -1,0 +1,70 @@
+@import "../../../../../styles";
+
+trend {
+  display: flex;
+}
+
+.performance-row {
+  width: 150px;
+}
+
+.performance-number {
+  float: right;
+}
+
+.amount-number {
+  float: right;
+}
+
+.amount-row {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.red {
+  color: @red-8;
+}
+
+.green {
+  color: @green-8;
+}
+
+.footer-selector {
+  width: 100%;
+  height: 20px;
+  background-color: #00a0e9;
+}
+
+.balance {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.fas {
+  width: 20px;
+  line-height: 1.5;
+}
+
+.exchange-balance {
+  background-color: #e7e9f1;
+}
+
+:host ::ng-deep {
+
+  .up {
+    color: @green-6;
+  }
+  .down {
+    color: @red-6;
+  }
+
+  .ant-list-sm .ant-list-item {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+
+  .ad-trend {
+    display: flex;
+  }
+}
