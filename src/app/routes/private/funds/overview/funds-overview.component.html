@@ -37,6 +37,7 @@
                   [totalSecondary]="'$ ' + (fund.amountUsd | number:'1.0-0')"
                   contentHeight="84px" [action]="action1" [footer]="footer1"
                   [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
+                  [diff]="fund.amountUsdDiff"
     >
 
       <ng-template #action1>
@@ -52,6 +53,13 @@
           {{fund.amountCzk | number:'1.0-0'}}
           </span>
         </div>
+        <div *ngIf="fund.amountCzkDiff"
+             class="diff"
+             [class.profit]="fund.amountCzkDiff > 0"
+             [class.loss]="fund.amountCzkDiff < 0"
+        >
+          <span *ngIf="fund.amountCzkDiff > 0">+</span>
+          {{fund.amountCzkDiff | number:'1.2-2'}}</div>
       </trend>
 
       <trend>
@@ -82,7 +90,7 @@
 
 </div>
 
-<div nz-row [nzGutter]="24" class="pt-lg" *ngIf="_selectedFund">
+<div nz-row [nzGutter]="24" *ngIf="_selectedFund">
   <div *ngFor="let balance of _selectedFund.balances"
        nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
     <nz-card

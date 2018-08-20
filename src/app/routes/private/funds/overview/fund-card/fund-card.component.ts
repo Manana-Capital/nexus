@@ -18,6 +18,9 @@ export class FundOverviewCardComponent implements OnInit {
   isSelected: boolean = false;
 
   @Input()
+  diff: number = 0;
+
+  @Input()
   get bordered() {
     return this._bordered;
   }

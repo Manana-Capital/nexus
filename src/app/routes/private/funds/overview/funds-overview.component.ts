@@ -46,6 +46,7 @@ export class FundsOverviewComponent implements OnInit {
 
   private loadFundsInfo() {
     this._funds = [];
+    this._selectedFund = null;
     this._loading = true;
     this.fundsApi.balances()
       .subscribe(data => {

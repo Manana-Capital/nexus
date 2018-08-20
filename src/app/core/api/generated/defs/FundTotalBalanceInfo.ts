@@ -20,6 +20,14 @@ export interface FundTotalBalanceInfo {
   /** format: double */
   amountCzk?: number;
   /** format: double */
+  amountUsdDiff?: number;
+  /** format: double */
+  amountBtcDiff?: number;
+  /** format: double */
+  amountCzkDiff?: number;
+  /** format: double */
   shares?: number;
+  /** format: double */
+  sharesDiff?: number;
   balances?: __model.FundBalancePerExchange[];
 }

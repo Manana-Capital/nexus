@@ -171,6 +171,7 @@
  <div class="years">
    <div class="year-item" *ngFor="let year of _selectedFund?.performanceYears">
      <nx-fund-performance-year [yearModel]="year"></nx-fund-performance-year>
+     <nz-divider class="divider" nzType="vertical"></nz-divider>
    </div>
  </div>
 </nz-card>

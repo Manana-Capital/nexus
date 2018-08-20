@@ -10,10 +10,19 @@
                 <ng-container *ngIf="_action; else _actionTpl">{{ _action }}</ng-container>
               </span>
           </div>
+
           <div class="total-container" (mouseenter)="_showTotalSecondary = true" (mouseleave)="_showTotalSecondary = false">
             <p *ngIf="!_showTotalSecondary" class="total" [innerHTML]="total"></p>
             <p *ngIf="_showTotalSecondary" class="total" [innerHTML]="totalSecondary"></p>
+            <div *ngIf="diff" class="diff"
+                 [class.profit]="diff > 0"
+                 [class.loss]="diff < 0"
+            >
+              <span *ngIf="diff > 0">+</span>
+              {{diff | number:'1.2-2'}}
+            </div>
           </div>
+
 
         </div>
       </div>
