@@ -9,11 +9,31 @@ import {PortfolioFundInfo} from 'app/core/api/generated/defs/PortfolioFundInfo';
 export class PortfolioFundComponent implements OnInit {
 
   @Input()
-  fund: PortfolioFundInfo;
+  get fund(): PortfolioFundInfo {
+    return this._fund;
+  }
+  set fund(val: PortfolioFundInfo) {
+    this.sortItems(val);
+    this._fund = val;
+  }
+
+  _fund: PortfolioFundInfo;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  private sortItems(val: PortfolioFundInfo) {
+    val.deposits = val.deposits.sort((x,y) => {
+      let xD = new Date(x.created);
+      let yD = new Date(y.created);
+      return xD > yD ? -1 : xD < yD ? 1 : 0;
+    });
+    val.withdrawals = val.withdrawals.sort((x,y) => {
+      let xD = new Date(x.created);
+      let yD = new Date(y.created);
+      return xD > yD ? -1 : xD < yD ? 1 : 0;
+    });
+  }
 }

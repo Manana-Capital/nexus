@@ -32,10 +32,10 @@
 <nz-card [nzBordered]="false" >
   <div nz-row>
 
-    <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="11" >
+    <div class="deposits" nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
 
       <span class="text-grey-dark">Deposits</span>
-      <nz-table #depositsTable [nzData]="fund?.deposits" [nzShowPagination]="false">
+      <nz-table #depositsTable [nzData]="_fund?.deposits" [nzShowPagination]="false">
         <thead>
         <tr>
           <th class="green-bg">Created</th>
@@ -47,7 +47,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let data of depositsTable.data">
-          <td>{{data.created | date:'M/d/yy, H:mm' }}</td>
+          <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
           <td class="hide-small">{{data.shares | number:'1.2-2'}}</td>
           <td>${{data.amountUsd | number:'1.2-2'}}</td>
           <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
@@ -58,14 +58,10 @@
 
     </div>
 
-    <div nz-col [nzXs]="0" [nzSm]="0" [nzMd]="0" [nzLg]="2" >
-
-    </div>
-
-    <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="11">
+    <div class="withdrawals" nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
 
       <span class="text-grey-dark">Withdrawals</span>
-      <nz-table #withdrawalsTable [nzData]="fund?.withdrawals" [nzShowPagination]="false">
+      <nz-table #withdrawalsTable [nzData]="_fund?.withdrawals" [nzShowPagination]="false">
         <thead>
         <tr>
           <th class="red-bg">Created</th>
@@ -77,7 +73,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let data of withdrawalsTable.data">
-          <td>{{data.created | date:'M/d/yy, H:mm' }}</td>
+          <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
           <td class="hide-small">{{data.shares | number:'1.2-2'}}</td>
           <td>${{data.amountUsd | number:'1.2-2'}}</td>
           <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>

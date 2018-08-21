@@ -14,6 +14,12 @@ export class PortfolioOverviewComponent implements OnInit {
   @Input()
   loading: boolean = true;
 
+  @Input()
+  fullSize: boolean = true;
+
+  @Input()
+  expandData: boolean = false;
+
   constructor(
   ) {
   }

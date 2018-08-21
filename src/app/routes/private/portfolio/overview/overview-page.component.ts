@@ -42,5 +42,4 @@ export class PortfolioOverviewPageComponent implements OnInit {
       this._loading = false;
     });
   }
-
 }

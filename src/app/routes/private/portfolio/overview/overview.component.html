@@ -40,7 +40,7 @@
 </nz-card>
 
 
-<nz-tabset nzTabPosition="top" [nzType]="'line'" [nzShowPagination]="false" class="funds">
+<nz-tabset nzTabPosition="top" [nzType]="'line'" [nzShowPagination]="false" [class.large]="fullSize">
   <nz-tab *ngFor="let info of currentPortfolio?.activeFundsInfo" [nzTitle]="info.fund.displayName">
     <nx-portfolio-fund [fund]="info"></nx-portfolio-fund>
   </nz-tab>

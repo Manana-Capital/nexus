@@ -21,7 +21,23 @@
   max-width: 100px;
 }
 
-@media (max-width: 767px) {
+.deposits {
+  padding-right: 10px;
+}
+
+.withdrawals {
+  padding-left: 10px;
+}
+
+td {
+  padding: 4px !important;
+}
+
+th {
+  padding: 4px !important;
+}
+
+@media screen and (max-width: @screen-md) {
   .hide-small {
     display: none;
   }
@@ -35,5 +51,25 @@
 
   th {
     padding: 0 !important;
+  }
+
+  .deposits {
+    padding-right: 0;
+  }
+
+  .withdrawals {
+    padding-left: 0;
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: @screen-lg) {
+  .deposits {
+    padding-right: 0;
+  }
+
+  .withdrawals {
+    padding-left: 0;
+    padding-top: 20px;
   }
 }

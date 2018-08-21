@@ -13,7 +13,13 @@
       </nz-tag>
     </ng-template>
 
-    <nx-portfolio-overview [currentPortfolio]="portfolio" [loading]="false"></nx-portfolio-overview>
+    <nx-portfolio-overview
+      [currentPortfolio]="portfolio"
+      [loading]="false"
+      [fullSize]="false"
+      [expandData]="true"
+    >
+    </nx-portfolio-overview>
   </nz-collapse-panel>
 </nz-collapse>
 
