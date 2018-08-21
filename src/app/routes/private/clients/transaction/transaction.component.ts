@@ -47,7 +47,7 @@ export class TransactionComponent implements OnInit {
   ) {
     this._state = new TransactionState();
 
-    this._clientsService.clients().subscribe(x => this._clients = x);
+    this._clientsService.clients().subscribe(x => this._clients = x.sort((x,y) => x.fundClientId - y.fundClientId));
     this._fundService.apiFundsGet().subscribe(x => this._funds = x);
 
     route.params.subscribe(x => {

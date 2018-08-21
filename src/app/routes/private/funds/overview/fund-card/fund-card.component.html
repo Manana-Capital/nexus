@@ -18,8 +18,7 @@
                  [class.profit]="diff > 0"
                  [class.loss]="diff < 0"
             >
-              <span *ngIf="diff > 0">+</span>
-              {{diff | number:'1.2-2'}}
+              <span *ngIf="diff > 0">+</span>{{diff | number:'1.2-2'}}
             </div>
           </div>
 

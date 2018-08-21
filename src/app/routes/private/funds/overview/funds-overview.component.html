@@ -14,23 +14,23 @@
 
 <div nz-row [nzGutter]="24" class="pt-lg">
 
-  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+  <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6" *ngIf="_loading">
     <nx-fund-overview-card [bordered]="true" [loading]="true" contentHeight="84px" >
     </nx-fund-overview-card>
   </div>
 
-  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+  <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6" *ngIf="_loading">
     <nx-fund-overview-card [bordered]="true" [loading]="true" contentHeight="84px" >
     </nx-fund-overview-card>
   </div>
 
-  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+  <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6" *ngIf="_loading">
     <nx-fund-overview-card [bordered]="true" [loading]="true" contentHeight="84px" >
     </nx-fund-overview-card>
   </div>
 
 
-  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngFor="let fund of _funds">
+  <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6" *ngFor="let fund of _funds">
 
     <nx-fund-overview-card [bordered]="true" [title]="fund.fund.displayName"
                   [total]="'$ ' + (fund.amountUsd | number:'1.0-0')"
@@ -58,8 +58,7 @@
              [class.profit]="fund.amountCzkDiff > 0"
              [class.loss]="fund.amountCzkDiff < 0"
         >
-          <span *ngIf="fund.amountCzkDiff > 0">+</span>
-          {{fund.amountCzkDiff | number:'1.2-2'}}</div>
+          <span *ngIf="fund.amountCzkDiff > 0">+</span>{{fund.amountCzkDiff | number:'1.2-2'}}</div>
       </trend>
 
       <trend>
@@ -92,7 +91,7 @@
 
 <div nz-row [nzGutter]="24" *ngIf="_selectedFund">
   <div *ngFor="let balance of _selectedFund.balances"
-       nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+       nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6">
     <nz-card
               [nzBodyStyle]="{padding: '0'}"
               [nzTitle]="balance.exchangeName"
