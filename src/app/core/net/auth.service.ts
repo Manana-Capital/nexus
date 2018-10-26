@@ -98,6 +98,8 @@ export class AuthService implements OnDestroy {
       .getUserData()
       .pipe(
         map(x => {
+          if(!this._isAuthorized)
+            return null;
           if(!x || !x.sub)
             return x;
           x.id = Number(x.sub);
