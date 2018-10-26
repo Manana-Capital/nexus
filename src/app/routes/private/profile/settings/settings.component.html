@@ -16,60 +16,9 @@
     <nz-card nzTitle="Client's profile" *ngIf="active===1">
       <nz-row [nzGutter]="64">
         <nz-col [nzSpan]="16">
-          <form nz-form [formGroup]="profileForm" (ngSubmit)="profileSave($event, profileForm.value)" [nzLayout]="'vertical'">
-            <nz-form-item>
-              <nz-form-label nzFor="firstName" nzRequired>First name</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="firstName" id="firstName">
-                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
-                  <nz-form-explain *ngIf="firstName.errors['required']">Required</nz-form-explain>
-                  <nz-form-explain *ngIf="firstName.errors['pattern']">Invalid format (avoid white spaces, numbers)</nz-form-explain>
-                </div>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label nzFor="lastName" nzRequired>Last name</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="lastName" id="lastName">
-                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
-                  <nz-form-explain *ngIf="lastName.errors['required']">Required</nz-form-explain>
-                  <nz-form-explain *ngIf="lastName.errors['pattern']">Invalid format (avoid white spaces, numbers)</nz-form-explain>
-                </div>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label nzFor="email">Email</nz-form-label>
-              <nz-form-control>
-                <input nz-input formControlName="email" id="email">
-                <nz-form-explain *ngIf="email.valid">Login into the system with this email (only Google email is supported)
-                </nz-form-explain>
-                <div *ngIf="email.invalid && (email.dirty || email.touched)">
-                  <nz-form-explain *ngIf="email.errors['email']">Invalid email format</nz-form-explain>
-                </div>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Roles</nz-form-label>
-              <nz-form-control>
-                <nz-tag *ngFor="let role of currentProfile?.roles">
-                  {{role}}
-                </nz-tag>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label>Username</nz-form-label>
-              <nz-form-control>
-                <input nz-input [value]="currentProfile?.username" [disabled]="true">
-                <nz-form-explain *ngIf="email.valid">Modify username in the Account tab
-                </nz-form-explain>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control>
-                <button nz-button [nzType]="'primary'" [disabled]="profileForm.invalid">Update profile</button>
-              </nz-form-control>
-            </nz-form-item>
-          </form>
+
+          <nx-client-profile-form [profile]="currentProfile" (onSave)="profileSave($event)"></nx-client-profile-form>
+
         </nz-col>
         <nz-col [nzSpan]="8">
           <h4>Profile picture</h4>
@@ -85,40 +34,9 @@
     <nz-card nzTitle="Change password (and/or username)" *ngIf="active===2">
       <nz-row [nzGutter]="64">
         <nz-col [nzSpan]="16">
-          <form nz-form [nzLayout]="'vertical'" autocomplete="off">
-            <nz-form-item>
-              <nz-form-label nzFor="access_name">Username</nz-form-label>
-              <nz-form-control>
-                <input id="username" style="display:none" type="text" name="fakeusernameremembered">
-                <input nz-input [(ngModel)]="pwd.newUsername" name="access_name" id="access_name" autocomplete="nope">
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label nzFor="old_pass">Old password</nz-form-label>
-              <nz-form-control>
-                <input id="password" style="display:none" type="password" name="fakepasswordremembered">
-                <input nz-input [(ngModel)]="pwd.oldPassword" name="old_pass" id="old_pass" type="password"  autocomplete="off">
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label nzFor="new_password" nzRequired>New password</nz-form-label>
-              <nz-form-control>
-                <input nz-input [(ngModel)]="pwd.newPassword" name="new_pass" id="new_pass" type="password" required autocomplete="new-password">
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label nzRequired nzFor="confirm_new_password">Confirm new password</nz-form-label>
-              <nz-form-control>
-                <input nz-input [(ngModel)]="pwd.newPasswordRepeat" name="confirm_new_pass" id="confirm_new_pass" type="password"
-                  required autocomplete="new-password">
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control>
-                <button nz-button (click)="pwdSave()" [nzType]="'primary'">Change password</button>
-              </nz-form-control>
-            </nz-form-item>
-          </form>
+
+          <nx-client-account-form [username]="currentProfile?.username" (onSave)="pwdSave($event)"></nx-client-account-form>
+
         </nz-col>
       </nz-row>
     </nz-card>

@@ -13,6 +13,8 @@ import { ClientsOverviewComponent } from './clients/clients-overview/clients-ove
 import {FundOverviewCardComponent} from './funds/overview/fund-card/fund-card.component';
 import {FundsOverviewComponent} from './funds/overview/funds-overview.component';
 import { FundBalanceComponent } from './funds/overview/fund-balance/fund-balance.component';
+import { ClientProfileFormComponent } from './profile/client-profile-form/client-profile-form.component';
+import { ClientAccountFormComponent } from './profile/client-account-form/client-account-form.component';
 
 
 const COMPONENTS_NOROUNT = [
@@ -24,7 +26,10 @@ const COMPONENTS_NOROUNT = [
   TransactionStep3Component,
 
   FundOverviewCardComponent,
-  FundBalanceComponent
+  FundBalanceComponent,
+
+  ClientProfileFormComponent,
+  ClientAccountFormComponent,
 ];
 
 const COMPONENTS = [

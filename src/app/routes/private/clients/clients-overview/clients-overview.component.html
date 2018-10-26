@@ -13,14 +13,47 @@
       </nz-tag>
     </ng-template>
 
-    <nx-portfolio-overview
-      [currentPortfolio]="portfolio"
-      [loading]="false"
-      [fullSize]="false"
-      [expandData]="true"
-    >
-    </nx-portfolio-overview>
+    <div>
+
+      <button nz-button nzType="default" (click)="showEditProfile(portfolio)">Edit profile</button>
+      <button nz-button nzType="default" (click)="showEditAccount(portfolio)">Edit account</button>
+
+      <nx-portfolio-overview
+        [currentPortfolio]="portfolio"
+        [loading]="false"
+        [fullSize]="false"
+        [expandData]="true"
+      >
+      </nx-portfolio-overview>
+
+    </div>
+
   </nz-collapse-panel>
 </nz-collapse>
 
+<nz-modal nzWrapClassName="vertical-center-modal"
+          [(nzVisible)]="_isVisibleEditProfile"
+          [nzTitle]="'Edit profile for ' + _selectedPortfolio?.client?.firstName + ' ' + _selectedPortfolio?.client?.lastName"
+          (nzOnCancel)="_isVisibleEditProfile = false;"
+          [nzFooter]="null">
 
+  <nx-client-profile-form
+    [profile]="_selectedPortfolio?.client"
+    (onSave)="profileSave($event)">
+  </nx-client-profile-form>
+
+</nz-modal>
+
+<nz-modal nzWrapClassName="vertical-center-modal"
+          [(nzVisible)]="_isVisibleEditAccount"
+          [nzTitle]="'Edit account for ' + _selectedPortfolio?.client?.firstName + ' ' + _selectedPortfolio?.client?.lastName"
+          (nzOnCancel)="_isVisibleEditAccount = false;"
+          [nzFooter]="null">
+
+  <nx-client-account-form
+    [username]="_selectedPortfolio?.client?.username"
+    [ignoreOldPassword]="true"
+    (onSave)="accountSave($event)">
+  </nx-client-account-form>
+
+</nz-modal>

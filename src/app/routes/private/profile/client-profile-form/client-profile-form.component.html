@@ -1,0 +1,54 @@
+<form nz-form [formGroup]="profileForm" (ngSubmit)="save(profileForm.value)" [nzLayout]="'vertical'">
+  <nz-form-item>
+    <nz-form-label nzFor="firstName" nzRequired>First name</nz-form-label>
+    <nz-form-control>
+      <input nz-input formControlName="firstName" id="firstName">
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <nz-form-explain *ngIf="firstName.errors['required']">Required</nz-form-explain>
+        <nz-form-explain *ngIf="firstName.errors['pattern']">Invalid format (avoid white spaces, numbers)</nz-form-explain>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="lastName" nzRequired>Last name</nz-form-label>
+    <nz-form-control>
+      <input nz-input formControlName="lastName" id="lastName">
+      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+        <nz-form-explain *ngIf="lastName.errors['required']">Required</nz-form-explain>
+        <nz-form-explain *ngIf="lastName.errors['pattern']">Invalid format (avoid white spaces, numbers)</nz-form-explain>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="email">Email</nz-form-label>
+    <nz-form-control>
+      <input nz-input formControlName="email" id="email">
+      <nz-form-explain *ngIf="email.valid">Login into the system with this email (only Google email is supported)
+      </nz-form-explain>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)">
+        <nz-form-explain *ngIf="email.errors['email']">Invalid email format</nz-form-explain>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Roles</nz-form-label>
+    <nz-form-control>
+      <nz-tag *ngFor="let role of currentProfile?.roles">
+        {{role}}
+      </nz-tag>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Username</nz-form-label>
+    <nz-form-control>
+      <input nz-input [value]="currentProfile?.username" [disabled]="true">
+      <nz-form-explain *ngIf="email.valid">Modify username in the Account tab
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button [nzType]="'primary'" [disabled]="profileForm.invalid">Update profile</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
