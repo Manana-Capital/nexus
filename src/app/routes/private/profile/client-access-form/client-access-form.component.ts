@@ -1,18 +1,18 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'nx-client-account-form',
-  templateUrl: './client-account-form.component.html',
-  styleUrls: ['./client-account-form.component.less']
+  selector: 'nx-client-access-form',
+  templateUrl: './client-access-form.component.html',
+  styleUrls: ['./client-access-form.component.less']
 })
-export class ClientAccountFormComponent implements OnInit {
+export class ClientAccessFormComponent implements OnInit {
 
   @Input()
   set username(data: string) {
-    if(!data) {
-      return;
-    }
     this.pwd.newUsername = data;
+    this.pwd.oldPassword = '';
+    this.pwd.newPassword = '';
+    this.pwd.newPasswordRepeat = '';
   }
 
   @Input()

@@ -25,7 +25,7 @@ export interface ApiProfileByClientidGetParams {
 export interface UpdateParams {
   /** format: int32 */
   userid: number;
-  dto?: __model.UpdateProfileDto;
+  dto?: __model.UpdateProfileExtendedDto;
 }
 
 export interface ApiProfileChangePasswordPutParams {

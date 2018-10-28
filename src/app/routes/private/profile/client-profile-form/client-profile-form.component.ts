@@ -15,14 +15,38 @@ export class ClientProfileFormComponent implements OnInit {
       return;
     }
     this.profileForm.patchValue(data);
+    this._selectedRoles = data.roles;
     this.currentProfile = data;
   }
+
+  @Input()
+  displayRoleSelection: boolean = false;
 
   @Output()
   onSave: EventEmitter<ProfileInfoDto> = new EventEmitter();
 
   profileForm: FormGroup;
   currentProfile: ProfileInfoDto;
+  _roles = [
+    {
+      label: 'Fund client',
+      value: 'Client'
+    },
+    {
+      label: 'Company employee',
+      value: 'Employee'
+    },
+    {
+      label: 'Company manager',
+      value: 'Manager'
+    },
+    {
+      label: 'System administrator',
+      value: 'Admin'
+    },
+  ];
+
+  _selectedRoles;
 
   constructor(
     fb: FormBuilder,
@@ -67,6 +91,7 @@ export class ClientProfileFormComponent implements OnInit {
   }
 
   save(data){
+    data.roles = this._selectedRoles;
     this.onSave.emit(data);
   }
 }

@@ -77,12 +77,13 @@ export class DefaultInterceptor implements HttpInterceptor {
         this.goTo(`/${event.status}`);
         break;
       case 403:
-        this.msg.error('Forbidden, contact support');
-        this.goTo(`/${event.status}`);
+        this.msg.error('Forbidden, you are not allowed (missing role)');
         break;
       case 404:
+        this.msg.error('Not found, item doesn\'t exist');
+        break;
       case 500:
-        this.goTo(`/${event.status}`);
+        this.msg.error('Server error, contact support');
         break;
       default:
         if (event instanceof HttpErrorResponse) {

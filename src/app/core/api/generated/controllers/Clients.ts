@@ -53,6 +53,15 @@ export interface ChangeRolesParams {
   roles?: string[];
 }
 
+export interface CreateParams {
+  dto?: __model.UpdateProfileExtendedDto;
+}
+
+export interface RemoveParams {
+  /** format: int32 */
+  clientid: number;
+}
+
 @Injectable()
 export class ClientsService {
   constructor(private http: HttpClient) {}
@@ -183,5 +192,23 @@ export class ClientsService {
     });
 
     return this.http.post<void>(`/api/clients/change-roles`, {}, {params: queryParams});
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Clients/ApiClientsCreatePost */
+  create(params: CreateParams): Observable<__model.ProfileInfoDto> {
+    const bodyParams = params.dto;
+    const bodyParamsWithoutUndefined: any = {};
+    Object.entries(bodyParams || {}).forEach(([key, value]) => {
+      if (value !== undefined) bodyParamsWithoutUndefined[key] = value;
+    });
+    return this.http.post<__model.ProfileInfoDto>(`/api/clients/create`, bodyParamsWithoutUndefined);
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Clients/ApiClientsRemoveByClientidDelete */
+  remove(params: RemoveParams): Observable<__model.ProfileInfoDto> {
+    const pathParams = {
+      clientid: params.clientid,
+    };
+    return this.http.delete<__model.ProfileInfoDto>(`/api/clients/remove/${pathParams.clientid}`);
   }
 }

@@ -4,6 +4,7 @@ import {PortfolioInfo} from '@core/api/generated/defs/PortfolioInfo';
 import {FundClient} from '@core/api/generated/defs/FundClient';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ProfileService} from '@core/api/generated/controllers/Profile';
+import {ClientsService} from '@core/api/generated/controllers/Clients';
 
 @Component({
   selector: 'nx-clients-overview',
@@ -16,22 +17,29 @@ export class ClientsOverviewComponent implements OnInit {
   _loading: boolean = false;
 
   _isVisibleEditProfile = false;
-  _isVisibleEditAccount = false;
+  _isVisibleEditAccess = false;
+  _isVisibleCreateClient = false;
   _selectedPortfolio: PortfolioInfo;
 
   constructor(
     private portfolioService: PortfolioService,
     private profileService: ProfileService,
+    private clientService: ClientsService,
     public msg: NzMessageService
   ) {
+    this.refreshData();
+  }
+
+  ngOnInit() {
+  }
+
+  refreshData() {
     this._loading = true;
+    this._data = [];
     this.portfolioService.all().subscribe(x => {
       this._data = x;
       this._loading = false;
     });
-  }
-
-  ngOnInit() {
   }
 
   getClientDisplay(client: FundClient) {
@@ -47,9 +55,13 @@ export class ClientsOverviewComponent implements OnInit {
     this._isVisibleEditProfile = true;
   }
 
-  showEditAccount(portfolio) {
+  showEditAccess(portfolio) {
     this._selectedPortfolio = portfolio;
-    this._isVisibleEditAccount = true;
+    this._isVisibleEditAccess = true;
+  }
+
+  showCreateClient() {
+    this._isVisibleCreateClient = true;
   }
 
   profileSave(value) {
@@ -63,12 +75,43 @@ export class ClientsOverviewComponent implements OnInit {
         client.lastName = response.lastName;
         client.email = response.email;
         client.username = response.username;
+        client.roles = response.roles;
         this.msg.success(`Profile for ${client.firstName} ${client.lastName} was updated`);
         this._isVisibleEditProfile = false;
       });
   }
 
-  accountSave(value) {
+  createClient(value) {
+    this.clientService.create({
+      dto: value
+    })
+      .subscribe(response => {
+        this.portfolioService.apiPortfolioByClientidGet({
+          clientid: response.id
+        })
+          .subscribe(portfolioResponse => {
+            this._data.push(portfolioResponse);
+          });
+        this.msg.success(`Account for ${response.firstName} ${response.lastName} was created`);
+        this._isVisibleCreateClient = false;
+      });
+  }
+
+  removeClient(portfolio: PortfolioInfo) {
+    const clientId = portfolio.client.id;
+    this.clientService.remove({
+      clientid: clientId
+    }).subscribe(response => {
+      const found = this._data.find(x => x.client.id == response.id);
+      if(found) {
+        const index = this._data.indexOf(found);
+        this._data.splice(index, 1);
+      }
+      this.msg.success(`Account for ${response.firstName} ${response.lastName} was removed`);
+    });
+  }
+
+  accessSave(value) {
     this.profileService.apiProfileChangePasswordByUseridPut({
       userid: this._selectedPortfolio.client.id,
       dto: value
@@ -77,7 +120,7 @@ export class ClientsOverviewComponent implements OnInit {
         const client = this._selectedPortfolio.client;
         client.username = value.newUsername;
         this.msg.success(`Username and password for ${client.firstName} ${client.lastName} was changed`);
-        this._isVisibleEditAccount = false;
+        this._isVisibleEditAccess = false;
       });
   }
 }

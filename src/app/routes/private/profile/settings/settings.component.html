@@ -3,7 +3,7 @@
   <nz-col nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6">
     <nz-card nzTitle="Personal settings" class="ant-card__body-nopadding">
       <a (click)="active=1" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===1}">Profile</a>
-      <a (click)="active=2" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===2}">Account</a>
+      <a (click)="active=2" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===2}">Access</a>
       <a (click)="active=4" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===4}">Notifications</a>
     </nz-card>
     <nz-card nzTitle="Funds settings" class="ant-card__body-nopadding">
@@ -35,7 +35,7 @@
       <nz-row [nzGutter]="64">
         <nz-col [nzSpan]="16">
 
-          <nx-client-account-form [username]="currentProfile?.username" (onSave)="pwdSave($event)"></nx-client-account-form>
+          <nx-client-access-form [username]="currentProfile?.username" (onSave)="pwdSave($event)"></nx-client-access-form>
 
         </nz-col>
       </nz-row>

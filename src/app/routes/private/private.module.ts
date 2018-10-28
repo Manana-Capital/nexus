@@ -14,7 +14,7 @@ import {FundOverviewCardComponent} from './funds/overview/fund-card/fund-card.co
 import {FundsOverviewComponent} from './funds/overview/funds-overview.component';
 import { FundBalanceComponent } from './funds/overview/fund-balance/fund-balance.component';
 import { ClientProfileFormComponent } from './profile/client-profile-form/client-profile-form.component';
-import { ClientAccountFormComponent } from './profile/client-account-form/client-account-form.component';
+import { ClientAccessFormComponent } from './profile/client-access-form/client-access-form.component';
 
 
 const COMPONENTS_NOROUNT = [
@@ -29,7 +29,7 @@ const COMPONENTS_NOROUNT = [
   FundBalanceComponent,
 
   ClientProfileFormComponent,
-  ClientAccountFormComponent,
+  ClientAccessFormComponent,
 ];
 
 const COMPONENTS = [
