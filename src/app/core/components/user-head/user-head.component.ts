@@ -71,7 +71,7 @@ export class UserHeadComponent implements OnInit {
 
     const sizeSafe = size || 80;
 
-    return 'http://www.gravatar.com/avatar/' + MD5(email) + '.jpg?s=' + sizeSafe;
+    return 'http://www.gravatar.com/avatar/' + MD5(email) + '.jpg?s=' + sizeSafe + '&d=mp';
   }
 
 }

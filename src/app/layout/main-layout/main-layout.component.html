@@ -30,9 +30,14 @@
   <nz-layout>
     <nz-sider class="menu-container" *ngIf="!_isCollapsed">
 
-      <nx-user-head></nx-user-head>
+      <nx-user-head class="menu-head"></nx-user-head>
 
-      <ul class="menu-content" nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="_isCollapsed">
+      <ul class="menu-content" nz-menu
+          [nzTheme]="'light'"
+          [nzMode]="'inline'"
+          [nzInlineCollapsed]="_isCollapsed"
+          [style.margin-top]="!_userData ? '0' : '80px'"
+      >
 
         <li nz-submenu>
           <span title><i nz-icon type="user"></i><span class="nav-text">User</span></span>
@@ -43,9 +48,7 @@
           </ul>
         </li>
 
-        <li nzDisabled>
-          <span>Company</span>
-        </li>
+        <nz-divider class="menu-divider" nzText="Company" nzOrientation="left"></nz-divider>
 
         <li nz-submenu>
           <span title><i nz-icon type="team"></i><span class="nav-text">Team</span></span>
@@ -57,9 +60,24 @@
         <li nz-menu-item>
           <span><i nz-icon type="file"></i><span class="nav-text">File</span></span>
         </li>
+
+        <nz-divider class="menu-divider" nzText="System" nzOrientation="left"></nz-divider>
+
+        <li nz-submenu>
+          <span title><i nz-icon type="team"></i><span class="nav-text">Background</span></span>
+          <ul>
+            <li nz-menu-item>Team 1</li>
+            <li nz-menu-item>Team 2</li>
+          </ul>
+        </li>
+        <li nz-menu-item>
+          <span><i nz-icon type="file"></i><span class="nav-text">REST</span></span>
+        </li>
+
       </ul>
     </nz-sider>
-    <nz-content style="margin:0 16px;">
+
+    <nz-content class="content" [style.margin-left]="_isCollapsed ? '0' : '200px'">
       <nz-breadcrumb style="margin:16px 0;">
         <nz-breadcrumb-item>User</nz-breadcrumb-item>
         <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
@@ -69,9 +87,8 @@
         {{ _userData | json }}
       </div>
     </nz-content>
+
 <!--    <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>-->
+
   </nz-layout>
 </nz-layout>
-<ng-template #trigger>
-  <i nz-icon type="up"></i>
-</ng-template>

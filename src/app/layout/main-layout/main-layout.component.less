@@ -4,6 +4,39 @@
   padding: 0;
   background-color: @primary-color;
   color: @heading-color-dark;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 30;
+}
+
+.menu-container {
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  margin-top: 64px;
+}
+
+.menu-head {
+  z-index: 20;
+  position: fixed;
+  left: 0;
+  width: 200px;
+}
+
+.menu-content {
+  z-index: 10;
+}
+
+.menu-divider {
+  color: rgba(0, 0, 0, 0.35) !important;
+  font-size: 12px !important;
+  margin-bottom: 4px !important;
+}
+
+.content {
+  margin-top: 64px;
+  padding: 10px;
 }
 
 .trigger {
@@ -32,15 +65,6 @@
 
 .auth-button:hover {
   background-color: rgba(255,255,255,.2)!important;
-}
-
-.menu-container {
-  background-color: @component-background;
-  border-right: 1px solid #e8e8e8;
-}
-
-.menu-content {
-  height: auto !important;
 }
 
 .row {
