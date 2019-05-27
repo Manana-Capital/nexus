@@ -1,14 +1,13 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
-import { I18NService } from './i18n/i18n.service';
-import {AuthService} from '@core/net/auth.service';
 
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import {FundsService} from '@core/api/generated/controllers/Funds';
-import {ClientsService} from '@core/api/generated/controllers/Clients';
-import {ProfileService} from '@core/api/generated/controllers/Profile';
-import {PortfolioService} from '@core/api/generated/controllers/Portfolio';
-import {StatisticsService} from '@core/api/generated/controllers/Statistics';
+/*import {AuthService} from './network/auth.service';*/
+
+import {FundsService} from './backend/generated/controllers/Funds';
+import {StatisticsService} from './backend/generated/controllers/Statistics';
+import {ProfileService} from './backend/generated/controllers/Profile';
+import {PortfolioService} from './backend/generated/controllers/Portfolio';
+import {ClientsService} from './backend/generated/controllers/Clients';
 
 const generatedServices = [
   FundsService,
@@ -20,9 +19,8 @@ const generatedServices = [
 
 @NgModule({
   providers: [
-    I18NService,
-    OidcSecurityService,
-    AuthService,
+/*    OidcSecurityService,*/
+/*    AuthService,*/
     ...generatedServices
   ],
 })
