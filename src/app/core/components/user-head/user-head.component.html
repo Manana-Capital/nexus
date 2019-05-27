@@ -1,0 +1,42 @@
+<div *ngIf="_userData" class="head-component">
+
+  <nz-dropdown nzTrigger="click">
+
+    <div nz-dropdown>
+
+      <div class="head-container">
+
+        <div class="head-photo">
+          <nz-avatar
+            nzIcon="user"
+            nzSize="large"
+            [nzSrc]="getGravatarUrl(_userData.email, 40)">
+          </nz-avatar>
+        </div>
+
+        <div class="head-text">
+          <strong class="head-name">{{_userData?.name}}</strong>
+          <small class="head-email">{{_userData?.email}}</small>
+        </div>
+      </div>
+
+    </div>
+
+
+    <ul nz-menu nzSelectable>
+      <li nz-menu-item>
+        <a>
+          <i nz-icon nzType="user" nzTheme="outline"></i>
+          Profile
+        </a>
+      </li>
+      <li nz-menu-item>
+        <a (click)="auth.logout()">
+          <i nz-icon nzType="logout" nzTheme="outline"></i>
+          Logout
+        </a>
+      </li>
+    </ul>
+  </nz-dropdown>
+
+</div>

@@ -1,5 +1,4 @@
-/*
-import { Injectable, Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,10 +11,12 @@ export class NexusClient {
   id: number;
 
   email: string;
+  // tslint:disable-next-line:variable-name
   family_name: string;
+  // tslint:disable-next-line:variable-name
   given_name: string;
   name: string;
-  role: string[]
+  role: string[];
 }
 
 @Injectable()
@@ -26,34 +27,38 @@ export class AuthService implements OnDestroy {
   private _currentClientSubscription: Subscription;
   private _currentClient: NexusClient;
 
-  public get isAuthorized(): boolean{
+  public get isAuthorized(): boolean {
     return this._isAuthorized;
   }
 
-  public get currentClient(): NexusClient{
+  public get currentClient(): NexusClient {
     return this._currentClient;
   }
 
   constructor(public oidcSecurityService: OidcSecurityService,
-              private http: HttpClient,
-              @Inject('ORIGIN_URL') originUrl: string
+              public http: HttpClient,
+              @Inject('ORIGIN_URL') public originUrl: string
   ) {
+  }
+
+  public init() {
     const openIdImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
     openIdImplicitFlowConfiguration.stsServer = environment.BACKEND_URL;
-    openIdImplicitFlowConfiguration.redirect_url = originUrl + '#/dashboard?';
+    openIdImplicitFlowConfiguration.redirect_url = this.originUrl + '#/dashboard?';
     openIdImplicitFlowConfiguration.client_id = 'ng';
     openIdImplicitFlowConfiguration.response_type = 'id_token token';
     openIdImplicitFlowConfiguration.scope = 'openid profile nexus role';
-    openIdImplicitFlowConfiguration.post_logout_redirect_uri = originUrl + '#/dashboard?';
+    openIdImplicitFlowConfiguration.post_logout_redirect_uri = this.originUrl + '#/dashboard?';
     openIdImplicitFlowConfiguration.forbidden_route = '/403';
     openIdImplicitFlowConfiguration.unauthorized_route = '/401';
     openIdImplicitFlowConfiguration.auto_userinfo = true;
     openIdImplicitFlowConfiguration.log_console_warning_active = true;
     openIdImplicitFlowConfiguration.log_console_debug_active = false;
     openIdImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = 60 * 60 * 4;
-    //openIdImplicitFlowConfiguration.silent_redirect_url = originUrl + '#/dashboard?';
-    openIdImplicitFlowConfiguration.silent_renew = true;
-    openIdImplicitFlowConfiguration.silent_renew_offset_in_seconds = 10;
+    // openIdImplicitFlowConfiguration.silent_redirect_url = this.originUrl + 'silent-renew.html';
+    openIdImplicitFlowConfiguration.silent_renew = false;
+    openIdImplicitFlowConfiguration.silent_renew_url = this.originUrl + 'silent-renew.html';
+    openIdImplicitFlowConfiguration.silent_renew_offset_in_seconds = 30;
     openIdImplicitFlowConfiguration.storage = localStorage;
 
     const authWellKnownEndpoints = new AuthWellKnownEndpoints();
@@ -87,7 +92,6 @@ export class AuthService implements OnDestroy {
   ngOnDestroy(): void {
     this._isAuthorizedSubscription.unsubscribe();
     this._currentClientSubscription.unsubscribe();
-    this.oidcSecurityService.onModuleSetup.unsubscribe();
   }
 
   isAuthorizedStream(): Observable<boolean> {
@@ -99,10 +103,12 @@ export class AuthService implements OnDestroy {
       .getUserData()
       .pipe(
         map(x => {
-          if(!this._isAuthorized)
+          if (!this._isAuthorized) {
             return null;
-          if(!x || !x.sub)
+          }
+          if (!x || !x.sub) {
             return x;
+          }
           x.id = Number(x.sub);
           return x;
         })
@@ -148,8 +154,10 @@ export class AuthService implements OnDestroy {
   public appendAuthHeader(headers: HttpHeaders) {
     const token = this.oidcSecurityService.getToken();
 
-    //console.log('TOKEN', token);
-    if (token === '') return headers;
+    // console.log('TOKEN', token);
+    if (token === '') {
+      return headers;
+    }
 
     const tokenValue = 'Bearer ' + token;
     return headers.set('Authorization', tokenValue);
@@ -158,7 +166,7 @@ export class AuthService implements OnDestroy {
   private doCallbackLogicIfRequired() {
     const hash = this.getTokenHash();
     if (hash) {
-      this.oidcSecurityService.authorizedCallback(hash);
+      this.oidcSecurityService.authorizedImplicitFlowCallback(hash);
     }
   }
 
@@ -169,4 +177,3 @@ export class AuthService implements OnDestroy {
     }
   }
 }
-*/

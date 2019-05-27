@@ -6,16 +6,34 @@
         <i
           class="trigger"
           nz-icon
-          [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          (click)="isCollapsed = !isCollapsed"
+          [type]="_isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="_isCollapsed = !_isCollapsed"
         ></i>
       </div>
+      <div class="auth-button" *ngIf="!_isAuthenticated" (click)="auth.login()">
+        Login
+        <i
+          nz-icon
+          type="login"
+        ></i>
+      </div>
+<!--      <div class="auth-button" *ngIf="_isAuthenticated" (click)="auth.logout()">
+        Logout
+        <i
+          nz-icon
+          type="logout"
+        ></i>
+      </div>-->
     </div>
   </nz-header>
 
   <nz-layout>
-    <nz-sider *ngIf="!isCollapsed">
-      <ul nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+    <nz-sider class="menu-container" *ngIf="!_isCollapsed">
+
+      <nx-user-head></nx-user-head>
+
+      <ul class="menu-content" nz-menu [nzTheme]="'light'" [nzMode]="'inline'" [nzInlineCollapsed]="_isCollapsed">
+
         <li nz-submenu>
           <span title><i nz-icon type="user"></i><span class="nav-text">User</span></span>
           <ul>
@@ -24,6 +42,11 @@
             <li nz-menu-item>Alex</li>
           </ul>
         </li>
+
+        <li nzDisabled>
+          <span>Company</span>
+        </li>
+
         <li nz-submenu>
           <span title><i nz-icon type="team"></i><span class="nav-text">Team</span></span>
           <ul>
@@ -43,6 +66,7 @@
       </nz-breadcrumb>
       <div style="padding:24px; background: #fff; min-height: 360px;">
         Bill is a cat.
+        {{ _userData | json }}
       </div>
     </nz-content>
 <!--    <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>-->

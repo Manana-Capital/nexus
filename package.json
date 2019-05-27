@@ -15,14 +15,15 @@
   "keywords": [
     "nexus",
     "investments",
-    "crypto",    "trading",
+    "crypto",
+    "trading",
     "quantitive",
     "algorithmic"
   ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build": "ng build",
+    "build": "ng build --prod --build-optimizer --base-href ./",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -42,7 +43,9 @@
     "ng-zorro-antd": "7.4.1",
     "rxjs": "6.3.3",
     "tslib": "1.9.3",
-    "zone.js": "0.8.29"
+    "zone.js": "0.8.29",
+    "angular-gtag": "1.0.3",
+    "angular-auth-oidc-client": "9.0.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.13.9",
