@@ -1,5 +1,9 @@
 @import "../../../theme";
 
+.collapsed {
+  display: none;
+}
+
 .header {
   padding: 0;
   background-color: @primary-color;
@@ -11,21 +15,41 @@
 }
 
 .menu-container {
-  height: 100vh;
+  padding-top: 64px;
+  overflow: hidden;
+  height: 100%;
   position: fixed;
   left: 0;
-  margin-top: 64px;
+
+  background-color: @body-background;
+  transition: width .2s cubic-bezier(.25,0,.15,1),translate .2s cubic-bezier(.25,0,.15,1);
+}
+
+::ng-deep .ant-layout-sider-children {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+::ng-deep .ant-layout-sider-children::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+::ng-deep .ant-layout-sider-children::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .menu-head {
   z-index: 20;
-  position: fixed;
-  left: 0;
   width: 200px;
+/*  position: fixed;
+  left: 0;*/
 }
 
 .menu-content {
   z-index: 10;
+  padding-top: 10px;
 }
 
 .menu-divider {
@@ -37,6 +61,10 @@
 .content {
   margin-top: 64px;
   padding: 10px;
+}
+
+.trigger-container {
+/*  margin-top: 6px;*/
 }
 
 .trigger {
@@ -73,10 +101,7 @@
 }
 
 .logo {
-  height: 32px;
-  width: 32px;
-  background: rgba(0, 0, 0, 0.2);
-  margin: 16px;
+  transition: width .2s cubic-bezier(.25,0,.15,1);
 }
 
 .full-height {
@@ -85,4 +110,8 @@
 
 .ant-menu {
   height: 100%;
+}
+
+li {
+  margin: 0 !important;
 }
