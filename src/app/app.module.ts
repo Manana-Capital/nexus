@@ -16,17 +16,19 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import {CoreModule} from '@core/core.module';
 import {AuthService} from '@core/network/auth.service';
 import {AuthModule} from 'angular-auth-oidc-client';
+import { NavigationMenuComponent } from './layout/navigation-menu/navigation-menu.component';
 
 registerLocaleData(en);
 
 const layoutComponents = [
   MainLayoutComponent,
+  NavigationMenuComponent
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...layoutComponents
+    ...layoutComponents,
   ],
   imports: [
     GtagModule.forRoot({ trackingId: 'UA-118576897-2', trackPageviews: true }),

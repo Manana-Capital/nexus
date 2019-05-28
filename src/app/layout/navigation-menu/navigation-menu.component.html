@@ -1,0 +1,85 @@
+<ul nz-menu
+    [nzTheme]="'light'"
+    [nzMode]="'inline'"
+    [nzInlineCollapsed]="isCollapsed"
+>
+
+  <li nz-menu-item>
+            <span>
+              <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+              <span class="nav-text">Dashboard</span></span>
+  </li>
+
+  <li nz-menu-item>
+            <span>
+              <i nz-icon nzType="bar-chart" nzTheme="outline"></i>
+              <span class="nav-text">Statistics</span></span>
+  </li>
+
+  <li nz-menu-item>
+            <span>
+              <i nz-icon nzType="wallet" nzTheme="outline"></i>
+              <span class="nav-text">Portfolio</span></span>
+  </li>
+
+  <nz-divider class="menu-divider" nzText="Company" nzOrientation="left"></nz-divider>
+
+  <li nz-submenu>
+            <span title>
+              <i nz-icon nzType="fund" nzTheme="outline"></i>
+              <span class="nav-text">Funds</span></span>
+    <ul>
+      <li nz-menu-item>Overview</li>
+      <li nz-menu-item>Configuration</li>
+    </ul>
+  </li>
+
+  <li nz-submenu>
+            <span title>
+              <i nz-icon type="team"></i>
+              <span class="nav-text">Clients</span></span>
+    <ul>
+      <li nz-menu-item>Team 1</li>
+      <li nz-menu-item>Team 2</li>
+    </ul>
+  </li>
+
+  <li nz-submenu>
+            <span title>
+              <i nz-icon nzType="appstore" nzTheme="outline"></i>
+              <span class="nav-text">Products</span></span>
+    <ul>
+      <li nz-menu-item>Team 1</li>
+      <li nz-menu-item>Team 2</li>
+    </ul>
+  </li>
+
+  <li nz-menu-item>
+            <span>
+              <i nz-icon nzType="line-chart" nzTheme="outline"></i>
+              <span class="nav-text">Charts</span></span>
+  </li>
+
+  <nz-divider class="menu-divider" nzText="System" nzOrientation="left"></nz-divider>
+
+  <li nz-submenu>
+            <span title>
+              <i nz-icon nzType="robot" nzTheme="outline"></i>
+              <span class="nav-text">Bots</span></span>
+    <ul>
+      <li nz-menu-item>Team 1</li>
+      <li nz-menu-item>Team 2</li>
+    </ul>
+  </li>
+
+  <li nz-submenu>
+            <span title>
+              <i nz-icon nzType="tool" nzTheme="outline"></i>
+              <span class="nav-text">Tools</span></span>
+    <ul>
+      <li nz-menu-item>Team 1</li>
+      <li nz-menu-item>Team 2</li>
+    </ul>
+  </li>
+
+</ul>
