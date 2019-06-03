@@ -42,10 +42,12 @@
     "core-js": "2.6.8",
     "ng-zorro-antd": "7.4.1",
     "rxjs": "6.5.2",
+    "rxjs-compat": "6.5.2",
     "tslib": "1.9.3",
     "zone.js": "~0.9.1",
     "angular-gtag": "1.0.3",
-    "angular-auth-oidc-client": "9.0.8"
+    "angular-auth-oidc-client": "9.0.8",
+    "@swimlane/ngx-charts": "11.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.800.0",

@@ -1,0 +1,32 @@
+<page-header [title]="' '">
+</page-header>
+<nz-card [nzBordered]="false">
+  <nz-steps [(nzCurrent)]="_state.step">
+    <nz-step [nzTitle]="_state.transactionName"></nz-step>
+    <nz-step nzTitle="Preview"></nz-step>
+    <nz-step nzTitle="Result"></nz-step>
+  </nz-steps>
+  <nx-transaction-step1 *ngIf="_state.step==0"
+                        [state]="_state"
+                        [defaultData]="_data"
+                        [isProcessing]="_isProcessing"
+                        [clients]="_clients"
+                        [funds]="_funds"
+                        (submitted)="onStep1($event)"
+  >
+  </nx-transaction-step1>
+  <nx-transaction-step2 *ngIf="_state.step==1"
+                        [state]="_state"
+                        [data]="_data"
+                        [isProcessing]="_isProcessing"
+                        [clients]="_clients"
+                        [funds]="_funds"
+                        (submitted)="onStep2()"
+                        (backRequested)="onBack2()"
+  >
+  </nx-transaction-step2>
+  <nx-transaction-step3 *ngIf="_state.step==2"
+                        [state]="_state"
+                        (againRequested)="onAgain3()">
+  </nx-transaction-step3>
+</nz-card>

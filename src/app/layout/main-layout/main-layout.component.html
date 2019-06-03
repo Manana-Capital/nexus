@@ -41,14 +41,15 @@
     </nz-sider>
 
     <nz-content class="content" [class.content-collapsed]="_isCollapsed">
-      <nz-breadcrumb style="margin:16px 0;">
+      <!--<nz-breadcrumb style="margin:16px 0;">
         <nz-breadcrumb-item>User</nz-breadcrumb-item>
         <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
       </nz-breadcrumb>
       <div style="padding:24px; background: #fff; min-height: 360px;">
         Bill is a cat.
         {{ _userData | json }}
-      </div>
+      </div>-->
+      <router-outlet></router-outlet>
     </nz-content>
 
 <!--    <nz-footer style="text-align: center;">Ant Design ©2019 Implement By Angular</nz-footer>-->
