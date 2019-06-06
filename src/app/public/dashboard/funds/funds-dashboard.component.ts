@@ -3,6 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import {FundsService} from '@core/backend/generated/controllers/Funds';
 import {FundInfo} from '@core/backend/generated/defs/FundInfo';
 import {AuthService} from '@core/network/auth.service';
+import {BtcPriceTick} from '@core/backend/generated/defs/BtcPriceTick';
 
 @Component({
   selector: 'nx-dashboard-funds',
@@ -48,12 +49,22 @@ export class FundsDashboardComponent implements OnInit {
     this.loadFundsInfo();
   }
 
-  findBtcInfo(tick) {
+  findBtcInfo(tick): BtcPriceTick {
     if (!this._selectedFund) {
-      return;
+      return {
+        volume: 0,
+        close: 0
+      };
     }
     const share = tick.value;
-    return this._selectedFund.btcTicks.find(x => x.pricePerShare === share);
+    const found = this._selectedFund.btcTicks.find(x => x.pricePerShare === share);
+    if (!found) {
+      return {
+        volume: 0,
+        close: 0
+      };
+    }
+    return found;
   }
 
   private loadFundsInfo() {
@@ -91,11 +102,11 @@ export class FundsDashboardComponent implements OnInit {
   private formatChartData(priceTicks: any[], btcTicks: any[]) {
     return [
       {
-        name: 'Price per share (USD)',
+        name: 'Fund performance',
         series: priceTicks
       },
       {
-        name: 'BTC performance (USD)',
+        name: 'BTC performance',
         series: btcTicks
       }
     ];

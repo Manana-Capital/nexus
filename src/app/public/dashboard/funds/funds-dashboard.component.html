@@ -2,7 +2,7 @@
   <nz-page-header-extra>
     <nz-dropdown class="reload-btn" nzPlacement="bottomRight">
       <button nz-button nz-dropdown>
-        <i class="anticon anticon-ellipsis"></i>
+        <i nz-icon nzType="ellipsis" nzTheme="outline"></i>
       </button>
       <ul nz-menu>
         <li nz-menu-item (click)="refreshData()">Refresh data</li>
@@ -34,24 +34,25 @@
   </div>
 
 
-  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngFor="let fund of _funds">
-    <nx-fund-card [bordered]="true" [title]="fund.displayName"
-                  [total]="'$ ' + (fund.pricePerShare.priceUsd | number:'1.2-2')"
-                  [totalSecondary]="(fund.pricePerShare.priceCzk | number:'1.2-2') + ' Kč'"
-                  contentHeight="84px" [action]="action1" [footer]="footer1"
-                  [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
+  <div class="fund-card" nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngFor="let fund of _funds">
+    <nx-fund-card [bordered]="true"
+                  [title]="fund.displayName"
+                  contentHeight="84px"
+                  [action]="action1"
+                  [isSelected]="_selectedFund == fund"
+                  (click)="selectFund(fund)"
     >
 
       <ng-template #action1>
         <nz-tooltip [nzTitle]="fund.description">
-          <i nz-tooltip class="anticon anticon-info-circle-o"></i>
+          <i nz-tooltip nz-icon nzType="info-circle" nzTheme="outline"></i>
         </nz-tooltip>
       </ng-template>
 
-      <nx-trend [flag]="getFlagName(fund.performance.bigBang)" style="margin-top:2px;">
-        <div class="performance-row">
-          Big bang
-          <span class="pl-sm performance-number"
+      <nx-trend [flag]="getFlagName(fund.performance.bigBang)">
+        <div class="performance-main">
+<!--          Big bang-->
+          <span class="pl-sm performance-number-main"
                 [class.red]="fund.performance.bigBang < 0"
                 [class.green]="fund.performance.bigBang > 0">
           {{fund.performance.bigBang | number:'1.2-2'}}%
@@ -92,18 +93,16 @@
         </div>
       </nx-trend>
 
-
-      <ng-template #footer1>
-
-      </ng-template>
-
     </nx-fund-card>
   </div>
 
 
 </div>
 
-<nz-card *ngIf="!_selectedFund?.isUnderConstruction" [nzLoading]="_loading" [nzBordered]="false" [nzBodyStyle]="{'padding': '10px 30px 10px 0'}" class="mt-lg">
+<nz-card *ngIf="!_selectedFund?.isUnderConstruction" [nzLoading]="_loading"
+         [nzBordered]="false"
+         [nzBodyStyle]="{'padding': '10px 30px 10px 0'}"
+         class="mt-lg chart-wrapper">
   <div class="chart">
 
     <ngx-charts-line-chart
@@ -116,7 +115,7 @@
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
       xAxisLabel="Date"
-      yAxisLabel="Price (USD)"
+      yAxisLabel="Performance"
       [autoScale]="true"
       [timeline]="true"
     >

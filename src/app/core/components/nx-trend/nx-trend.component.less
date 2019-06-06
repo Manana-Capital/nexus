@@ -1,7 +1,7 @@
 @import "../../../../theme";
 
 .ad-trend {
-  display: inline-block;
+  display: flex;
   font-size: 14px;
   line-height: 22px;
   .up,
@@ -10,15 +10,15 @@
     position: relative;
     top: 1px;
     i {
-      font-size: 12px;
+      font-size: 14px;
       transform: scale(0.83);
     }
   }
   .up {
-    color: @red-6;
+    color: @green-6;
   }
   .down {
-    color: @green-6;
+    color: @red-6;
     top: -1px;
   }
   &.grey {

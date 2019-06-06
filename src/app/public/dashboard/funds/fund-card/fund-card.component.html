@@ -1,4 +1,4 @@
-<nz-card class="card" [nzBodyStyle]="{padding: '20px 24px 8px 24px'}" [nzBordered]="bordered">
+<!--<nz-card class="card" [nzBodyStyle]="{padding: '20px 24px 8px 24px'}" [nzBordered]="bordered">
   <nz-spin [nzSpinning]="loading">
     <div class="chart-card">
       <div class="chart-top">
@@ -13,7 +13,7 @@
           <div class="total-container" (mouseenter)="_showTotalSecondary = true" (mouseleave)="_showTotalSecondary = false">
             <p *ngIf="!_showTotalSecondary" class="total" [innerHTML]="total"></p>
             <p *ngIf="_showTotalSecondary" class="total" [innerHTML]="totalSecondary"></p>
-            <!--<div class="total-description-container"><small class="total-description">price per share</small></div>-->
+            &lt;!&ndash;<div class="total-description-container"><small class="total-description">price per share</small></div>&ndash;&gt;
           </div>
 
         </div>
@@ -29,4 +29,27 @@
     </div>
   </nz-spin>
   <div class="footer-selection" [class.footer-selected]="isSelected"></div>
+</nz-card>-->
+
+<nz-card
+  [nzBodyStyle]="{padding: '20px 24px 30px 24px'}"
+  [nzBordered]="false"
+  [nzTitle]="_title"
+  [nzHoverable]="true"
+  [nzLoading]="loading"
+  [nzType]="'inner'"
+  [nzExtra]="extraTemplate"
+  [class.selected]="isSelected"
+>
+  <div class="desc" [ngStyle]="{'height':_height}">
+    <div [ngClass]="{'fixed': !!_orgHeight }">
+      <ng-content></ng-content>
+    </div>
+  </div>
 </nz-card>
+
+<ng-template #extraTemplate>
+  <span class="action" *ngIf="_action || _actionTpl">
+    <ng-container *ngIf="_action; else _actionTpl">{{ _action }}</ng-container>
+  </span>
+</ng-template>
