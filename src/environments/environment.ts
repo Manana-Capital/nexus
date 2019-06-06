@@ -4,8 +4,8 @@
 
 export const environment = {
   SERVER_URL: `./`,
-  // BACKEND_URL: `http://localhost:5033/`,
-  BACKEND_URL: `https://kotas.host/`,
+  BACKEND_URL: `http://localhost:5033/`,
+  // BACKEND_URL: `https://kotas.host/`,
   production: false,
   useHash: true,
   hmr: false,

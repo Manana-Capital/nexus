@@ -5,38 +5,32 @@ import { GtagModule } from 'angular-gtag';
 
 import {PublicModule} from './public/public.module';
 import { AppComponent } from './app.component';
-import { NZ_I18N, en_US } from 'ng-zorro-antd';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
-import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
-import {CoreModule} from '@core/core.module';
 import {AuthService} from '@core/network/auth.service';
 import {AuthModule} from 'angular-auth-oidc-client';
-import { NavigationMenuComponent } from './layout/navigation-menu/navigation-menu.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {en_US, NZ_I18N} from 'ng-zorro-antd';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {DefaultInterceptor} from '@core/network/default.interceptor';
-
+import {CoreModule} from '@core/core.module';
 registerLocaleData(en);
-
-const layoutComponents = [
-  MainLayoutComponent,
-  NavigationMenuComponent
-];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ...layoutComponents,
   ],
   imports: [
     GtagModule.forRoot({ trackingId: 'UA-118576897-2', trackPageviews: true }),
     BrowserModule,
-    PublicModule,
+    BrowserAnimationsModule,
     CoreModule,
-    AuthModule.forRoot()
+    AuthModule.forRoot(),
+    PublicModule
   ],
   providers: [
+    { provide: 'Window', useValue: window },
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
     { provide: 'ORIGIN_URL', useFactory: getBaseUrl },
@@ -54,4 +48,3 @@ export class AppModule {
 export function getBaseUrl() {
   return document.getElementsByTagName('base')[0].href;
 }
-

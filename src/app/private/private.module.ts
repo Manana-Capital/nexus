@@ -14,7 +14,7 @@ import {FundsOverviewComponent} from './funds/overview/funds-overview.component'
 import { FundBalanceComponent } from './funds/overview/fund-balance/fund-balance.component';
 import { ClientProfileFormComponent } from './profile/client-profile-form/client-profile-form.component';
 import { ClientAccessFormComponent } from './profile/client-access-form/client-access-form.component';
-import {CoreModule} from '@core/core.module';
+import {SharedModule} from '../shared/shared.module';
 
 
 const COMPONENTS_NOROUNT = [
@@ -42,7 +42,7 @@ const COMPONENTS = [
 
 @NgModule({
   imports: [
-    CoreModule,
+    SharedModule,
     PrivateRoutingModule
   ],
   declarations: [

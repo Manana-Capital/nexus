@@ -1,4 +1,5 @@
-<page-header [title]="' '">
+<div class="container">
+<nz-page-header [title]="' '">
   <ng-template #content>
     <div class="page-header">
       <div class="avatar">
@@ -28,6 +29,7 @@
       </div>
     </div>
   </ng-template>
-</page-header>
+</nz-page-header>
 
 <nx-portfolio-overview [currentPortfolio]="_currentPortfolio" [loading]="_loading" ></nx-portfolio-overview>
+</div>

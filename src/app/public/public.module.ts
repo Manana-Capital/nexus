@@ -11,7 +11,14 @@ import {ExternalRestApiComponent} from './external-pages/external-rest-api.compo
 import {ExternalBackgroundJobsComponent} from './external-pages/external-background-jobs.component';
 import { FundPerformanceYearComponent } from './dashboard/funds/fund-performance-year/fund-performance-year.component';
 import { StatisticsComponent } from './dashboard/statistics/statistics.component';
-import {CoreModule} from '@core/core.module';
+import {MainLayoutComponent} from '../layout/main-layout/main-layout.component';
+import {NavigationMenuComponent} from '../layout/navigation-menu/navigation-menu.component';
+import {SharedModule} from '../shared/shared.module';
+
+const LAYOUT = [
+  MainLayoutComponent,
+  NavigationMenuComponent
+];
 
 const COMPONENTS = [
   FundsDashboardComponent,
@@ -33,12 +40,16 @@ const COMPONENTS_NOROUT = [];
 
 @NgModule({
   imports: [
-    CoreModule,
+    SharedModule,
     PublicRoutingModule
   ],
   declarations: [
+    ...LAYOUT,
     ...COMPONENTS,
     ...COMPONENTS_NOROUT
+  ],
+  exports: [
+    ...LAYOUT
   ],
   entryComponents: COMPONENTS_NOROUT
 })

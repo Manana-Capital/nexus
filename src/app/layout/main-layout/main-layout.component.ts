@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '@core/network/auth.service';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 
 @Component({
   selector: 'nx-main-layout',
@@ -29,8 +30,10 @@ export class MainLayoutComponent implements OnInit {
   _isCollapsed = false;
   _isAuthenticated: boolean;
   _userData: any;
+  _isLoadingLazyModule = false;
 
-  constructor(public auth: AuthService) {
+  constructor(public auth: AuthService,
+              public router: Router) {
     this.auth.isAuthorizedStream().subscribe(is => {
       this._isAuthenticated = is;
     });
@@ -40,5 +43,12 @@ export class MainLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof RouteConfigLoadStart) {
+        this._isLoadingLazyModule = true;
+      } else if (event instanceof RouteConfigLoadEnd) {
+        this._isLoadingLazyModule = false;
+      }
+    });
   }
 }

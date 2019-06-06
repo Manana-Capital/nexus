@@ -1,4 +1,4 @@
-<page-header [title]="'Clients'">
+<nz-page-header [title]="'Clients'">
   Clients of the company
   <div class="d-flex pt-md">
     <a class="d-flex pr-lg" (click)="refreshData()">
@@ -8,7 +8,7 @@
       <i class="fas fa-user-plus"></i>New client
     </a>
   </div>
-</page-header>
+</nz-page-header>
 
 <nz-spin *ngIf="_loading" [nzSize]="'large'"></nz-spin>
 

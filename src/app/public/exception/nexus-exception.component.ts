@@ -3,21 +3,23 @@ import { Component, Input, ContentChild, TemplateRef } from '@angular/core';
 @Component({
   selector: 'nx-exception',
   template: `
-  <div class="img-block">
-    <div class="img" [ngStyle]="{'background-image': 'url(' + _img + ')'}"></div>
-  </div>
-  <div class="cont">
-    <h1 [innerHTML]="_title"></h1>
-    <div class="desc" [innerHTML]="_desc"></div>
-    <ng-template #defaultActions>
-      <button nz-button [routerLink]="['/']" [nzType]="'primary'">Back</button>
-      <ng-content></ng-content>
-    </ng-template>
-    <div class="actions" *ngIf="actions; else defaultActions">
-      <ng-template [ngTemplateOutlet]="actions"></ng-template>
-      <ng-content></ng-content>
+    <div style="padding: 20px">
+      <div class="img-block">
+        <div class="img" [ngStyle]="{'background-image': 'url(' + _img + ')'}"></div>
+      </div>
+      <div class="cont">
+        <h1 [innerHTML]="_title"></h1>
+        <div class="desc" [innerHTML]="_desc"></div>
+        <ng-template #defaultActions>
+          <button nz-button [routerLink]="['/']" [nzType]="'primary'">Back</button>
+          <ng-content></ng-content>
+        </ng-template>
+        <div class="actions" *ngIf="actions; else defaultActions">
+          <ng-template [ngTemplateOutlet]="actions"></ng-template>
+          <ng-content></ng-content>
+        </div>
+      </div>
     </div>
-  </div>
   `,
   host: { '[class.ad-exception]': 'true' },
   preserveWhitespaces: false,
@@ -56,7 +58,7 @@ export class NexusExceptionComponent {
       },
     }[value];
 
-    if (!item) return;
+    if (!item) { return; }
 
     this._img = item.img;
     this._title = item.title;

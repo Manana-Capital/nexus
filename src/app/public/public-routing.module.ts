@@ -16,10 +16,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: FundsDashboardComponent  },
   { path: 'statistics', component: StatisticsComponent  },
-  {
-    path: 'private',
-    loadChildren: '../private/private.module#PrivateModule'
-  },
   { path: 'charts', component: Exception404Component },
   { path: 'funds', component: Exception404Component },
   { path: 'system/rest-api', component: ExternalRestApiComponent },
@@ -28,6 +24,12 @@ const routes: Routes = [
   { path: '403', component: Exception403Component, data: {title: 'Forbidden'} },
   { path: '404', component: Exception404Component, data: {title: 'Not found'} },
   { path: '500', component: Exception500Component, data: {title: 'Server error'} },
+
+  {
+    path: 'private',
+    loadChildren: '../private/private.module#PrivateModule'
+  },
+
   { path: '**', redirectTo: '404' },
 ];
 

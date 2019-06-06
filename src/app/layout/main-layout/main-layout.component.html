@@ -4,8 +4,8 @@
 
       <div class="logo">
         <a [routerLink]="['/']">
-          <img [class.collapsed]="_isCollapsed" src="./assets/logo-full.svg" alt="Nexus logo" style="max-height:28px;" />
-          <img [class.collapsed]="!_isCollapsed" src="./assets/logo.svg" alt="Nexus logo" style="max-height:28px;margin-left:18px;margin-right: 18px;" />
+          <img [class.collapsed]="_isCollapsed" src="./assets/logo-full.svg" alt="Nexus logo" style="max-height:27px;" />
+          <img [class.collapsed]="!_isCollapsed" src="./assets/logo.svg" alt="Nexus logo" style="max-height:27px;margin-left:18px;margin-right: 18px;" />
         </a>
       </div>
 
@@ -16,6 +16,9 @@
           [type]="_isCollapsed ? 'menu-unfold' : 'menu-fold'"
           (click)="_isCollapsed = !_isCollapsed"
         ></i>
+      </div>
+      <div *ngIf="_isLoadingLazyModule">
+        <i class="trigger" nz-icon [nzType]="'loading'"></i>
       </div>
       <div
         class="auth-button"
@@ -42,14 +45,6 @@
     </nz-sider>
 
     <nz-content class="content" [class.content-collapsed]="_isCollapsed">
-      <!--<nz-breadcrumb style="margin:16px 0;">
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div style="padding:24px; background: #fff; min-height: 360px;">
-        Bill is a cat.
-        {{ _userData | json }}
-      </div>-->
       <router-outlet></router-outlet>
     </nz-content>
 

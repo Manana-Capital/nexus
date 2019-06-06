@@ -20,7 +20,7 @@
   </li>
 
   <li>
-    <a nz-menu-item routerLink="private/profile" routerLinkActive="ant-menu-item-selected">
+    <a nz-menu-item routerLink="private/portfolio" routerLinkActive="ant-menu-item-selected">
       <i nz-icon nzType="wallet" nzTheme="outline"></i>
       <span class="nav-text">Portfolio</span>
     </a>
@@ -35,38 +35,70 @@
     </span>
     <ul>
       <li>
-        <a nz-menu-item routerLink="funds" routerLinkActive="ant-menu-item-selected">
+        <a nz-menu-item routerLink="private/funds/overview" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="fund" nzTheme="fill"></i>
           Overview
         </a>
       </li>
-      <li nz-menu-item>Configuration</li>
+      <li>
+        <a nz-menu-item routerLink="private/funds/configuration" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="setting" nzTheme="outline"></i>
+          Configuration
+        </a>
+      </li>
     </ul>
   </li>
 
   <li nz-submenu>
-            <span title>
-              <i nz-icon type="team"></i>
-              <span class="nav-text">Clients</span></span>
+    <span title>
+      <i nz-icon type="team" nzTheme="outline"></i>
+      <span class="nav-text">Clients</span>
+    </span>
     <ul>
-      <li nz-menu-item>Team 1</li>
-      <li nz-menu-item>Team 2</li>
+      <li>
+        <a nz-menu-item routerLink="private/clients/overview" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="profile" nzTheme="outline"></i>
+          Overview
+        </a>
+      </li>
+      <li>
+        <a nz-menu-item routerLink="private/clients/transaction/deposit" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="down" nzTheme="outline"></i>
+          Deposit
+        </a>
+      </li>
+      <li>
+        <a nz-menu-item routerLink="private/clients/transaction/withdrawal" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="up" nzTheme="outline"></i>
+          Withdraw
+        </a>
+      </li>
+      <li>
+        <a nz-menu-item routerLink="private/clients/transaction/transfer" routerLinkActive="ant-menu-item-selected">
+          <i nz-icon nzType="swap" nzTheme="outline"></i>
+          Transfer shares
+        </a>
+      </li>
     </ul>
   </li>
 
   <li nz-submenu>
-            <span title>
-              <i nz-icon nzType="appstore" nzTheme="outline"></i>
-              <span class="nav-text">Products</span></span>
+    <span title>
+      <i nz-icon nzType="appstore" nzTheme="outline"></i>
+      <span class="nav-text">Products</span>
+    </span>
     <ul>
-      <li nz-menu-item>Team 1</li>
-      <li nz-menu-item>Team 2</li>
+      <li nz-menu-item>Market maker</li>
+      <li nz-menu-item>Lending</li>
+      <li nz-menu-item>Arbitrage</li>
     </ul>
   </li>
 
   <li nz-menu-item>
-            <span>
-              <i nz-icon nzType="line-chart" nzTheme="outline"></i>
-              <span class="nav-text">Charts</span></span>
+    <span>
+      <i nz-icon nzType="line-chart" nzTheme="outline"></i>
+      <span class="nav-text">Charts</span>
+    </span>
   </li>
 
   <nz-divider class="menu-divider" nzText="System" nzOrientation="left"></nz-divider>
@@ -77,8 +109,8 @@
       <span class="nav-text">Bots</span>
     </span>
     <ul>
-      <li nz-menu-item>Team 1</li>
-      <li nz-menu-item>Team 2</li>
+      <li nz-menu-item>Monitoring</li>
+      <li nz-menu-item>Configuration</li>
     </ul>
   </li>
 
