@@ -1,6 +1,23 @@
 <div class="container">
-<nz-page-header [title]="' '">
-  <ng-template #content>
+<nz-page-header class="header" [title]="' '">
+
+  <nz-page-header-extra>
+    <div class="page-extra">
+      <div>
+        <p>Active funds</p>
+        <p>{{_currentPortfolio?.activeFunds}}
+          <span> / {{_currentPortfolio?.totalFunds}}</span>
+        </p>
+      </div>
+      <div>
+        <p>Account age</p>
+        <p>{{_currentPortfolio?.accountAgeDays}} days</p>
+      </div>
+    </div>
+  </nz-page-header-extra>
+
+
+  <nz-page-header-content>
     <div class="page-header">
       <div class="avatar">
         <nz-avatar nzSrc="/assets/tmp/img/suitcase.png"></nz-avatar>
@@ -14,21 +31,8 @@
         </div>
       </div>
     </div>
-  </ng-template>
-  <ng-template #extra>
-    <div class="page-extra">
-      <div>
-        <p>Active funds</p>
-        <p>{{_currentPortfolio?.activeFunds}}
-          <span> / {{_currentPortfolio?.totalFunds}}</span>
-        </p>
-      </div>
-      <div>
-        <p>Account age</p>
-        <p>{{_currentPortfolio?.accountAgeDays}} days</p>
-      </div>
-    </div>
-  </ng-template>
+  </nz-page-header-content>
+
 </nz-page-header>
 
 <nx-portfolio-overview [currentPortfolio]="_currentPortfolio" [loading]="_loading" ></nx-portfolio-overview>

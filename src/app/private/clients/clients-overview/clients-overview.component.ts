@@ -5,6 +5,7 @@ import {FundClient} from '@core/backend/generated/defs/FundClient';
 import {NzMessageService} from 'ng-zorro-antd';
 import {ProfileService} from '@core/backend/generated/controllers/Profile';
 import {ClientsService} from '@core/backend/generated/controllers/Clients';
+import {NxGravatarService} from '@core/services/nx-gravatar.service';
 
 @Component({
   selector: 'nx-clients-overview',
@@ -25,7 +26,8 @@ export class ClientsOverviewComponent implements OnInit {
     private portfolioService: PortfolioService,
     private profileService: ProfileService,
     private clientService: ClientsService,
-    public msg: NzMessageService
+    public msg: NzMessageService,
+    public gravatar: NxGravatarService
   ) {
     this.refreshData();
   }

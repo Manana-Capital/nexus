@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '@core/network/auth.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 @Component({
   selector: 'nx-main-layout',
@@ -31,15 +32,28 @@ export class MainLayoutComponent implements OnInit {
   _isAuthenticated: boolean;
   _userData: any;
   _isLoadingLazyModule = false;
+  _isSmallScreen = false;
 
   constructor(public auth: AuthService,
-              public router: Router) {
+              public router: Router,
+              public breakpointObserver: BreakpointObserver
+  ) {
     this.auth.isAuthorizedStream().subscribe(is => {
       this._isAuthenticated = is;
     });
     this.auth.userDataStream().subscribe(data => {
       this._userData = data;
     });
+    this.breakpointObserver
+      .observe(['(max-width: 767px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this._isCollapsed = true;
+          this._isSmallScreen = true;
+        } else {
+          this._isSmallScreen = false;
+        }
+      });
   }
 
   ngOnInit() {
@@ -50,5 +64,15 @@ export class MainLayoutComponent implements OnInit {
         this._isLoadingLazyModule = false;
       }
     });
+  }
+
+  onNavigationStart() {
+    if (!this._isSmallScreen) {
+      // do nothing
+      return;
+    }
+
+    // small screen, so collapse menu on every navigation
+    this._isCollapsed = true;
   }
 }

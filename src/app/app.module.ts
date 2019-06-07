@@ -15,6 +15,8 @@ import {en_US, NZ_I18N} from 'ng-zorro-antd';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {DefaultInterceptor} from '@core/network/default.interceptor';
 import {CoreModule} from '@core/core.module';
+import {LayoutModule} from '@angular/cdk/layout';
+
 registerLocaleData(en);
 
 @NgModule({
@@ -25,6 +27,7 @@ registerLocaleData(en);
     GtagModule.forRoot({ trackingId: 'UA-118576897-2', trackPageviews: true }),
     BrowserModule,
     BrowserAnimationsModule,
+    LayoutModule,
     CoreModule,
     AuthModule.forRoot(),
     PublicModule

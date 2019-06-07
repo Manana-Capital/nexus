@@ -1,12 +1,13 @@
+<div class="container">
 <nz-row [nzGutter]="24" class="py-lg">
 
   <nz-col nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6">
-    <nz-card nzTitle="Personal settings" class="ant-card__body-nopadding">
+    <nz-card nzTitle="Personal settings" [nzBodyStyle]="{padding: '0'}" class="settings-1">
       <a (click)="active=1" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===1}">Profile</a>
       <a (click)="active=2" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===2}">Access</a>
       <a (click)="active=4" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===4}">Notifications</a>
     </nz-card>
-    <nz-card nzTitle="Funds settings" class="ant-card__body-nopadding">
+    <nz-card nzTitle="Funds settings" [nzBodyStyle]="{padding: '0'}">
       <a (click)="active=5" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===5}">Private funds</a>
     </nz-card>
   </nz-col>
@@ -20,16 +21,21 @@
           <nx-client-profile-form [profile]="currentProfile" (onSave)="profileSave($event)"></nx-client-profile-form>
 
         </nz-col>
+
         <nz-col [nzSpan]="8">
           <h4>Profile picture</h4>
-          <img src="./assets/tmp/img/avatar.png" style="width: 100%;">
-          <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" class="d-block mt-md text-center">
-            <button nz-button>Upload new picture</button>
-          </nz-upload>
+          <div class="head-photo">
+            <img
+              [src]="gravatar.getGravatarUrl(currentProfile?.email, 250)" alt="user image">
+          </div>
+          <nz-form-explain>
+            <span class="line">Set your picture via <a href="https://en.gravatar.com" target="_blank">Gravatar</a></span>
+            <span class="line">Use email: {{currentProfile?.email}}</span>
+          </nz-form-explain>
         </nz-col>
+
       </nz-row>
     </nz-card>
-
 
     <nz-card nzTitle="Change password (and/or username)" *ngIf="active===2">
       <nz-row [nzGutter]="64">
@@ -80,3 +86,4 @@
 
   </nz-col>
 </nz-row>
+</div>

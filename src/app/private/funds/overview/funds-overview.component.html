@@ -1,18 +1,31 @@
-<nz-page-header [title]="'Funds'">
-  <ng-template #extra>
-    <div class="hidden-md" style="margin-top: -60px; text-align: center; width: 195px;">
-      <img class="img-fluid" src="https://gw.alipayobjects.com/zos/rmsportal/RzwpdLnhmvDJToTdfDPe.png">
+<div class="container">
+
+<nz-page-header class="header" [nzTitle]="'Funds'">
+
+  <nz-page-header-extra>
+    <img src="./assets/money-bag.png" alt="Users" class="sub-logo" />
+  </nz-page-header-extra>
+
+  <nz-page-header-content>
+
+    <div class="wrap">
+      <div class="content">
+        <div class="content">
+          <p> Balances of our funds</p>
+          <p class="content-link">
+            <a class="d-flex pr-lg" (click)="refreshData()">
+              <i class="fas fa-sync-alt"></i>Refresh
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
-  </ng-template>
-  Balances of our funds
-  <div class="d-flex pt-md">
-    <a class="d-flex pr-lg" (click)="refreshData()">
-      <i class="fas fa-sync-alt"></i>Refresh
-    </a>
-  </div>
+
+  </nz-page-header-content>
+
 </nz-page-header>
 
-<div nz-row [nzGutter]="24" class="pt-lg">
+<div nz-row [nzGutter]="24" class="mb-lg">
 
   <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6" *ngIf="_loading">
     <nx-fund-overview-card [bordered]="true" [loading]="true" contentHeight="84px" >
@@ -34,7 +47,6 @@
 
     <nx-fund-overview-card [bordered]="true" [title]="fund.fund.displayName"
                   [total]="'$ ' + (fund.amountUsd | number:'1.0-0')"
-                  [totalSecondary]="'$ ' + (fund.amountUsd | number:'1.0-0')"
                   contentHeight="84px" [action]="action1" [footer]="footer1"
                   [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
                   [diff]="fund.amountUsdDiff"
@@ -94,8 +106,9 @@
        nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6">
     <nz-card
               [nzBodyStyle]="{padding: '0'}"
-              [nzTitle]="balance.exchangeName"
+              [nzTitle]="extraTemplate"
               [nzBordered]="true" class="mt-lg"
+              [nzHoverable]="false"
     >
       <nz-list nzSize="small" class="exchange-balance">
         <nz-list-item>
@@ -135,6 +148,13 @@
         <nx-fund-balance [exchangeName]="balance.exchangeName" [data]="balance.balances"></nx-fund-balance>
       </div>
     </nz-card>
+
+    <ng-template #extraTemplate>
+      <strong>{{balance.exchangeName}}</strong>
+      <span class="balance-desc">{{balance.exchangeDisplayName}}</span>
+    </ng-template>
+
   </div>
 </div>
 
+</div>

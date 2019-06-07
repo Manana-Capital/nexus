@@ -1,5 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PortfolioFundInfo} from 'app/core/backend/generated/defs/PortfolioFundInfo';
+import {PortfolioTransaction} from '@core/backend/generated/defs/PortfolioTransaction';
+
+interface Transaction extends PortfolioTransaction {
+  type?: string;
+}
 
 @Component({
   selector: 'nx-portfolio-fund',
@@ -15,9 +20,22 @@ export class PortfolioFundComponent implements OnInit {
   set fund(val: PortfolioFundInfo) {
     this.sortItems(val);
     this._fund = val;
+
+    this._transactions = val.deposits.map(x => {
+      const tra = x as Transaction;
+      tra.type = 'deposit';
+      return tra;
+    }).concat(val.withdrawals.map(x => {
+      const tra = x as Transaction;
+      tra.type = 'withdrawal';
+      return tra;
+    }));
+    this._transactions = this.sortTransactions(this._transactions);
   }
 
+  _displayTransactionsTogether = true;
   _fund: PortfolioFundInfo;
+  _transactions: Transaction[] = [];
 
   constructor() { }
 
@@ -25,12 +43,12 @@ export class PortfolioFundComponent implements OnInit {
   }
 
   private sortItems(val: PortfolioFundInfo) {
-    val.deposits = val.deposits.sort((x, y) => {
-      const xD = new Date(x.created);
-      const yD = new Date(y.created);
-      return xD > yD ? -1 : xD < yD ? 1 : 0;
-    });
-    val.withdrawals = val.withdrawals.sort((x, y) => {
+    val.deposits = this.sortTransactions(val.deposits);
+    val.withdrawals = this.sortTransactions(val.withdrawals);
+  }
+
+  private sortTransactions(val: Transaction[]) {
+    return val.sort((x, y) => {
       const xD = new Date(x.created);
       const yD = new Date(y.created);
       return xD > yD ? -1 : xD < yD ? 1 : 0;

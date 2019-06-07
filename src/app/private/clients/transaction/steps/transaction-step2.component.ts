@@ -10,6 +10,9 @@ import {TransactionState} from '../transaction.component';
     :host ::ng-deep .ant-form-item {
       margin-bottom: 0;
     }
+    button {
+      margin-right: 10px;
+    }
   `]
 })
 export class TransactionStep2Component implements OnInit {

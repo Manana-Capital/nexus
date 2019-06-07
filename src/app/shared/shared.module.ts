@@ -10,6 +10,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { NxTrendComponent } from './components/nx-trend/nx-trend.component';
 import {NxCardComponent} from './components/nx-card/nx-card.component';
 import {ExternalViewComponent} from './components/external-view-component/external-view.component';
+import {NxGravatarService} from '@core/services/nx-gravatar.service';
 
 const exportedComponents = [
   ExternalViewComponent,

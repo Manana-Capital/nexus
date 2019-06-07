@@ -9,6 +9,12 @@
   }
 }
 
+.selected {
+  ::ng-deep .ant-card-head {
+    background-color: @border-color-base !important;
+  }
+}
+
 .footer-selection {
   width: 100%;
   height: 5px;
@@ -17,6 +23,11 @@
 
 .footer-selected {
   background-color: @primary-5;
+}
+
+.total {
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .total-container {

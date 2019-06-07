@@ -9,6 +9,7 @@ import {ClientsService} from './backend/generated/controllers/Clients';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {AuthService} from '@core/network/auth.service';
 import {HttpClientModule} from '@angular/common/http';
+import {NxGravatarService} from '@core/services/nx-gravatar.service';
 
 const generatedServices = [
   FundsService,
@@ -26,6 +27,10 @@ const exportedModules = [
 const modules = [
 ];
 
+const services = [
+  NxGravatarService
+];
+
 @NgModule({
   imports: [
     ...exportedModules,
@@ -34,7 +39,8 @@ const modules = [
   providers: [
     OidcSecurityService,
     AuthService,
-    ...generatedServices
+    ...generatedServices,
+    ...services
   ],
   declarations: [
   ],

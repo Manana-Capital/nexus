@@ -78,5 +78,5 @@ export class NexusExceptionComponent {
     this._desc = value;
   }
 
-  @ContentChild('actions', {static: false}) actions: TemplateRef<any>;
+  @ContentChild('actions') actions: TemplateRef<any>;
 }

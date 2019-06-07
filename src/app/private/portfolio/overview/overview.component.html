@@ -1,19 +1,23 @@
 <nz-card [nzBordered]="false" [nzLoading]="loading" >
   <div nz-row>
-    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
-      <span class="text-grey-dark">Total Assets</span>
+
+    <div nz-col [nzXs]="18" [nzSm]="6">
+
+<!--      <span class="text-grey-dark">Total Assets</span>
       <span class="d-block display-2 strong"
             nz-tooltip [nzTitle]="(currentPortfolio?.totalAssetsCzk | number:'1.0-0') + ' Kč'" nzPlacement="bottom"
       >$ {{currentPortfolio?.totalAssetsUsd | number:'1.0-0'}}</span>
-      <em></em>
+      <em></em>-->
+
+      <nz-statistic
+        [nzValue]="'$ ' + (currentPortfolio?.totalAssetsUsd | number: '1.0-0')"
+        [nzTitle]="'Total Assets'">
+      </nz-statistic>
+
     </div>
-    <!--<div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
-      <span class="text-grey-dark">Total Assets (CZK)</span>
-      <span class="d-block display-2">{{_currentPortfolio?.totalAssetsCzk | number:'1.2-2'}} Kč</span>
-      <em></em>
-    </div>-->
+
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
-      <div>
+      <!--<div>
         <span class="text-grey-dark">Total Profit</span>
         <span class="d-block display-2"
               [class.red]="currentPortfolio?.totalProfitUsd < 0"
@@ -23,19 +27,18 @@
           $ {{currentPortfolio?.totalProfitUsd | number:'1.2-2'}}
         </span>
       </div>
-      <em></em>
+      <em></em>-->
+
+      <nz-statistic
+        [nzValue]="currentPortfolio?.totalProfitUsd | number: '1.2-2'"
+        [nzTitle]="'Total Profit'"
+        [nzPrefix]="'$ '"
+        [nzValueStyle]="{ color: currentPortfolio?.totalProfitUsd < 0 ? '#a8071a' : '#237804' }"
+      >
+      </nz-statistic>
+
     </div>
-    <!-- <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
-       <div>
-         <span class="text-grey-dark">Total Profit (CZK)</span>
-         <span class="d-block display-2"
-               [class.red]="_currentPortfolio?.totalProfitCzk < 0"
-               [class.green]="_currentPortfolio?.totalProfitCzk > 0">
-           {{_currentPortfolio?.totalProfitCzk | number:'1.2-2'}} Kč
-         </span>
-       </div>
-       <em></em>
-     </div>-->
+
   </div>
 </nz-card>
 

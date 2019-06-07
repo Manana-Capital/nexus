@@ -1,4 +1,5 @@
 <form nz-form [formGroup]="profileForm" (ngSubmit)="save(profileForm.value)" [nzLayout]="'vertical'">
+
   <nz-form-item>
     <nz-form-label nzFor="firstName" nzRequired>First name</nz-form-label>
     <nz-form-control>
@@ -9,6 +10,7 @@
       </div>
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-label nzFor="lastName" nzRequired>Last name</nz-form-label>
     <nz-form-control>
@@ -19,6 +21,7 @@
       </div>
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-label nzFor="email">Email</nz-form-label>
     <nz-form-control>
@@ -30,6 +33,7 @@
       </div>
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-label>Roles</nz-form-label>
     <nz-form-control *ngIf="!displayRoleSelection">
@@ -44,6 +48,7 @@
       </nz-select>
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-label>Username</nz-form-label>
     <nz-form-control>
@@ -52,9 +57,11 @@
       </nz-form-explain>
     </nz-form-control>
   </nz-form-item>
+
   <nz-form-item>
     <nz-form-control>
       <button nz-button [nzType]="'primary'" [disabled]="profileForm.invalid">Save</button>
     </nz-form-control>
   </nz-form-item>
+
 </form>

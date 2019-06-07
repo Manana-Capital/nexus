@@ -1,19 +1,23 @@
 <p>
+  <nz-table #balancesTable
+            [nzData]="_data"
+            [nzShowPagination]="false"
+            [nzPageSize]="1000"
+            nzSize="small"
+  >
+    <thead>
+    <tr>
+      <th>Currency</th>
+      <th [nzAlign]="'right'">Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of balancesTable.data"
+    >
+      <td>{{data.currency }}</td>
+      <td [nzAlign]="'right'">{{data.amount | number:'1.3-3'}}</td>
+    </tr>
+    </tbody>
+  </nz-table>
 
-<!--  <simple-table [data]="_data" [columns]="_columns" size="small"
-                [toTopInChange]="true" [bordered]="false" [showPagination]="false">
-
-    <ng-template st-row="currency" let-i>
-      <span>
-        {{i.currency}}
-      </span>
-    </ng-template>
-
-    <ng-template st-row="amount" let-i>
-      <span>
-        {{i.amount | number:'1.3-3'}}
-      </span>
-    </ng-template>
-
-  </simple-table>-->
 </p>

@@ -1,36 +1,3 @@
-<!--<nz-card class="card" [nzBodyStyle]="{padding: '20px 24px 8px 24px'}" [nzBordered]="bordered">
-  <nz-spin [nzSpinning]="loading">
-    <div class="chart-card">
-      <div class="chart-top">
-        <div class="avatar"><ng-container *ngIf="_avatar; else _avatarTpl">{{ _avatar }}</ng-container></div>
-        <div class="meta-wrap">
-          <div class="meta">
-            <span class="title" *ngIf="_title; else _titleTpl">{{ _title }}</span>
-            <span class="action" *ngIf="_action || _actionTpl">
-                <ng-container *ngIf="_action; else _actionTpl">{{ _action }}</ng-container>
-              </span>
-          </div>
-          <div class="total-container" (mouseenter)="_showTotalSecondary = true" (mouseleave)="_showTotalSecondary = false">
-            <p *ngIf="!_showTotalSecondary" class="total" [innerHTML]="total"></p>
-            <p *ngIf="_showTotalSecondary" class="total" [innerHTML]="totalSecondary"></p>
-            &lt;!&ndash;<div class="total-description-container"><small class="total-description">price per share</small></div>&ndash;&gt;
-          </div>
-
-        </div>
-      </div>
-      <div class="desc" [ngStyle]="{'height':_height}">
-        <div [ngClass]="{'fixed': !!_orgHeight }">
-          <ng-content></ng-content>
-        </div>
-      </div>
-      <div class="footer" *ngIf="_footer || _footerTpl">
-        <ng-container *ngIf="_footer; else _footerTpl">{{ _footer }}</ng-container>
-      </div>
-    </div>
-  </nz-spin>
-  <div class="footer-selection" [class.footer-selected]="isSelected"></div>
-</nz-card>-->
-
 <nz-card
   [nzBodyStyle]="{padding: '20px 24px 30px 24px'}"
   [nzBordered]="false"

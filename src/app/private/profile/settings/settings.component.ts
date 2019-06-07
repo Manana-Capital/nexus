@@ -2,10 +2,12 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { Component, OnInit } from '@angular/core';
 import {ProfileService} from '@core/backend/generated/controllers/Profile';
 import {ProfileInfoDto} from '@core/backend/generated/defs/ProfileInfoDto';
+import {NxGravatarService} from '@core/services/nx-gravatar.service';
 
 @Component({
   selector: 'nx-profile-settings',
   templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.less']
 })
 export class ProfileSettingsComponent implements OnInit {
   active = 1;
@@ -14,7 +16,8 @@ export class ProfileSettingsComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    public msg: NzMessageService
+    public msg: NzMessageService,
+    public gravatar: NxGravatarService
   ) {
 
     profileService.apiProfileGet().subscribe(data => {

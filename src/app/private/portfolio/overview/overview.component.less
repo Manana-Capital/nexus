@@ -4,6 +4,10 @@
   padding: 20px;
 }
 
+.header {
+  margin-bottom: 20px;
+}
+
 .red {
   color: @red-8;
 }
@@ -251,6 +255,13 @@ nz-spin {
     .page-extra {
       & > div {
         float: none;
+      }
+    }
+
+    ::ng-deep {
+      .ant-page-header-title-view-extra {
+        position: initial !important;
+        background-color: red !important;
       }
     }
   }

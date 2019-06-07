@@ -1,20 +1,22 @@
-<nz-card [nzBordered]="false" >
+<nz-card class="overview" [nzBordered]="false" >
   <div nz-row>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
-      <span class="text-grey-dark">Shares</span>
-      <span class="d-block display-2"
-      >{{fund?.shares | number:'1.2-2'}}</span>
-      <em></em>
-    </div>
-    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
-      <span class="text-grey-dark">Assets</span>
+<!--      <span class="text-grey-dark">Assets</span>
       <span class="d-block display-2"
             nz-tooltip [nzTitle]="(fund?.assetsCzk | number:'1.0-0') + ' Kč'" nzPlacement="bottom"
       >$ {{fund?.assetsUsd | number:'1.0-0'}}</span>
-      <em></em>
+      <em></em>-->
+
+      <nz-statistic
+        [nzValue]="fund?.assetsUsd | number: '1.0-0'"
+        [nzTitle]="'Assets'"
+        [nzPrefix]="'$ '"
+      >
+      </nz-statistic>
+
     </div>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
-      <div>
+<!--      <div>
         <span class="text-grey-dark">Profit</span>
         <span class="d-block display-2"
               [class.red]="fund?.profitUsd < 0"
@@ -24,64 +26,128 @@
           $ {{fund?.profitUsd | number:'1.2-2'}}
         </span>
       </div>
-      <em></em>
+      <em></em>-->
+
+      <nz-statistic
+        [nzValue]="fund?.profitUsd | number: '1.2-2'"
+        [nzTitle]="'Profit'"
+        [nzPrefix]="'$ '"
+        [nzValueStyle]="{ color: fund?.profitUsd < 0 ? '#a8071a' : '#237804' }"
+      >
+      </nz-statistic>
+
     </div>
   </div>
 </nz-card>
 
 <nz-card [nzBordered]="false" >
-  <div nz-row>
 
-    <div class="deposits" nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
+  <div class="transaction-switch">
+      <span class="switch-label">Display transactions together</span>
+      <nz-switch [(ngModel)]="_displayTransactionsTogether"></nz-switch>
+  </div>
 
-      <span class="text-grey-dark">Deposits</span>
-      <nz-table #depositsTable [nzData]="_fund?.deposits" [nzShowPagination]="false">
-        <thead>
-        <tr>
-          <th class="green-bg">Created</th>
-          <th class="green-bg hide-small">Shares</th>
-          <th class="green-bg">USD</th>
-          <th class="green-bg hide-small">CZK</th>
-          <th class="green-bg">Note</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let data of depositsTable.data">
-          <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
-          <td class="hide-small">{{data.shares | number:'1.2-2'}}</td>
-          <td>${{data.amountUsd | number:'1.2-2'}}</td>
-          <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
-          <td class="limit-width">{{data.note}}</td>
-        </tr>
-        </tbody>
-      </nz-table>
+  <div nz-row class="transaction-table">
+
+    <div *ngIf="_displayTransactionsTogether">
+
+      <div class="deposits" nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24">
+
+        <div class="transaction-legend">
+          <span class="green-bg legend-item">Deposits</span>
+          <span class="red-bg legend-item">Withdrawals</span>
+        </div>
+
+        <nz-table #transactionTable
+                  [nzData]="_transactions"
+                  [nzShowPagination]="false"
+                  [nzPageSize]="1000"
+        >
+          <thead>
+          <tr>
+            <th>Created</th>
+            <th>USD</th>
+            <th class="hide-small">CZK</th>
+            <th>Note</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of transactionTable.data"
+              [class.green-bg]="data.type === 'deposit'"
+              [class.red-bg]="data.type === 'withdrawal'"
+          >
+            <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
+            <td>${{data.amountUsd | number:'1.2-2'}}</td>
+            <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
+            <td class="limit-width">{{data.note}}</td>
+          </tr>
+          </tbody>
+        </nz-table>
+
+      </div>
 
     </div>
 
-    <div class="withdrawals" nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
+    <div *ngIf="!_displayTransactionsTogether">
+      <div class="deposits" nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
 
-      <span class="text-grey-dark">Withdrawals</span>
-      <nz-table #withdrawalsTable [nzData]="_fund?.withdrawals" [nzShowPagination]="false">
-        <thead>
-        <tr>
-          <th class="red-bg">Created</th>
-          <th class="red-bg hide-small">Shares</th>
-          <th class="red-bg">USD</th>
-          <th class="red-bg hide-small">CZK</th>
-          <th class="red-bg">Note</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let data of withdrawalsTable.data">
-          <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
-          <td class="hide-small">{{data.shares | number:'1.2-2'}}</td>
-          <td>${{data.amountUsd | number:'1.2-2'}}</td>
-          <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
-          <td class="limit-width">{{data.note}}</td>
-        </tr>
-        </tbody>
-      </nz-table>
+        <span class="text-grey-dark">Deposits</span>
+        <nz-table #depositsTable
+                  [nzData]="_fund?.deposits"
+                  [nzShowPagination]="false"
+                  [nzPageSize]="1000"
+        >
+          <thead>
+          <tr>
+            <th class="green-bg">Created</th>
+            <!--<th class="green-bg hide-small">Shares</th>-->
+            <th class="green-bg">USD</th>
+            <th class="green-bg hide-small">CZK</th>
+            <th class="green-bg">Note</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of depositsTable.data">
+            <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
+            <!--<td class="hide-small">{{data.shares | number:'1.2-2'}}</td>-->
+            <td>${{data.amountUsd | number:'1.2-2'}}</td>
+            <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
+            <td class="limit-width">{{data.note}}</td>
+          </tr>
+          </tbody>
+        </nz-table>
 
+      </div>
+
+      <div class="withdrawals" nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="12">
+
+        <span class="text-grey-dark">Withdrawals</span>
+        <nz-table #withdrawalsTable
+                  [nzData]="_fund?.withdrawals"
+                  [nzShowPagination]="false"
+                  [nzPageSize]="1000"
+        >
+          <thead>
+          <tr>
+            <th class="red-bg">Created</th>
+            <!--<th class="red-bg hide-small">Shares</th>-->
+            <th class="red-bg">USD</th>
+            <th class="red-bg hide-small">CZK</th>
+            <th class="red-bg">Note</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of withdrawalsTable.data">
+            <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
+            <!--<td class="hide-small">{{data.shares | number:'1.2-2'}}</td>-->
+            <td>${{data.amountUsd | number:'1.2-2'}}</td>
+            <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
+            <td class="limit-width">{{data.note}}</td>
+          </tr>
+          </tbody>
+        </nz-table>
+
+      </div>
     </div>
 
   </div>
