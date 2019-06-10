@@ -15,11 +15,15 @@ import { FundBalanceComponent } from './funds/overview/fund-balance/fund-balance
 import { ClientProfileFormComponent } from './profile/client-profile-form/client-profile-form.component';
 import { ClientAccessFormComponent } from './profile/client-access-form/client-access-form.component';
 import {SharedModule} from '../shared/shared.module';
+import { PortfolioBalanceChartComponent } from './portfolio/overview/portfolio-balance-chart/portfolio-balance-chart.component';
+import { PortfolioDistributionChartComponent } from './portfolio/overview/portfolio-distribution-chart/portfolio-distribution-chart.component';
 
 
 const COMPONENTS_NOROUNT = [
   PortfolioFundComponent,
   PortfolioOverviewComponent,
+  PortfolioBalanceChartComponent,
+  PortfolioDistributionChartComponent,
 
   TransactionStep1Component,
   TransactionStep2Component,

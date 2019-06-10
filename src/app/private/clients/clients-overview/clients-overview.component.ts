@@ -15,7 +15,7 @@ import {NxGravatarService} from '@core/services/nx-gravatar.service';
 export class ClientsOverviewComponent implements OnInit {
 
   _data: PortfolioInfo[];
-  _loading: boolean = false;
+  _loading = false;
 
   _isVisibleEditProfile = false;
   _isVisibleEditAccess = false;
@@ -45,10 +45,12 @@ export class ClientsOverviewComponent implements OnInit {
   }
 
   getClientDisplay(client: FundClient) {
-    if(!client)
+    if (!client) {
       return 'undefined';
-    if(client.email)
-      return client.firstName + ' ' + client.lastName + ' (' + client.email + ')'
+    }
+    if (client.email) {
+      return client.firstName + ' ' + client.lastName + ' (' + client.email + ')';
+    }
     return client.firstName + ' ' + client.lastName;
   }
 
@@ -105,7 +107,7 @@ export class ClientsOverviewComponent implements OnInit {
       clientid: clientId
     }).subscribe(response => {
       const found = this._data.find(x => x.client.id == response.id);
-      if(found) {
+      if (found) {
         const index = this._data.indexOf(found);
         this._data.splice(index, 1);
       }

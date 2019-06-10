@@ -1,11 +1,6 @@
 <nz-card class="overview" [nzBordered]="false" >
   <div nz-row>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
-<!--      <span class="text-grey-dark">Assets</span>
-      <span class="d-block display-2"
-            nz-tooltip [nzTitle]="(fund?.assetsCzk | number:'1.0-0') + ' Kč'" nzPlacement="bottom"
-      >$ {{fund?.assetsUsd | number:'1.0-0'}}</span>
-      <em></em>-->
 
       <nz-statistic
         [nzValue]="fund?.assetsUsd | number: '1.0-0'"
@@ -16,17 +11,6 @@
 
     </div>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
-<!--      <div>
-        <span class="text-grey-dark">Profit</span>
-        <span class="d-block display-2"
-              [class.red]="fund?.profitUsd < 0"
-              [class.green]="fund?.profitUsd > 0"
-              nz-tooltip [nzTitle]="(fund?.profitCzk | number:'1.0-0') + ' Kč'" nzPlacement="bottom"
-        >
-          $ {{fund?.profitUsd | number:'1.2-2'}}
-        </span>
-      </div>
-      <em></em>-->
 
       <nz-statistic
         [nzValue]="fund?.profitUsd | number: '1.2-2'"
@@ -39,6 +23,11 @@
     </div>
   </div>
 </nz-card>
+
+<nx-portfolio-balance-chart
+                            *ngIf="!!fund?.balanceTicks && fund?.balanceTicks?.length && isSelected"
+                            [ticks]="fund?.balanceTicks">
+</nx-portfolio-balance-chart>
 
 <nz-card [nzBordered]="false" >
 

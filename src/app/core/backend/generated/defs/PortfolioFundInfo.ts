@@ -27,4 +27,5 @@ export interface PortfolioFundInfo {
   assetsCzk?: number;
   deposits?: __model.PortfolioTransaction[];
   withdrawals?: __model.PortfolioTransaction[];
+  balanceTicks?: __model.PortfolioBalanceTick[];
 }

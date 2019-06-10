@@ -24,12 +24,20 @@
       </div>
       <div class="desc">
         <div class="desc-title">Hello,
-          <nz-spin *ngIf="_loading" [nzSize]="'small'"></nz-spin>
+          <nz-spin class="loader" *ngIf="_loading" [nzSize]="'small'"></nz-spin>
           {{_currentPortfolio?.client?.firstName}}！</div>
         <div>
           The information below shows your portfolio.
         </div>
       </div>
+
+      <div class="extra-content" *ngIf="_currentPortfolio?.lastLoginInfo">
+        <span class="last-login-info">
+          Last login {{_currentPortfolio?.lastLoginInfo?.timestamp | date:'MMMM d, y, HH:mm'}}
+          by {{_currentPortfolio?.lastLoginInfo?.provider}}.
+        </span>
+      </div>
+
     </div>
   </nz-page-header-content>
 

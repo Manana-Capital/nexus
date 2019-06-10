@@ -30,4 +30,5 @@ export interface PortfolioInfo {
   /** format: double */
   totalAssetsCzk?: number;
   activeFundsInfo?: __model.PortfolioFundInfo[];
+  lastLoginInfo?: __model.LastLoginInfoDto;
 }

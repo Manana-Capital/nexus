@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PortfolioFundInfo} from 'app/core/backend/generated/defs/PortfolioFundInfo';
 import {PortfolioTransaction} from '@core/backend/generated/defs/PortfolioTransaction';
+import {PortfolioBalanceTick} from '@core/backend/generated/defs/PortfolioBalanceTick';
 
 interface Transaction extends PortfolioTransaction {
   type?: string;
@@ -21,17 +22,11 @@ export class PortfolioFundComponent implements OnInit {
     this.sortItems(val);
     this._fund = val;
 
-    this._transactions = val.deposits.map(x => {
-      const tra = x as Transaction;
-      tra.type = 'deposit';
-      return tra;
-    }).concat(val.withdrawals.map(x => {
-      const tra = x as Transaction;
-      tra.type = 'withdrawal';
-      return tra;
-    }));
-    this._transactions = this.sortTransactions(this._transactions);
+    this.mergeTransactionsTogether(val);
   }
+
+  @Input()
+  isSelected = false;
 
   _displayTransactionsTogether = true;
   _fund: PortfolioFundInfo;
@@ -53,5 +48,18 @@ export class PortfolioFundComponent implements OnInit {
       const yD = new Date(y.created);
       return xD > yD ? -1 : xD < yD ? 1 : 0;
     });
+  }
+
+  private mergeTransactionsTogether(val: PortfolioFundInfo) {
+    this._transactions = val.deposits.map(x => {
+      const tra = x as Transaction;
+      tra.type = 'deposit';
+      return tra;
+    }).concat(val.withdrawals.map(x => {
+      const tra = x as Transaction;
+      tra.type = 'withdrawal';
+      return tra;
+    }));
+    this._transactions = this.sortTransactions(this._transactions);
   }
 }

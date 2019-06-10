@@ -68,6 +68,13 @@
         </button>
       </div>
 
+      <div class="extra-content" *ngIf="portfolio?.lastLoginInfo">
+        <span class="last-login-info">
+          last login {{portfolio?.lastLoginInfo?.timestamp | date:'MMMM d, y, HH:mm'}}
+          by {{portfolio?.lastLoginInfo?.provider}}
+        </span>
+      </div>
+
       <nx-portfolio-overview
         [currentPortfolio]="portfolio"
         [loading]="false"
