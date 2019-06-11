@@ -1,0 +1,112 @@
+<div class="container">
+
+  <nz-page-header class="header" [nzTitle]="'Funds'">
+
+    <nz-page-header-extra>
+      <img src="./assets/computer-config.png" alt="Users" class="sub-logo" />
+    </nz-page-header-extra>
+
+    <nz-page-header-content>
+
+      <div class="wrap">
+        <div class="content">
+          <div class="content">
+            <p> Our funds configuration</p>
+            <p class="content-link">
+              <a class="d-flex pr-lg" (click)="refreshData()">
+                <i class="fas fa-sync-alt"></i>Refresh
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </nz-page-header-content>
+
+  </nz-page-header>
+
+
+  <nz-card
+    [nzBodyStyle]="{padding: '0'}"
+    [nzBordered]="false"
+    class="funds"
+    [nzHoverable]="false"
+    [nzLoading]="_loading"
+  >
+
+    <nz-table #fundsTable
+              [nzData]="_funds"
+              [nzPageSize]="1000"
+              [nzShowPagination]="false"
+              [nzBordered]="false"
+
+    >
+      <thead>
+      <tr>
+        <th>Key</th>
+        <th>Display name</th>
+        <th nzAlign="center">Is public</th>
+        <th nzAlign="center">Is disabled</th>
+        <th nzAlign="center">Is hidden</th>
+        <th>Owner</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="fundsTable.data">
+        <tr (click)="onFundSelected(data)" [class.selected-row]="_selectedFund === data">
+          <td>{{ data.key }}</td>
+          <td>{{ data.displayName }}</td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isPublic"></td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isDisabled"></td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isHidden"></td>
+          <td>{{ getClientName(data.owner) }}</td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-card
+    [nzBodyStyle]="{padding: '0'}"
+    [nzBordered]="false"
+    class="mt-lg"
+    [nzHoverable]="false"
+    [nzLoading]="_loading"
+  >
+
+    <nz-table #connectorsTable
+              [nzData]="_connectors"
+              [nzPageSize]="1000"
+              [nzShowPagination]="false"
+              [nzBordered]="false"
+              [nzTitle]="titleTemplate"
+    >
+      <thead>
+      <tr>
+        <th>Exchange</th>
+        <th>Display name</th>
+        <th nzAlign="center">Is disabled</th>
+        <th nzAlign="center">Is lending</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="connectorsTable.data">
+        <tr>
+          <td>{{ data.exchangeName }}</td>
+          <td>{{ data.displayName }}</td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isDisabled"></td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isLendingEnabled"></td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+
+    <ng-template #titleTemplate>
+      <strong class="connector-title">Connectors</strong>
+      <span *ngIf="_selectedFund" class="connector-desc">for {{_selectedFund?.displayName}}</span>
+    </ng-template>
+
+  </nz-card>
+
+</div>

@@ -13,6 +13,10 @@ import {Observable} from 'rxjs';
 
 import * as __model from '../model';
 
+export interface ApiFundsPutParams {
+  fund?: __model.FundSimpleInfo;
+}
+
 export interface ApiFundsPostParams {
   newFund?: __model.NewFundDto;
 }
@@ -22,7 +26,16 @@ export interface ApiFundsComplexByFundidGetParams {
   fundid: number;
 }
 
+export interface ConnectorsParams {
+  /** format: int32 */
+  fundid: number;
+}
+
 export interface AssignConnectorParams {
+  fundConnector?: __model.FundConnectorDto;
+}
+
+export interface UpdateConnectorParams {
   fundConnector?: __model.FundConnectorDto;
 }
 
@@ -38,6 +51,16 @@ export class FundsService {
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsGet */
   apiFundsGet(): Observable<__model.FundSimpleInfo[]> {
     return this.http.get<__model.FundSimpleInfo[]>(`/api/funds`);
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsPut */
+  apiFundsPut(params: ApiFundsPutParams): Observable<__model.FundSimpleInfo> {
+    const bodyParams = params.fund;
+    const bodyParamsWithoutUndefined: any = {};
+    Object.entries(bodyParams || {}).forEach(([key, value]: [string, any]) => {
+      if (value !== undefined) bodyParamsWithoutUndefined[key] = value;
+    });
+    return this.http.put<__model.FundSimpleInfo>(`/api/funds`, bodyParamsWithoutUndefined);
   }
 
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsPost */
@@ -63,6 +86,19 @@ export class FundsService {
     return this.http.get<__model.FundInfo>(`/api/funds/complex/${pathParams.fundid}`);
   }
 
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsConnectorsDefinitionGet */
+  definition(): Observable<__model.ConnectorDefinitionDto[]> {
+    return this.http.get<__model.ConnectorDefinitionDto[]>(`/api/funds/connectors/definition`);
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsConnectorsByFundidGet */
+  connectors(params: ConnectorsParams): Observable<__model.FundConnectorDto[]> {
+    const pathParams = {
+      fundid: params.fundid,
+    };
+    return this.http.get<__model.FundConnectorDto[]>(`/api/funds/connectors/${pathParams.fundid}`);
+  }
+
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsAssign-connectorPost */
   assignConnector(params: AssignConnectorParams): Observable<number> {
     const bodyParams = params.fundConnector;
@@ -71,6 +107,16 @@ export class FundsService {
       if (value !== undefined) bodyParamsWithoutUndefined[key] = value;
     });
     return this.http.post<number>(`/api/funds/assign-connector`, bodyParamsWithoutUndefined);
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsUpdate-connectorPost */
+  updateConnector(params: UpdateConnectorParams): Observable<__model.FundConnectorDto> {
+    const bodyParams = params.fundConnector;
+    const bodyParamsWithoutUndefined: any = {};
+    Object.entries(bodyParams || {}).forEach(([key, value]: [string, any]) => {
+      if (value !== undefined) bodyParamsWithoutUndefined[key] = value;
+    });
+    return this.http.post<__model.FundConnectorDto>(`/api/funds/update-connector`, bodyParamsWithoutUndefined);
   }
 
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsCheck-connectorByConnectoridPost */

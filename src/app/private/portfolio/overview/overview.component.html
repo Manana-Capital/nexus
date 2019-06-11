@@ -43,7 +43,9 @@
 
 <nx-portfolio-balance-chart
                             *ngIf="!!_totalBalanceTicks && _totalBalanceTicks.length && _currentPortfolio?.activeFundsInfo.length > 1"
-                            [ticks]="_totalBalanceTicks">
+                            [ticksBalance]="_totalBalanceTicks"
+                            [ticksProfit]="_totalProfitTicks"
+>
 </nx-portfolio-balance-chart>
 
 

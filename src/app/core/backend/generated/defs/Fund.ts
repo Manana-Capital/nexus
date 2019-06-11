@@ -15,6 +15,8 @@ export interface Fund {
   key?: string;
   displayName?: string;
   description?: string;
+  /** format: int32 */
+  ownerFundClientId?: number;
   owner?: __model.FundClient;
   isPublic?: boolean;
   isDisabled?: boolean;

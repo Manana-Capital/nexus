@@ -16,6 +16,7 @@ export class PortfolioOverviewComponent implements OnInit {
   set currentPortfolio(val: PortfolioInfo) {
     this._currentPortfolio = val;
     this._totalBalanceTicks = this.mergeBalanceTicks(this.currentPortfolio);
+    this._totalProfitTicks = this.mergeProfitTicks(this.currentPortfolio);
   }
   _currentPortfolio: PortfolioInfo;
 
@@ -29,6 +30,7 @@ export class PortfolioOverviewComponent implements OnInit {
   expandData = false;
 
   _totalBalanceTicks: PortfolioBalanceTick[];
+  _totalProfitTicks: PortfolioBalanceTick[];
   _selectedFundIndex = 0;
 
   constructor(
@@ -48,7 +50,24 @@ export class PortfolioOverviewComponent implements OnInit {
       merged.push(...x.balanceTicks);
     });
 
-    const grouped  = this.groupBy(merged, ['timestamp']);
+    return this.mergeTicks(merged);
+  }
+
+  private mergeProfitTicks(portfolio: PortfolioInfo): PortfolioBalanceTick[] {
+    if (!portfolio || !portfolio.activeFundsInfo) {
+      return [];
+    }
+
+    const merged: PortfolioBalanceTick[] = [];
+    portfolio.activeFundsInfo.forEach(x => {
+      merged.push(...x.profitTicks);
+    });
+
+    return this.mergeTicks(merged);
+  }
+
+  private mergeTicks(merged: PortfolioBalanceTick[]) {
+    const grouped = this.groupBy(merged, ['timestamp']);
     return grouped.map((group: PortfolioBalanceTick[]) => ({
       timestamp: group[0].timestamp,
       shares: group.reduce((sum, current) => sum + current.shares, 0),

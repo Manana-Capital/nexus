@@ -9,24 +9,34 @@ import {PortfolioBalanceTick} from '@core/backend/generated/defs/PortfolioBalanc
 export class PortfolioBalanceChartComponent implements OnInit {
 
   @Input()
-  ticks: PortfolioBalanceTick[];
+  ticksBalance: PortfolioBalanceTick[];
+
+  @Input()
+  ticksProfit: PortfolioBalanceTick[];
 
   @Input()
   loading = false;
 
-  _colorScheme = {
+  _colorSchemeBalance = {
     domain: ['#33A1DE', '#ffcc80']
   };
 
-  _chartData = [];
+  _colorSchemeProfit = {
+    domain: ['#676e78', '#C3E6CB']
+  };
+
+  _chartDataBalance = [];
+  _chartDataProfit = [];
+  _selectedChart = 'balance';
 
   constructor() { }
 
   ngOnInit() {
-    this._chartData = this.formatChartData(this.ticks);
+    this._chartDataBalance = this.formatBalanceChartData(this.ticksBalance);
+    this._chartDataProfit = this.formatProfitChartData(this.ticksProfit);
   }
 
-  private formatChartData(ticks: PortfolioBalanceTick[]) {
+  private formatBalanceChartData(ticks: PortfolioBalanceTick[]) {
 
     const ticksForChart = ticks.map(x => ({
       name: new Date(x.timestamp),
@@ -42,5 +52,37 @@ export class PortfolioBalanceChartComponent implements OnInit {
         series: ticksForChart
       }
     ];
+  }
+
+  private formatProfitChartData(ticks: PortfolioBalanceTick[]) {
+
+    const ticksForChart = ticks.map(x => ({
+      name: new Date(x.timestamp),
+      value: x.valueUsd,
+      valueUsd: x.valueUsd,
+      valueBtc: x.valueBtc,
+      valueCzk: x.valueCzk
+    }));
+
+    return [
+      {
+        name: 'Portfolio profit',
+        series: ticksForChart
+      }
+    ];
+  }
+
+  private selectProfitColor(value: number) {
+    console.log('SELECT COLOR', value);
+
+    if (value > 0) {
+      return '#C3E6CB';
+    }
+
+    if (value < 0) {
+      return '#f5c6cb';
+    }
+
+    return '#91ccf0';
   }
 }

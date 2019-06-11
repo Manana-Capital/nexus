@@ -1,12 +1,13 @@
-<nz-card *ngIf="ticks" [nzLoading]="loading"
+<nz-card *ngIf="ticksBalance" [nzLoading]="loading"
          [nzBordered]="false"
          [nzBodyStyle]="{'padding': '10px 30px 10px 0'}"
          class="mt-lg chart-wrapper">
   <div class="chart">
 
     <ngx-charts-area-chart
-      [scheme]="_colorScheme"
-      [results]="_chartData"
+      *ngIf="_selectedChart === 'balance'"
+      [scheme]="_colorSchemeBalance"
+      [results]="_chartDataBalance"
       [gradient]="true"
       [xAxis]="true"
       [yAxis]="true"
@@ -18,12 +19,6 @@
       [autoScale]="true"
       [timeline]="false"
     >
-
-      <!--
-            <ng-template #tooltipTemplate let-model="model">
-              {{model | json}}
-            </ng-template>
-      -->
 
       <ng-template #seriesTooltipTemplate let-model="model">
 
@@ -46,6 +41,52 @@
       </ng-template>
 
     </ngx-charts-area-chart>
+
+    <ngx-charts-area-chart
+      *ngIf="_selectedChart === 'profit'"
+      [scheme]="_colorSchemeProfit"
+      [results]="_chartDataProfit"
+      [gradient]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Date"
+      yAxisLabel="Profit (USD)"
+      [autoScale]="true"
+      [timeline]="false"
+      [baseValue]="0"
+    >
+
+      <ng-template #seriesTooltipTemplate let-model="model">
+
+        <div *ngIf="model.length == 1">
+          {{model[0].name | date:'fullDate'}}
+          <div>
+            <span>{{model[0].series}}</span>
+          </div>
+          <div>
+            ${{model[0].valueUsd | number:'1.0-0'}}
+          </div>
+          <div>
+            {{model[0].valueBtc | number:'1.4-4'}} BTC
+          </div>
+          <div>
+            {{model[0].valueCzk | number:'1.0-0'}} CZK
+          </div>
+        </div>
+
+      </ng-template>
+
+    </ngx-charts-area-chart>
+
+    <div class="chart-selector">
+      <nz-radio-group [(ngModel)]="_selectedChart" [nzButtonStyle]="'solid'">
+        <label nz-radio-button nzValue="balance">Balance</label>
+        <label nz-radio-button nzValue="profit">Profit</label>
+      </nz-radio-group>
+    </div>
 
   </div>
 </nz-card>

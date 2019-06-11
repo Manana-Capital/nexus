@@ -28,6 +28,8 @@ export * from './defs/FundPriceTick';
 export * from './defs/BtcPriceTick';
 export * from './defs/FundPerformanceYear';
 export * from './defs/FundPerformanceMonth';
+export * from './defs/ConnectorDefinitionDto';
+export * from './defs/ConfigProperty';
 export * from './defs/FundConnectorDto';
 export * from './defs/Balance';
 export * from './defs/FundTotalBalanceInfo';

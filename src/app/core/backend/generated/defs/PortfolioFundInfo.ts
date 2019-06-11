@@ -28,4 +28,5 @@ export interface PortfolioFundInfo {
   deposits?: __model.PortfolioTransaction[];
   withdrawals?: __model.PortfolioTransaction[];
   balanceTicks?: __model.PortfolioBalanceTick[];
+  profitTicks?: __model.PortfolioBalanceTick[];
 }

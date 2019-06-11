@@ -17,6 +17,7 @@ import { ClientAccessFormComponent } from './profile/client-access-form/client-a
 import {SharedModule} from '../shared/shared.module';
 import { PortfolioBalanceChartComponent } from './portfolio/overview/portfolio-balance-chart/portfolio-balance-chart.component';
 import { PortfolioDistributionChartComponent } from './portfolio/overview/portfolio-distribution-chart/portfolio-distribution-chart.component';
+import { FundsConfigurationComponent } from './funds/funds-configuration/funds-configuration.component';
 
 
 const COMPONENTS_NOROUNT = [
@@ -41,7 +42,8 @@ const COMPONENTS = [
   TransactionComponent,
   PortfolioOverviewPageComponent,
   ClientsOverviewComponent,
-  FundsOverviewComponent
+  FundsOverviewComponent,
+  FundsConfigurationComponent,
 ];
 
 @NgModule({

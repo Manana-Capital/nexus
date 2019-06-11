@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import {FundsService} from '@core/backend/generated/controllers/Funds';
-import {AuthService} from '@core/network/auth.service';
 import {FundTotalBalanceInfo} from '@core/backend/generated/defs/FundTotalBalanceInfo';
 
 @Component({
@@ -18,19 +17,12 @@ export class FundsOverviewComponent implements OnInit {
 
   constructor(
     private fundsApi: FundsService,
-    private auth: AuthService,
     public msg: NzMessageService) {
   }
 
   ngOnInit() {
     this._today = new Date();
     this.loadFundsInfo();
-  }
-
-  getFlagName(performance: number) {
-    if (performance > 0) { return 'up'; }
-    if (performance < 0) { return 'down'; }
-    return '';
   }
 
   selectFund(fund: FundTotalBalanceInfo) {

@@ -26,7 +26,9 @@
 
 <nx-portfolio-balance-chart
                             *ngIf="!!fund?.balanceTicks && fund?.balanceTicks?.length && isSelected"
-                            [ticks]="fund?.balanceTicks">
+                            [ticksBalance]="fund?.balanceTicks"
+                            [ticksProfit]="fund?.profitTicks"
+>
 </nx-portfolio-balance-chart>
 
 <nz-card [nzBordered]="false" >
@@ -56,6 +58,7 @@
           <tr>
             <th>Created</th>
             <th>USD</th>
+            <th class="hide-small">BTC</th>
             <th class="hide-small">CZK</th>
             <th>Note</th>
           </tr>
@@ -67,6 +70,7 @@
           >
             <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
             <td>${{data.amountUsd | number:'1.2-2'}}</td>
+            <td class="hide-small">{{data.amountBtc | number:'1.4-4'}} BTC</td>
             <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
             <td class="limit-width">{{data.note}}</td>
           </tr>
@@ -91,6 +95,7 @@
             <th class="green-bg">Created</th>
             <!--<th class="green-bg hide-small">Shares</th>-->
             <th class="green-bg">USD</th>
+            <th class="green-bg hide-small">BTC</th>
             <th class="green-bg hide-small">CZK</th>
             <th class="green-bg">Note</th>
           </tr>
@@ -98,8 +103,8 @@
           <tbody>
           <tr *ngFor="let data of depositsTable.data">
             <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
-            <!--<td class="hide-small">{{data.shares | number:'1.2-2'}}</td>-->
             <td>${{data.amountUsd | number:'1.2-2'}}</td>
+            <td class="hide-small">{{data.amountBtc | number:'1.4-4'}} BTC</td>
             <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
             <td class="limit-width">{{data.note}}</td>
           </tr>
@@ -121,6 +126,7 @@
             <th class="red-bg">Created</th>
             <!--<th class="red-bg hide-small">Shares</th>-->
             <th class="red-bg">USD</th>
+            <th class="red-bg hide-small">BTC</th>
             <th class="red-bg hide-small">CZK</th>
             <th class="red-bg">Note</th>
           </tr>
@@ -128,8 +134,8 @@
           <tbody>
           <tr *ngFor="let data of withdrawalsTable.data">
             <td>{{data.created | date:'d/M/yy, H:mm' }}</td>
-            <!--<td class="hide-small">{{data.shares | number:'1.2-2'}}</td>-->
             <td>${{data.amountUsd | number:'1.2-2'}}</td>
+            <td class="hide-small">{{data.amountBtc | number:'1.4-4'}} BTC</td>
             <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
             <td class="limit-width">{{data.note}}</td>
           </tr>
