@@ -12,8 +12,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let data of balancesTable.data"
-    >
+    <tr *ngFor="let data of balancesTable.data">
       <td>{{data.currency }}</td>
       <td [nzAlign]="'right'">{{data.amount | number:'1.3-3'}}</td>
     </tr>

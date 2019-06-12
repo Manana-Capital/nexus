@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FundBalance} from '@core/backend/generated/defs/FundBalance';
+import {Balance} from '@core/backend/generated/defs/Balance';
 
 @Component({
   selector: 'nx-fund-balance',
@@ -12,38 +13,23 @@ export class FundBalanceComponent implements OnInit {
   exchangeName: string;
 
   @Input()
-  data: FundBalance[];
+  set data(value: FundBalance[] | Balance[]) {
+    this._data = this.transformToData(value);
+  }
 
-  _columns: any[];
   _data = [];
 
   constructor() { }
 
   ngOnInit() {
-    this._columns = this.transformToColumns();
-    this._data = this.transformToData(this.data);
   }
 
-  private transformToColumns(): any[] {
-    return [
-      {
-        title: 'Currency',
-        index: 'currency',
-        render: 'currency',
-/*        sorter: (a, b) => a.currency - b.currency,*/
-      },
-      {
-        type: 'number',
-        title: 'Amount',
-        index: 'amount',
-        render: 'amount',
-        sorter: (a, b) => a.amount - b.amount,
-      }
-    ];
-  }
+  private transformToData(data: FundBalance[]): any[] {
+    if (!data) {
+      return [];
+    }
 
-  private transformToData(model: FundBalance[]): any[] {
-    const rows = model.map(x => ({
+    const rows = data.map(x => ({
       exchange: x.exchangeName,
       currency: x.currency,
       amount: x.amount

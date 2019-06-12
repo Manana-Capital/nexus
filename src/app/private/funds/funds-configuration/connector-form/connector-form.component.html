@@ -1,0 +1,52 @@
+<form nz-form>
+
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="exchange" [nzSpan]="6">Exchange</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-select [(ngModel)]="_connector.exchangeName" name="exchange">
+        <nz-option *ngFor="let def of definitions"
+                   [nzLabel]="def.exchangeName"
+                   [nzValue]="def.exchangeName">
+        </nz-option>
+      </nz-select>
+
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired nzFor="displayName" [nzSpan]="6">Display name</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input [(ngModel)]="_connector.displayName" name="displayName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <label nz-checkbox [(ngModel)]="_connector.isDisabled" name="isDisabled">
+        Disabled
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <label nz-checkbox [(ngModel)]="_connector.isLendingEnabled" name="isLending">
+        Lending enabled
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-divider nzText="Configuration"></nz-divider>
+
+  <nx-config-properties-editor
+    [properties]="findDefinition(_connector.exchangeName)"
+    [data]="_connector.configuration"
+  ></nx-config-properties-editor>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button (click)="save()" [nzType]="'primary'">Save connector</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

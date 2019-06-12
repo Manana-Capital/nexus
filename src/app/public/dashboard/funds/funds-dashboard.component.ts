@@ -75,7 +75,7 @@ export class FundsDashboardComponent implements OnInit {
         delay(5000)
       )*/
       .subscribe(data => {
-        this._funds = data;
+        this._funds = data.filter(x => !x.isHidden);
         this.selectFund(this._funds.find(x => x.id === 1));
 
         this._loading = false;

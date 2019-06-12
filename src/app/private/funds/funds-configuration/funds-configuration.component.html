@@ -49,6 +49,8 @@
         <th nzAlign="center">Is disabled</th>
         <th nzAlign="center">Is hidden</th>
         <th>Owner</th>
+        <th>Ordering</th>
+        <th nzWidth="100px" nzRight="0px"></th>
       </tr>
       </thead>
       <tbody>
@@ -60,6 +62,14 @@
           <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isDisabled"></td>
           <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isHidden"></td>
           <td>{{ getClientName(data.owner) }}</td>
+          <td>{{ data.ordering }}</td>
+          <td nzRight="0px">
+            <button nz-button nzType="default" nzShape="round" (click)="editFund(data)"
+                    nz-tooltip nzTitle="Edit fund"
+            >
+              <i nz-icon type="edit"></i>
+            </button>
+          </td>
         </tr>
       </ng-template>
       </tbody>
@@ -88,6 +98,7 @@
         <th>Display name</th>
         <th nzAlign="center">Is disabled</th>
         <th nzAlign="center">Is lending</th>
+        <th nzWidth="100px" nzRight="0px"></th>
       </tr>
       </thead>
       <tbody>
@@ -97,6 +108,18 @@
           <td>{{ data.displayName }}</td>
           <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isDisabled"></td>
           <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isLendingEnabled"></td>
+          <td nzRight="0px" class="row">
+            <button nz-button nzType="default" nzShape="round" (click)="editConnector(data)" class="action"
+                    nz-tooltip nzTitle="Edit connector"
+            >
+              <i nz-icon type="edit"></i>
+            </button>
+            <button nz-button nzType="default" nzShape="round" (click)="checkConnector(data)"
+                    nz-tooltip nzTitle="Check connector's configuration"
+            >
+              <i nz-icon type="check"></i>
+            </button>
+          </td>
         </tr>
       </ng-template>
       </tbody>
@@ -108,5 +131,53 @@
     </ng-template>
 
   </nz-card>
+
+
+  <nz-modal
+            [(nzVisible)]="_isVisibleFundEdit"
+            [nzTitle]="'Edit fund: ' + _selectedFundForEdit?.displayName"
+            (nzOnCancel)="_isVisibleFundEdit = false;"
+            [nzFooter]="null">
+    <nx-fund-form
+      [fund]="_selectedFundForEdit"
+      [clients]="_allClients"
+      (saved)="onSaveFund($event)">
+    </nx-fund-form>
+  </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="_isVisibleConnectorEdit"
+    [nzTitle]="'Edit connector: ' + _selectedConnectorForEdit?.displayName"
+    (nzOnCancel)="_isVisibleConnectorEdit = false;"
+    [nzFooter]="null">
+    <nx-connector-form
+      [connector]="_selectedConnectorForEdit"
+      [definitions]="_connectorsDefs"
+      (saved)="onSaveConnector($event)">
+    </nx-connector-form>
+  </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="_isVisibleConnectorCheck"
+    [nzTitle]=""
+    [nzFooter]="modalFooter"
+    (nzOnCancel)="_isVisibleConnectorCheck = false;"
+    (nzOnOk)="_isVisibleConnectorCheck = false"
+  >
+    <nz-alert
+      class="alert"
+      nzType="success"
+      nzMessage="Success"
+      [nzDescription]="'Connector \'' + _checkedConnector?.displayName + '\' is working correctly'"
+      nzShowIcon
+    >
+    </nz-alert>
+
+    <nx-fund-balance [data]="_checkedConnectorBalance"></nx-fund-balance>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="primary" (click)="_isVisibleConnectorCheck = false">OK</button>
+    </ng-template>
+  </nz-modal>
 
 </div>

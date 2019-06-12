@@ -18,6 +18,9 @@ import {SharedModule} from '../shared/shared.module';
 import { PortfolioBalanceChartComponent } from './portfolio/overview/portfolio-balance-chart/portfolio-balance-chart.component';
 import { PortfolioDistributionChartComponent } from './portfolio/overview/portfolio-distribution-chart/portfolio-distribution-chart.component';
 import { FundsConfigurationComponent } from './funds/funds-configuration/funds-configuration.component';
+import { FundFormComponent } from './funds/funds-configuration/fund-form/fund-form.component';
+import { ConnectorFormComponent } from './funds/funds-configuration/connector-form/connector-form.component';
+import { ConfigPropertiesEditorComponent } from './funds/funds-configuration/config-properties-editor/config-properties-editor.component';
 
 
 const COMPONENTS_NOROUNT = [
@@ -32,6 +35,9 @@ const COMPONENTS_NOROUNT = [
 
   FundOverviewCardComponent,
   FundBalanceComponent,
+  FundFormComponent,
+  ConnectorFormComponent,
+  ConfigPropertiesEditorComponent,
 
   ClientProfileFormComponent,
   ClientAccessFormComponent,

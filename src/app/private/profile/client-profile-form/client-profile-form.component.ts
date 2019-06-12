@@ -91,7 +91,7 @@ export class ClientProfileFormComponent implements OnInit {
     return this.profileForm.get('email');
   }
 
-  save(data){
+  save(data) {
     data.roles = this._selectedRoles;
     this.onSave.emit(data);
   }
