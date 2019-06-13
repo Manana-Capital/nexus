@@ -6,6 +6,7 @@ import {PortfolioOverviewPageComponent} from './portfolio/overview/overview-page
 import {ClientsOverviewComponent} from './clients/clients-overview/clients-overview.component';
 import {FundsOverviewComponent} from './funds/overview/funds-overview.component';
 import {FundsConfigurationComponent} from './funds/funds-configuration/funds-configuration.component';
+import {LogsViewerComponent} from './system/logs-viewer/logs-viewer.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,11 @@ const routes: Routes = [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: FundsOverviewComponent, data: {title: 'Funds'} },
       { path: 'configuration', component: FundsConfigurationComponent, data: {title: 'Funds - Configuration'} }
+    ]
+  },
+  { path: 'system', children: [
+      { path: '', redirectTo: 'logs', pathMatch: 'full' },
+      { path: 'logs', component: LogsViewerComponent, data: {title: 'Logs'} },
     ]
   }
 ];

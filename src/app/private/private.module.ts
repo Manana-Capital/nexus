@@ -21,6 +21,7 @@ import { FundsConfigurationComponent } from './funds/funds-configuration/funds-c
 import { FundFormComponent } from './funds/funds-configuration/fund-form/fund-form.component';
 import { ConnectorFormComponent } from './funds/funds-configuration/connector-form/connector-form.component';
 import { ConfigPropertiesEditorComponent } from './funds/funds-configuration/config-properties-editor/config-properties-editor.component';
+import { LogsViewerComponent } from './system/logs-viewer/logs-viewer.component';
 
 
 const COMPONENTS_NOROUNT = [
@@ -50,6 +51,7 @@ const COMPONENTS = [
   ClientsOverviewComponent,
   FundsOverviewComponent,
   FundsConfigurationComponent,
+  LogsViewerComponent,
 ];
 
 @NgModule({

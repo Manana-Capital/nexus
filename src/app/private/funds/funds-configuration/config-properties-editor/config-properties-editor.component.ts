@@ -13,18 +13,27 @@ export class ConfigPropertiesEditorComponent implements OnInit, OnChanges {
     return this._data;
   }
   set data(val: {}) {
-    console.log('SETTINGS data', val, this._data, this.properties);
     if (!val) {
-      this._data = {};
+      const valEmpty = {};
+      this.initializeUndefinedComplexFields(valEmpty);
+      this._data = valEmpty;
       return;
     }
+    this.initializeUndefinedComplexFields(val);
     this._data = val;
   }
 
   @Input()
-  properties: ConfigProperty[] = [];
+  get properties(): ConfigProperty[] {
+    return this._properties;
+  }
+  set properties(val: ConfigProperty[]) {
+    this._properties = val;
+    this.initializeUndefinedComplexFields(this._data);
+  }
 
   _data: {} = {};
+  _properties: ConfigProperty[] = [];
 
   constructor() { }
 
@@ -32,7 +41,17 @@ export class ConfigPropertiesEditorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('STATE', this._data, this.properties, changes);
   }
 
+  private initializeUndefinedComplexFields(data: {}) {
+    // we need to set initial fields if prop is complex (3)
+    if (!!data && !!this._properties) {
+      for (const prop of this._properties) {
+        // @ts-ignore
+        if (prop.type === 3 && !data[prop.name]) {
+          data[prop.name] = {};
+        }
+      }
+    }
+  }
 }

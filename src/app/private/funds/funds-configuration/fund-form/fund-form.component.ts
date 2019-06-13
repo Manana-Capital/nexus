@@ -12,9 +12,10 @@ export class FundFormComponent implements OnInit {
   @Input()
   set fund(data: FundSimpleInfo) {
     if (!data) {
+      this._fund = {};
       return;
     }
-    this._fund = data;
+    this._fund = JSON.parse(JSON.stringify(data));
   }
 
   @Input()

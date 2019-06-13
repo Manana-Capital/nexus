@@ -1,34 +1,41 @@
 <form nz-form>
 
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="key" [nzSpan]="6">Key</nz-form-label>
+    <nz-form-label nzRequired nzFor="key" [nzSpan]="8">Key</nz-form-label>
     <nz-form-control [nzSpan]="14">
       <input nz-input [(ngModel)]="_fund.key" name="key" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="displayName" [nzSpan]="6">Display name</nz-form-label>
+    <nz-form-label nzRequired nzFor="displayName" [nzSpan]="8">Display name</nz-form-label>
     <nz-form-control [nzSpan]="14">
       <input nz-input [(ngModel)]="_fund.displayName" name="displayName" />
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzFor="description" [nzSpan]="6">Description</nz-form-label>
+    <nz-form-label nzFor="description" [nzSpan]="8">Description</nz-form-label>
     <nz-form-control [nzSpan]="14">
       <textarea
         nz-input
         name="description"
         placeholder="Write description of the fund, will be displayed as info tooltip"
         [(ngModel)]="_fund.description"
-        [nzAutosize]="{ minRows: 1, maxRows: 4 }"
+        [nzAutosize]="{ minRows: 2, maxRows: 4 }"
       ></textarea>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+    <nz-form-label nzFor="cronInterval" [nzSpan]="8">Cron check interval</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input [(ngModel)]="_fund.checkCronInterval" name="cronInterval" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzSpan]="14" [nzOffset]="8">
       <label nz-checkbox [(ngModel)]="_fund.isPublic" name="isPublic">
         Public
       </label>
@@ -36,7 +43,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+    <nz-form-control [nzSpan]="14" [nzOffset]="8">
       <label nz-checkbox [(ngModel)]="_fund.isDisabled" name="isDisabled">
         Disabled
       </label>
@@ -44,7 +51,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+    <nz-form-control [nzSpan]="14" [nzOffset]="8">
       <label nz-checkbox [(ngModel)]="_fund.isHidden" name="isHidden">
         Hidden
       </label>
@@ -52,7 +59,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+    <nz-form-control [nzSpan]="14" [nzOffset]="8">
       <label nz-checkbox [(ngModel)]="_fund.isUnderConstruction" name="isUnderConstruction">
         Under construction
       </label>
@@ -60,7 +67,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="owner" [nzSpan]="6">Owner</nz-form-label>
+    <nz-form-label nzRequired nzFor="owner" [nzSpan]="8">Owner</nz-form-label>
     <nz-form-control [nzSpan]="14">
       <nz-select [(ngModel)]="_fund.owner" name="owner">
         <nz-option *ngFor="let client of clients"
@@ -73,7 +80,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label nzRequired nzFor="ordering" [nzSpan]="6">Ordering</nz-form-label>
+    <nz-form-label nzRequired nzFor="ordering" [nzSpan]="8">Ordering</nz-form-label>
     <nz-form-control [nzSpan]="14">
       <nz-input-number [(ngModel)]="_fund.ordering"
         name="ordering" style="width:100%"></nz-input-number>
@@ -89,7 +96,7 @@
   </nz-form-item>-->
 
   <nz-form-item>
-    <nz-form-control>
+    <nz-form-control [nzOffset]="8">
       <button nz-button (click)="save()" [nzType]="'primary'">Save fund</button>
     </nz-form-control>
   </nz-form-item>

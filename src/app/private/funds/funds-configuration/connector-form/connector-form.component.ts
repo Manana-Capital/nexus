@@ -12,6 +12,10 @@ export class ConnectorFormComponent implements OnInit {
   @Input()
   set connector(data: FundConnectorDto) {
     if (!data) {
+      this._connector = {
+        configuration: {}
+      };
+      this._configuration = {};
       return;
     }
     this._connector = data;
@@ -23,6 +27,15 @@ export class ConnectorFormComponent implements OnInit {
     } catch (e) {
       console.log('Failed to parse configuration for ' + data.displayName, e);
     }
+
+    // clone object
+    this._connector = JSON.parse(JSON.stringify(this._connector));
+
+    if (this._connector.configuration) {
+      this._configuration = this._connector.configuration;
+    } else {
+      this._configuration = {};
+    }
   }
 
   @Input()
@@ -32,6 +45,7 @@ export class ConnectorFormComponent implements OnInit {
   saved: EventEmitter<FundConnectorDto> = new EventEmitter();
 
   _connector: FundConnectorDto = {};
+  _configuration: {} = {};
 
   constructor() { }
 
@@ -39,6 +53,7 @@ export class ConnectorFormComponent implements OnInit {
   }
 
   save() {
+    this._connector.configuration = this._configuration;
     this.saved.emit(this._connector);
   }
 

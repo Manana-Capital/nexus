@@ -1,6 +1,6 @@
 <!--suppress TypeScriptValidateTypes -->
 
-<ng-container *ngFor="let prop of properties">
+<ng-container *ngFor="let prop of _properties">
 
   <nz-form-item *ngIf="prop.type === 0">
     <nz-form-label [nzFor]="prop.name" [nzSpan]="6">{{prop.name}}</nz-form-label>

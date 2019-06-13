@@ -45,3 +45,4 @@ export * from './defs/UpdateProfilePasswordDto';
 export * from './defs/SharesSimpleInfo';
 export * from './defs/PricePerShare';
 export * from './defs/StatsDto';
+export * from './defs/NxLogEvent';

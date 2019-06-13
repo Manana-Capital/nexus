@@ -1,0 +1,121 @@
+<div class="container">
+
+  <nz-page-header class="header" [nzTitle]="'Logs'">
+
+    <nz-page-header-extra>
+      <img src="./assets/list.png" alt="Logs" class="sub-logo" />
+    </nz-page-header-extra>
+
+    <nz-page-header-content>
+
+      <div class="wrap">
+        <div class="content">
+          <div class="content">
+            <p> System logs</p>
+            <p class="content-link">
+              <a class="d-flex pr-lg" (click)="refreshData()">
+                <i class="fas fa-sync-alt action-icon"></i>
+                Refresh
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </nz-page-header-content>
+
+  </nz-page-header>
+
+
+  <nz-card
+    [nzBodyStyle]="{padding: '0'}"
+    [nzBordered]="false"
+    class="funds"
+    [nzHoverable]="false"
+    [nzLoading]="_loading"
+  >
+
+    <nz-checkbox-group class="level-selection"
+                       [(ngModel)]="_levels"
+                       (ngModelChange)="filterLogs()">
+    </nz-checkbox-group>
+
+    <nz-table #logsTable
+              [nzData]="_visibleLogs"
+              [nzPageSize]="100"
+              [nzFrontPagination]="false"
+              [nzShowPagination]="true"
+              [nzBordered]="false"
+              nzSize="small"
+    >
+      <thead>
+      <tr>
+        <th nzWidth="150px">Timestamp</th>
+        <th nzWidth="100px">Level</th>
+        <th>Message</th>
+        <th nzWidth="150px">Exception</th>
+        <th nzWidth="150px">User</th>
+        <th nzWidth="100px" nzRight="0px"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="logsTable.data">
+        <tr
+          [class.error-bg]="data.level === 'error' || data.level === 'fatal'"
+          [class.warn-bg]="data.level === 'warning' || data.level === 'warn'"
+          [class.info-bg]="data.level === 'information' || data.level === 'info'"
+        >
+          <td>{{ data.timestamp | date:'M/d/yy, HH:mm:ss' }}</td>
+          <td>{{ data.levelString }}</td>
+          <td>{{ data.message }}</td>
+          <td>{{ data.exceptionType }}</td>
+          <td>{{ data.username }}</td>
+          <td nzRight="0px">
+            <button
+              *ngIf="!!data.exceptionType"
+              nz-button nzType="default" nzShape="round" (click)="showDetail(data)"
+              nz-tooltip nzTitle="Show detail"
+            >
+              <i nz-icon nzType="info" nzTheme="outline"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-modal
+  [(nzVisible)]="_isDetailVisible"
+  [nzTitle]="_selectedLog?.levelString"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="_isDetailVisible = false;"
+  (nzOnOk)="_isDetailVisible = false"
+  >
+    <nz-alert
+      *ngIf="_selectedLog?.exceptionType"
+      class="alert"
+      nzType="error"
+      [nzMessage]="'Exception: ' + _selectedLog?.exceptionType"
+      [nzDescription]="_selectedLog?.exceptionMessage"
+      nzShowIcon
+    >
+    </nz-alert>
+
+    <nz-alert
+      *ngIf="_selectedLog?.innerExceptionType"
+      class="alert"
+      nzType="error"
+      [nzMessage]="'Inner exception: ' + _selectedLog?.innerExceptionType"
+      [nzDescription]="_selectedLog?.innerExceptionMessage"
+      nzShowIcon
+    >
+    </nz-alert>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="primary" (click)="_isDetailVisible = false">OK</button>
+    </ng-template>
+  </nz-modal>
+
+</div>

@@ -103,7 +103,9 @@
 
 <div nz-row [nzGutter]="24" *ngIf="_selectedFund">
   <div *ngFor="let balance of _selectedFund.balances"
-       nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6">
+       nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6"
+      style="padding-top: 12px;"
+  >
     <nz-card
               [nzBodyStyle]="{padding: '0'}"
               [nzTitle]="extraTemplate"

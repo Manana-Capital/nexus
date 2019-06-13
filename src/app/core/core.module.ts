@@ -10,13 +10,15 @@ import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {AuthService} from '@core/network/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import {NxGravatarService} from '@core/services/nx-gravatar.service';
+import {SystemService} from '@core/backend/generated/controllers/System';
 
 const generatedServices = [
   FundsService,
   ClientsService,
   ProfileService,
   PortfolioService,
-  StatisticsService
+  StatisticsService,
+  SystemService
 ];
 
 
