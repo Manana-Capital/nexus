@@ -151,6 +151,7 @@
     <nx-fund-form
       [fund]="_selectedFundForEdit"
       [clients]="_allClients"
+      [saving]="_isWorking"
       (saved)="onSaveFund($event)">
     </nx-fund-form>
   </nz-modal>
@@ -162,6 +163,7 @@
     [nzFooter]="null">
     <nx-fund-form
       [clients]="_allClients"
+      [saving]="_isWorking"
       (saved)="onCreateFund($event)">
     </nx-fund-form>
   </nz-modal>
@@ -174,6 +176,7 @@
     <nx-connector-form
       [connector]="_selectedConnectorForEdit"
       [definitions]="_connectorsDefs"
+      [saving]="_isWorking"
       (saved)="onSaveConnector($event)">
     </nx-connector-form>
   </nz-modal>
@@ -185,6 +188,7 @@
     [nzFooter]="null">
     <nx-connector-form
       [definitions]="_connectorsDefs"
+      [saving]="_isWorking"
       (saved)="onCreateConnector($event, _selectedFund)">
     </nx-connector-form>
   </nz-modal>

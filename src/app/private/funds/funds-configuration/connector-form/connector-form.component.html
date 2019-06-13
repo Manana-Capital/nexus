@@ -45,7 +45,10 @@
 
   <nz-form-item>
     <nz-form-control [nzOffset]="6">
-      <button nz-button (click)="save()" [nzType]="'primary'">Save connector</button>
+      <button
+        nz-button (click)="save()" [nzType]="'primary'"
+        [nzLoading]="saving"
+      >Save connector</button>
     </nz-form-control>
   </nz-form-item>
 

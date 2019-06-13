@@ -11,11 +11,14 @@ import {
   HttpResponse,
   HttpUserEvent
 } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { mergeMap, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { mergeMap } from 'rxjs/operators/mergeMap';
+import { catchError } from 'rxjs/operators/catchError';
 import { NzMessageService } from 'ng-zorro-antd';
 import { environment } from '@env/environment';
 import {AuthService} from '@core/network/auth.service';
+import { of } from 'rxjs/internal/observable/of';
+import { throwError } from 'rxjs/internal/observable/throwError';
 
 /**
  * The default HTTP interceptor, see the registration details`app.module.ts`

@@ -41,6 +41,9 @@ export class ConnectorFormComponent implements OnInit {
   @Input()
   definitions: ConnectorDefinitionDto[] = [];
 
+  @Input()
+  saving = false;
+
   @Output()
   saved: EventEmitter<FundConnectorDto> = new EventEmitter();
 

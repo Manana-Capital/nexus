@@ -97,7 +97,10 @@
 
   <nz-form-item>
     <nz-form-control [nzOffset]="8">
-      <button nz-button (click)="save()" [nzType]="'primary'">Save fund</button>
+      <button nz-button
+              (click)="save()" [nzType]="'primary'"
+        [nzLoading]="saving"
+      >Save fund</button>
     </nz-form-control>
   </nz-form-item>
 

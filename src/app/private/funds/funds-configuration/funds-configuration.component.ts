@@ -37,6 +37,8 @@ export class FundsConfigurationComponent implements OnInit {
   _isVisibleConnectorCreate = false;
   _isVisibleConnectorCheck = false;
 
+  _isWorking = false;
+
   constructor(
     private fundsApi: FundsService,
     private clientApi: ClientsService,
@@ -104,6 +106,7 @@ export class FundsConfigurationComponent implements OnInit {
   }
 
   onSaveFund(updatedFund: FundSimpleInfo) {
+    this._isWorking = true;
     this.fundsApi
       .apiFundsPut({fund: updatedFund})
       .subscribe(x => {
@@ -111,17 +114,20 @@ export class FundsConfigurationComponent implements OnInit {
         const current = this._funds.find(y => y.id === x.id);
         this._funds[this._funds.indexOf(current)] = Object.assign(current, x);
         this._isVisibleFundEdit = false;
-      });
+        this._isWorking = false;
+      }, () => this._isWorking = false);
   }
 
   onCreateFund(createdFund: FundSimpleInfo) {
+    this._isWorking = true;
     this.fundsApi
       .apiFundsPost({newFund: createdFund})
       .subscribe(x => {
         this.msg.success(`Fund '${x.displayName}' was created`);
         this._funds = [...this._funds, x];
         this._isVisibleFundCreate = false;
-      });
+        this._isWorking = false;
+      }, () => this._isWorking = false);
   }
 
   editConnector(connector: FundConnectorDto) {
@@ -130,6 +136,7 @@ export class FundsConfigurationComponent implements OnInit {
   }
 
   onSaveConnector(updatedConnector: FundConnectorDto) {
+    this._isWorking = true;
     this.fundsApi
       .updateConnector({fundConnector: updatedConnector})
       .subscribe(x => {
@@ -137,10 +144,12 @@ export class FundsConfigurationComponent implements OnInit {
         const current = this._connectors.find(y => y.connectorId === x.connectorId);
         this._connectors[this._connectors.indexOf(current)] = Object.assign(current, x);
         this._isVisibleConnectorEdit = false;
-      });
+        this._isWorking = false;
+      }, () => this._isWorking = false);
   }
 
   onCreateConnector(createdConnector: FundConnectorDto, targetFund: FundSimpleInfo) {
+    this._isWorking = true;
     createdConnector.targetFundId = targetFund.id;
     this.fundsApi
       .assignConnector({fundConnector: createdConnector})
@@ -149,7 +158,8 @@ export class FundsConfigurationComponent implements OnInit {
         this.msg.success(`Connector '${createdConnector.displayName}' was assigned`);
         this._connectors = [...this._connectors, createdConnector];
         this._isVisibleConnectorCreate = false;
-      });
+        this._isWorking = false;
+      }, () => this._isWorking = false);
   }
 
   checkConnector(connector: FundConnectorDto) {

@@ -21,6 +21,9 @@ export class FundFormComponent implements OnInit {
   @Input()
   clients: FundClient[] = [];
 
+  @Input()
+  saving = false;
+
   @Output()
   saved: EventEmitter<FundSimpleInfo> = new EventEmitter();
 
