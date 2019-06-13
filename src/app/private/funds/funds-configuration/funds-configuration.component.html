@@ -1,0 +1,219 @@
+<div class="container">
+
+  <nz-page-header class="header" [nzTitle]="'Funds'">
+
+    <nz-page-header-extra>
+      <img src="./assets/computer-config.png" alt="Users" class="sub-logo" />
+    </nz-page-header-extra>
+
+    <nz-page-header-content>
+
+      <div class="wrap">
+        <div class="content">
+          <div class="content">
+            <p> Our funds configuration</p>
+            <p class="content-link">
+              <a class="d-flex pr-lg" (click)="refreshData()">
+                <i class="fas fa-sync-alt action-icon"></i>
+                Refresh
+              </a>
+              <a class="d-flex pr-lg" (click)="_isVisibleFundCreate = true">
+                <i class="action-icon" nz-icon nzType="plus" nzTheme="outline"></i>
+                New fund
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </nz-page-header-content>
+
+  </nz-page-header>
+
+
+  <nz-card
+    [nzBodyStyle]="{padding: '0'}"
+    [nzBordered]="false"
+    class="funds"
+    [nzHoverable]="false"
+    [nzLoading]="_loading"
+  >
+
+    <nz-table #fundsTable
+              [nzData]="_funds"
+              [nzPageSize]="1000"
+              [nzShowPagination]="false"
+              [nzBordered]="false"
+
+    >
+      <thead>
+      <tr>
+        <th>Key</th>
+        <th>Display name</th>
+        <th nzAlign="center">Is public</th>
+        <th nzAlign="center">Is disabled</th>
+        <th nzAlign="center">Is hidden</th>
+        <th>Owner</th>
+        <th>Ordering</th>
+        <th nzWidth="100px" nzRight="0px"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="fundsTable.data">
+        <tr (click)="onFundSelected(data)" [class.selected-row]="_selectedFund === data">
+          <td>{{ data.key }}</td>
+          <td>{{ data.displayName }}</td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isPublic"></td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isDisabled"></td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isHidden"></td>
+          <td>{{ getClientName(data.owner) }}</td>
+          <td>{{ data.ordering }}</td>
+          <td nzRight="0px">
+            <button nz-button nzType="default" nzShape="round" (click)="editFund(data)"
+                    nz-tooltip nzTitle="Edit fund"
+            >
+              <i nz-icon type="edit"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+
+  </nz-card>
+
+  <nz-card
+    [nzBodyStyle]="{padding: '0'}"
+    [nzBordered]="false"
+    class="mt-lg"
+    [nzHoverable]="false"
+    [nzLoading]="_loading"
+  >
+
+    <nz-table #connectorsTable
+              [nzData]="_connectors"
+              [nzPageSize]="1000"
+              [nzShowPagination]="false"
+              [nzBordered]="false"
+              [nzTitle]="titleTemplate"
+    >
+      <thead>
+      <tr>
+        <th>Exchange</th>
+        <th>Display name</th>
+        <th nzAlign="center">Is disabled</th>
+        <th nzAlign="center">Is lending</th>
+        <th nzWidth="100px" nzRight="0px"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-data [ngForOf]="connectorsTable.data">
+        <tr>
+          <td>{{ data.exchangeName }}</td>
+          <td>{{ data.displayName }}</td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isDisabled"></td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isLendingEnabled"></td>
+          <td nzRight="0px" class="row">
+            <button nz-button nzType="default" nzShape="round" (click)="editConnector(data)"
+                    nz-tooltip nzTitle="Edit connector"
+            >
+              <i nz-icon type="edit"></i>
+            </button>
+            <button nz-button nzType="default" nzShape="round" (click)="checkConnector(data)" class="action"
+                    nz-tooltip nzTitle="Check connector's configuration"
+            >
+              <i nz-icon type="check"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </nz-table>
+
+    <ng-template #titleTemplate>
+      <strong class="connector-title">Connectors</strong>
+      <span *ngIf="_selectedFund" class="connector-desc">for {{_selectedFund?.displayName}}</span>
+      <button *ngIf="_selectedFund" nz-button nzType="default" nzShape="round" (click)="_isVisibleConnectorCreate = true" class="action"
+              nz-tooltip nzTitle="Assign connector"
+      >
+        <i nz-icon type="plus"></i>
+      </button>
+    </ng-template>
+
+  </nz-card>
+
+
+  <nz-modal
+            [(nzVisible)]="_isVisibleFundEdit"
+            [nzTitle]="'Edit fund: ' + _selectedFundForEdit?.displayName"
+            (nzOnCancel)="_isVisibleFundEdit = false;"
+            [nzFooter]="null">
+    <nx-fund-form
+      [fund]="_selectedFundForEdit"
+      [clients]="_allClients"
+      [saving]="_isWorking"
+      (saved)="onSaveFund($event)">
+    </nx-fund-form>
+  </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="_isVisibleFundCreate"
+    [nzTitle]="'Create new fund'"
+    (nzOnCancel)="_isVisibleFundCreate = false;"
+    [nzFooter]="null">
+    <nx-fund-form
+      [clients]="_allClients"
+      [saving]="_isWorking"
+      (saved)="onCreateFund($event)">
+    </nx-fund-form>
+  </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="_isVisibleConnectorEdit"
+    [nzTitle]="'Edit connector: ' + _selectedConnectorForEdit?.displayName"
+    (nzOnCancel)="_isVisibleConnectorEdit = false;"
+    [nzFooter]="null">
+    <nx-connector-form
+      [connector]="_selectedConnectorForEdit"
+      [definitions]="_connectorsDefs"
+      [saving]="_isWorking"
+      (saved)="onSaveConnector($event)">
+    </nx-connector-form>
+  </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="_isVisibleConnectorCreate"
+    [nzTitle]="'Assign new connector to fund: ' + _selectedFund?.displayName"
+    (nzOnCancel)="_isVisibleConnectorCreate = false;"
+    [nzFooter]="null">
+    <nx-connector-form
+      [definitions]="_connectorsDefs"
+      [saving]="_isWorking"
+      (saved)="onCreateConnector($event, _selectedFund)">
+    </nx-connector-form>
+  </nz-modal>
+
+  <nz-modal
+    [(nzVisible)]="_isVisibleConnectorCheck"
+    [nzTitle]=""
+    [nzFooter]="modalFooter"
+    (nzOnCancel)="_isVisibleConnectorCheck = false;"
+    (nzOnOk)="_isVisibleConnectorCheck = false"
+  >
+    <nz-alert
+      class="alert"
+      nzType="success"
+      nzMessage="Success"
+      [nzDescription]="'Connector \'' + _checkedConnector?.displayName + '\' is working correctly'"
+      nzShowIcon
+    >
+    </nz-alert>
+
+    <nx-fund-balance [data]="_checkedConnectorBalance"></nx-fund-balance>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="primary" (click)="_isVisibleConnectorCheck = false">OK</button>
+    </ng-template>
+  </nz-modal>
+
+</div>

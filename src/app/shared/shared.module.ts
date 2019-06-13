@@ -1,75 +1,54 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-// delon
-import { AlainThemeModule } from '@delon/theme';
-import { DelonABCModule } from '@delon/abc';
-import { DelonACLModule } from '@delon/acl';
-import { DelonFormModule } from '@delon/form';
-// i18n
-import { TranslateModule } from '@ngx-translate/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-// region: third libs
-import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { CountdownModule } from 'ngx-countdown';
-import { UEditorModule } from 'ngx-ueditor';
-import { NgxTinymceModule } from 'ngx-tinymce';
-import { NxCardComponent } from './components/nx-card/nx-card.component';
+import { UserHeadComponent } from './components/user-head/user-head.component';
+import {NgZorroAntdModule} from 'ng-zorro-antd';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {ExternalViewComponent} from '@shared/external-view-component/external-view.component';
+import { NxTrendComponent } from './components/nx-trend/nx-trend.component';
+import {NxCardComponent} from './components/nx-card/nx-card.component';
+import {ExternalViewComponent} from './components/external-view-component/external-view.component';
+import { NxAuthDirective } from './directive/nx-auth.directive';
 
-const THIRDMODULES = [
-  NgZorroAntdModule,
-  CountdownModule,
-  UEditorModule,
-  NgxTinymceModule,
-];
-// endregion
-
-// region: your componets & directives
-const COMPONENTS = [
+const exportedComponents = [
   ExternalViewComponent,
+  UserHeadComponent,
   NxCardComponent,
+  NxTrendComponent,
+  NxAuthDirective
 ];
-const DIRECTIVES = [];
-// endregion
+
+const exportedModules = [
+  CommonModule,
+  NgZorroAntdModule,
+  FormsModule,
+  ReactiveFormsModule,
+  HttpClientModule,
+  RouterModule,
+  NgxChartsModule
+];
+
+const modules = [
+];
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    ReactiveFormsModule,
-    NgxChartsModule,
-    AlainThemeModule.forChild(),
-    DelonABCModule,
-    DelonACLModule,
-    DelonFormModule,
-    // third libs
-    ...THIRDMODULES,
+    ...exportedModules,
+    ...modules
+  ],
+  providers: [
   ],
   declarations: [
-    // your components
-    ...COMPONENTS,
-    ...DIRECTIVES,
+    ...exportedComponents
   ],
   exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    AlainThemeModule,
-    DelonABCModule,
-    DelonACLModule,
-    DelonFormModule,
-    // i18n
-    TranslateModule,
-    // third libs
-    ...THIRDMODULES,
-    // your components
-    ...COMPONENTS,
-    ...DIRECTIVES,
+    ...exportedModules,
+    ...exportedComponents
   ],
 })
-export class SharedModule {}
+export class SharedModule {
+  constructor() {
+  }
+}

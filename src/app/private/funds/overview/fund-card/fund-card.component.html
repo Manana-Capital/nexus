@@ -1,0 +1,32 @@
+<nz-card
+  [nzBodyStyle]="{padding: '20px 24px 8px 24px'}"
+  [nzBordered]="false"
+  [nzTitle]="_title"
+  [nzHoverable]="true"
+  [nzLoading]="loading"
+  [nzType]="'inner'"
+  [nzExtra]="extraTemplate"
+  [class.selected]="isSelected"
+>
+  <div class="total-container">
+    <p class="total" [innerHTML]="total"></p>
+    <div *ngIf="diff" class="diff"
+         [class.profit]="diff > 0"
+         [class.loss]="diff < 0"
+    >
+      <span *ngIf="diff > 0">+</span>{{diff | number:'1.2-2'}}
+    </div>
+  </div>
+
+  <div class="desc" [ngStyle]="{'height':_height}">
+    <div [ngClass]="{'fixed': !!_orgHeight }">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</nz-card>
+
+<ng-template #extraTemplate>
+  <span class="action" *ngIf="_action || _actionTpl">
+    <ng-container *ngIf="_action; else _actionTpl">{{ _action }}</ng-container>
+  </span>
+</ng-template>

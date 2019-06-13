@@ -1,0 +1,47 @@
+<div class="container">
+<nz-page-header class="header" [title]="' '">
+
+  <nz-page-header-extra>
+    <div class="page-extra">
+      <div>
+        <p>Active funds</p>
+        <p>{{_currentPortfolio?.activeFunds}}
+          <span> / {{_currentPortfolio?.totalFunds}}</span>
+        </p>
+      </div>
+      <div>
+        <p>Account age</p>
+        <p>{{_currentPortfolio?.accountAgeDays}} days</p>
+      </div>
+    </div>
+  </nz-page-header-extra>
+
+
+  <nz-page-header-content>
+    <div class="page-header">
+      <div class="avatar">
+        <nz-avatar nzSrc="/assets/tmp/img/suitcase.png"></nz-avatar>
+      </div>
+      <div class="desc">
+        <div class="desc-title">Hello,
+          <nz-spin class="loader" *ngIf="_loading" [nzSize]="'small'"></nz-spin>
+          {{_currentPortfolio?.client?.firstName}}！</div>
+        <div>
+          The information below shows your portfolio.
+        </div>
+      </div>
+
+      <div class="extra-content" *ngIf="_currentPortfolio?.lastLoginInfo">
+        <span class="last-login-info">
+          Last login {{_currentPortfolio?.lastLoginInfo?.timestamp | date:'MMMM d, y, HH:mm'}}
+          by {{_currentPortfolio?.lastLoginInfo?.provider}}.
+        </span>
+      </div>
+
+    </div>
+  </nz-page-header-content>
+
+</nz-page-header>
+
+<nx-portfolio-overview [currentPortfolio]="_currentPortfolio" [loading]="_loading" ></nx-portfolio-overview>
+</div>

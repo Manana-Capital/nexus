@@ -1,0 +1,30 @@
+<!--suppress TypeScriptValidateTypes -->
+
+<ng-container *ngFor="let prop of _properties">
+
+  <nz-form-item *ngIf="prop.type === 0">
+    <nz-form-label [nzFor]="prop.name" [nzSpan]="6">{{prop.name}}</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input [(ngModel)]="_data[prop.name]" [name]="prop.name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item *ngIf="prop.type === 1">
+    <nz-form-label [nzFor]="prop.name" [nzSpan]="6">{{prop.name}}</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-input-number [(ngModel)]="_data[prop.name]"
+                       [name]="prop.name" style="width:100%"></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <ng-container *ngIf="prop.type == 3">
+
+    <nz-divider nzDashed [nzText]="prop.name"></nz-divider>
+    <nx-config-properties-editor
+      [data]="_data[prop.name]"
+      [properties]="prop.children"
+    ></nx-config-properties-editor>
+
+  </ng-container>
+
+</ng-container>

@@ -1,0 +1,26 @@
+<nz-card *ngIf="info" [nzLoading]="loading"
+         [nzBordered]="false"
+         [nzBodyStyle]="{'padding': '0'}"
+         class="mt-lg chart-wrapper">
+  <div class="chart">
+
+    <ngx-charts-pie-chart
+      [results]="_chartData"
+      [labels]="true"
+    >
+
+      <ng-template #tooltipTemplate let-model="model">
+
+        <div>
+          {{model.name}}
+          <div>
+            <span>{{model.value | number:'1.0-0'}}%</span>
+          </div>
+        </div>
+
+      </ng-template>
+
+    </ngx-charts-pie-chart>
+
+  </div>
+</nz-card>

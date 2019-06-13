@@ -1,0 +1,174 @@
+<nz-page-header nzTitle="Welcome to Mañana Capital back-office system">
+  <nz-page-header-extra>
+    <nz-dropdown class="reload-btn" nzPlacement="bottomRight">
+      <button nz-button nz-dropdown>
+        <i nz-icon nzType="ellipsis" nzTheme="outline"></i>
+      </button>
+      <ul nz-menu>
+        <li nz-menu-item (click)="refreshData()">Refresh data</li>
+      </ul>
+    </nz-dropdown>
+    <img src="./assets/logo-color-square.png" alt="Nexus logo" class="sub-logo" />
+  </nz-page-header-extra>
+  <nz-page-header-content>
+    <span>The information below shows performance of our funds.</span>
+  </nz-page-header-content>
+</nz-page-header>
+
+<div class="page-content">
+<div nz-row [nzGutter]="24" class="pt-lg">
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-card>
+  </div>
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-card>
+  </div>
+
+  <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngIf="_loading">
+    <nx-fund-card [bordered]="true" [loading]="true" contentHeight="84px" >
+    </nx-fund-card>
+  </div>
+
+
+  <div class="fund-card" nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6" *ngFor="let fund of _funds">
+    <nx-fund-card [bordered]="true"
+                  [title]="fund.displayName"
+                  contentHeight="84px"
+                  [action]="action1"
+                  [isSelected]="_selectedFund == fund"
+                  (click)="selectFund(fund)"
+    >
+
+      <ng-template #action1>
+        <nz-tooltip [nzTitle]="fund.description">
+          <i nz-tooltip nz-icon nzType="info-circle" nzTheme="outline"></i>
+        </nz-tooltip>
+      </ng-template>
+
+      <nx-trend [flag]="getFlagName(fund.performance.bigBang)">
+        <div class="performance-main">
+<!--          Big bang-->
+          <span class="pl-sm performance-number-main"
+                [class.red]="fund.performance.bigBang < 0"
+                [class.green]="fund.performance.bigBang > 0">
+          {{fund.performance.bigBang | number:'1.2-2'}}%
+          </span>
+        </div>
+      </nx-trend>
+
+      <nx-trend [flag]="getFlagName(fund.performance.currentYear)">
+        <div class="performance-row">
+        Year ({{_today.getUTCFullYear()}})
+          <span class="pl-sm performance-number"
+                [class.red]="fund.performance.currentYear < 0"
+                [class.green]="fund.performance.currentYear > 0">
+            {{fund.performance.currentYear | number:'1.2-2'}}%
+          </span>
+        </div>
+      </nx-trend>
+
+      <nx-trend [flag]="getFlagName(fund.performance.currentMonth)">
+        <div class="performance-row">
+        Month ({{_today | date:'MMM'}})
+          <span class="pl-sm performance-number"
+                [class.red]="fund.performance.currentMonth < 0"
+                [class.green]="fund.performance.currentMonth > 0">
+            {{fund.performance.currentMonth | number:'1.2-2'}}%
+          </span>
+        </div>
+      </nx-trend>
+
+      <nx-trend [flag]="getFlagName(fund.performance.today)">
+        <div class="performance-row">
+        Today ({{_today | date:'EEE'}})
+          <span class="pl-sm performance-number"
+                [class.red]="fund.performance.today < 0"
+                [class.green]="fund.performance.today > 0">
+            {{fund.performance.today | number:'1.2-2'}}%
+          </span>
+        </div>
+      </nx-trend>
+
+    </nx-fund-card>
+  </div>
+
+
+</div>
+
+<nz-card *ngIf="!_selectedFund?.isUnderConstruction" [nzLoading]="_loading"
+         [nzBordered]="false"
+         [nzBodyStyle]="{'padding': '10px 30px 10px 0'}"
+         class="mt-lg chart-wrapper">
+  <div class="chart">
+
+    <ngx-charts-line-chart
+      [scheme]="_colorScheme"
+      [results]="_chartData"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Date"
+      yAxisLabel="Performance"
+      [autoScale]="true"
+      [timeline]="true"
+    >
+
+<!--
+      <ng-template #tooltipTemplate let-model="model">
+        {{model | json}}
+      </ng-template>
+-->
+
+      <ng-template #seriesTooltipTemplate let-model="model">
+        <div *ngIf="model.length >= 2">
+          {{model[0].name | date:'fullDate'}}
+          <div>
+            <span [style.color]="model[0].color">{{model[0].series}}</span>: {{model[0].value |  number:'1.2-2'}}
+          </div>
+          <div>
+            <span [style.color]="model[1].color">{{model[1].series}}</span>: {{model[1].value |  number:'1.2-2'}}
+          </div>
+          <div>
+            BTC price: ${{findBtcInfo(model[1]).close | number:'1.2-2'}}
+          </div>
+          <div>
+            BTC volume: {{findBtcInfo(model[1]).volume | number:'1.0-0'}}
+          </div>
+        </div>
+
+        <div *ngIf="model.length == 1">
+          {{model[0].name | date:'fullDate'}}
+          <div>
+            <span [style.color]="model[0].color">{{model[0].series}}</span>: {{model[0].value |  number:'1.2-2'}}
+          </div>
+          <div>
+            BTC price: ${{findBtcInfo(model[0]).close | number:'1.2-2'}}
+          </div>
+          <div>
+            BTC volume: {{findBtcInfo(model[0]).volume | number:'1.0-0'}}
+          </div>
+        </div>
+
+      </ng-template>
+
+    </ngx-charts-line-chart>
+
+  </div>
+</nz-card>
+
+<nz-card *ngIf="!_selectedFund?.isUnderConstruction" [nzLoading]="_loading" [nzBordered]="false" [nzBodyStyle]="{'padding': '0'}" class="mt-lg">
+ <div class="years">
+   <div class="year-item" *ngFor="let year of _selectedFund?.performanceYears">
+     <nx-fund-performance-year [yearModel]="year"></nx-fund-performance-year>
+     <nz-divider class="divider" nzType="vertical"></nz-divider>
+   </div>
+ </div>
+</nz-card>
+</div>

@@ -1,0 +1,58 @@
+<nz-card
+  *ngIf="_currentPortfolio?.activeFundsInfo.length > 1"
+  [nzBordered]="false" [nzLoading]="loading"
+  [nzBodyStyle]="{'padding': '0'}"
+>
+  <div nz-row>
+
+    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6">
+
+      <nz-statistic
+        class="stat"
+        [nzValue]="'$ ' + (_currentPortfolio?.totalAssetsUsd | number: '1.0-0')"
+        [nzTitle]="'Total Assets'">
+      </nz-statistic>
+
+    </div>
+
+    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6" class="header-info" >
+
+      <nz-statistic
+        class="stat"
+        [nzValue]="_currentPortfolio?.totalProfitUsd | number: '1.2-2'"
+        [nzTitle]="'Total Profit'"
+        [nzPrefix]="'$ '"
+        [nzValueStyle]="{ color: _currentPortfolio?.totalProfitUsd < 0 ? '#a8071a' : '#237804' }"
+      >
+      </nz-statistic>
+
+    </div>
+
+    <div nz-col [nzXs]="0" [nzSm]="0" [nzMd]="0" [nzLg]="6">
+
+    </div>
+
+    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6">
+
+      <nx-portfolio-distribution-chart [info]="currentPortfolio"></nx-portfolio-distribution-chart>
+
+    </div>
+
+  </div>
+</nz-card>
+
+<nx-portfolio-balance-chart
+                            *ngIf="!!_totalBalanceTicks && _totalBalanceTicks.length && _currentPortfolio?.activeFundsInfo.length > 1"
+                            [ticksBalance]="_totalBalanceTicks"
+                            [ticksProfit]="_totalProfitTicks"
+>
+</nx-portfolio-balance-chart>
+
+
+<nz-tabset nzTabPosition="top" [nzType]="'line'" [nzShowPagination]="false" [class.large]="fullSize" [(nzSelectedIndex)]="_selectedFundIndex">
+  <nz-tab *ngFor="let info of _currentPortfolio?.activeFundsInfo; let i = index" [nzTitle]="info.fund.displayName">
+    <nx-portfolio-fund [fund]="info" [isSelected]="_selectedFundIndex === i"></nx-portfolio-fund>
+  </nz-tab>
+</nz-tabset>
+
+

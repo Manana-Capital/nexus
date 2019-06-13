@@ -1,8 +1,0 @@
-{
-  "typescript.tsdk": "./node_modules/typescript/lib",
-  // Make sure the code snippet takes precedence over the built
-  // https://github.com/cipchk/ng-zorro-vscode
-  "editor.snippetSuggestions": "top"
-  // https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
-  // "editor.formatOnSave": true
-}

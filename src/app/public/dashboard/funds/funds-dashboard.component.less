@@ -1,0 +1,115 @@
+@import "../../../../colors";
+
+nz-page-header {
+  /*border-bottom: 1px solid @border-color-base;*/
+  /*background-color: @sub-component-background !important;*/
+  margin: 20px !important;
+}
+
+.page-content {
+  padding: 20px;
+}
+
+.reload-btn {
+  float: right;
+}
+
+.sub-logo {
+  max-height:62px;
+  margin-left: 20px;
+  opacity: 0.2;
+}
+
+nx-trend {
+  display: flex;
+}
+
+.fund-card {
+  padding-bottom: 12px;
+}
+
+.performance-row {
+  width: 150px;
+}
+
+.performance-main {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.performance-number-main {
+  float: left;
+}
+
+.performance-number {
+  float: right;
+}
+
+.red {
+  color: @red-8;
+}
+
+.green {
+  color: @green-8;
+}
+
+.chart-wrapper {
+  margin-top: 20px;
+}
+
+.chart {
+  height: 500px;
+  width: 100%;
+}
+
+.years {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 10px;
+}
+
+.years > :last-child > :last-child {
+  display: none;
+}
+
+.year-item {
+  max-width: 400px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.divider {
+  height: 100%;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.ant-table-pagination {
+  margin-bottom: 0;
+}
+
+:host ::ng-deep {
+
+  .trend-text {
+    margin-left: 8px;
+    color: @heading-color;
+  }
+
+  @media screen and (max-width: @screen-lg) {
+  }
+
+  @media screen and (max-width: @screen-md) {
+  }
+
+  @media screen and (max-width: @screen-sm) {
+    nz-page-header {
+      margin: 10px !important;
+    }
+    .page-content {
+      padding: 10px;
+    }
+  }
+}

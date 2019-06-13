@@ -1,0 +1,40 @@
+<nz-table #smallTable nzSize="small"
+          [nzData]="_data"
+          [nzShowPagination]="false"
+          [nzPageSize]="100"
+>
+  <thead>
+  <tr>
+    <th>{{yearModel.year}}</th>
+    <th>Fund</th>
+    <th>Bitcoin</th>
+    <th>Outperform</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of smallTable.data">
+    <td>
+        <span>
+          {{data.month | date:'MMMM'}}
+        </span>
+    </td>
+    <td>
+        <span [class.profit]="data.manana > 0" [class.loss]="data.manana < 0">
+          {{data.manana | number:'1.2-2'}}%
+        </span>
+    </td>
+    <td>
+        <span [class.profit-n]="data.btc > 0" [class.loss-n]="data.btc < 0">
+          {{data.btc | number:'1.2-2'}}%
+        </span>
+    </td>
+    <td>
+<!--      <nx-trend  [flag]="data.outperform < 0 ? 'down' : 'up'">-->
+        <span *ngIf="data.outperform >= 0" [class.profit]="data.outperform > 0">
+          {{data.outperform | number:'1.2-2'}}%
+        </span>
+<!--      </nx-trend>-->
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

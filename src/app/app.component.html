@@ -1,0 +1,7 @@
+<ng-container *ngIf="_authChecked">
+  <nx-main-layout></nx-main-layout>
+</ng-container>
+
+<ng-container *ngIf="!_authChecked">
+  <h3>Checking authentication...</h3>
+</ng-container>

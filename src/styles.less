@@ -1,7 +1,19 @@
-// region: PLACEHOLDER, IMPORTANT: don't remove
-@import '~@delon/theme/styles/index';
-@import '~@delon/abc/index';
+/* You can add global styles to this file, and also import other style files */
 
-@import './styles/index';
-@import './styles/theme';
-// endregion
+body {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #2d388e;
+  outline: #333 solid 1px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+}

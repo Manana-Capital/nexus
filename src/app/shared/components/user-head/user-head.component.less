@@ -1,0 +1,34 @@
+@import "../../../../colors";
+
+.head-component{
+  cursor: pointer;
+  padding: 20px 10px;
+  background-color: @component-background;
+}
+
+.head-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.head-text {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.head-photo {
+  width: 40px;
+}
+
+.head-name {
+  width: 120px;
+}
+
+.head-email {
+  width: 120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

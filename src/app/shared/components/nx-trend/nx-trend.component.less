@@ -1,0 +1,30 @@
+@import "../../../../colors";
+
+.ad-trend {
+  display: flex;
+  font-size: 14px;
+  line-height: 22px;
+  .up,
+  .down {
+    margin-left: 4px;
+    position: relative;
+    top: 1px;
+    i {
+      font-size: 14px;
+      transform: scale(0.83);
+    }
+  }
+  .up {
+    color: @green-6;
+  }
+  .down {
+    color: @red-6;
+    top: -1px;
+  }
+  &.grey {
+    .up,
+    .down {
+      color: @text-color;
+    }
+  }
+}
