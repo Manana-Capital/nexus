@@ -42,10 +42,12 @@
 
     <nz-table #logsTable
               [nzData]="_visibleLogs"
-              [nzPageSize]="100"
-              [nzFrontPagination]="false"
+              [nzPageSize]="20"
+              [nzFrontPagination]="true"
               [nzShowPagination]="true"
               [nzBordered]="false"
+              [nzShowSizeChanger]="true"
+              [nzPageSizeOptions]="[10, 20, 50, 100, 1000]"
               nzSize="small"
     >
       <thead>

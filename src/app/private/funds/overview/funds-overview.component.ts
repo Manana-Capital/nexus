@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import {FundsService} from '@core/backend/generated/controllers/Funds';
 import {FundTotalBalanceInfo} from '@core/backend/generated/defs/FundTotalBalanceInfo';
+import {FundBalancePerExchange} from '@core/backend/generated/defs/FundBalancePerExchange';
 
 @Component({
   selector: 'nx-funds-overview',
@@ -62,4 +63,7 @@ export class FundsOverviewComponent implements OnInit {
     return map;
   }
 
+  sortBalances(balances: FundBalancePerExchange[]) {
+    return balances.sort((a, b) => a.balances.length - b.balances.length);
+  }
 }

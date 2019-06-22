@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PortfolioFundInfo} from 'app/core/backend/generated/defs/PortfolioFundInfo';
 import {PortfolioTransaction} from '@core/backend/generated/defs/PortfolioTransaction';
 import {PortfolioBalanceTick} from '@core/backend/generated/defs/PortfolioBalanceTick';
+import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
 
 interface Transaction extends PortfolioTransaction {
   type?: string;
@@ -32,7 +33,9 @@ export class PortfolioFundComponent implements OnInit {
   _fund: PortfolioFundInfo;
   _transactions: Transaction[] = [];
 
-  constructor() { }
+  constructor(
+    public currency: NxCurrencySelectorService
+  ) { }
 
   ngOnInit() {
   }

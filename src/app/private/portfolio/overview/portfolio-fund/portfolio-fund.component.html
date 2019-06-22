@@ -3,9 +3,9 @@
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
 
       <nz-statistic
-        [nzValue]="fund?.assetsUsd | number: '1.0-0'"
-        [nzTitle]="'Assets'"
-        [nzPrefix]="'$ '"
+        [nzValue]="currency.getTotalAssetsForPortfolioFund(fund) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Balance'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
       >
       </nz-statistic>
 
@@ -13,10 +13,10 @@
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
 
       <nz-statistic
-        [nzValue]="fund?.profitUsd | number: '1.2-2'"
+        [nzValue]="currency.getTotalProfitForPortfolioFund(fund) | number: currency.getDetailDecimalFormat()"
         [nzTitle]="'Profit'"
-        [nzPrefix]="'$ '"
-        [nzValueStyle]="{ color: fund?.profitUsd < 0 ? '#a8071a' : '#237804' }"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: currency.getTotalProfitForPortfolioFund(fund) < 0 ? '#a8071a' : '#237804' }"
       >
       </nz-statistic>
 

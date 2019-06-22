@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PortfolioBalanceTick} from '@core/backend/generated/defs/PortfolioBalanceTick';
+import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
 
 @Component({
   selector: 'nx-portfolio-balance-chart',
@@ -29,7 +30,9 @@ export class PortfolioBalanceChartComponent implements OnInit {
   _chartDataProfit = [];
   _selectedChart = 'balance';
 
-  constructor() { }
+  constructor(
+    public currency: NxCurrencySelectorService
+  ) { }
 
   ngOnInit() {
     this._chartDataBalance = this.formatBalanceChartData(this.ticksBalance);
@@ -40,7 +43,7 @@ export class PortfolioBalanceChartComponent implements OnInit {
 
     const ticksForChart = ticks.map(x => ({
       name: new Date(x.timestamp),
-      value: x.valueUsd,
+      value: this.currency.getPortfolioTick(x),
       valueUsd: x.valueUsd,
       valueBtc: x.valueBtc,
       valueCzk: x.valueCzk
@@ -58,7 +61,7 @@ export class PortfolioBalanceChartComponent implements OnInit {
 
     const ticksForChart = ticks.map(x => ({
       name: new Date(x.timestamp),
-      value: x.valueUsd,
+      value: this.currency.getPortfolioTick(x),
       valueUsd: x.valueUsd,
       valueBtc: x.valueBtc,
       valueCzk: x.valueCzk

@@ -6,9 +6,10 @@
       <a (click)="active=1" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===1}">Profile</a>
       <a (click)="active=2" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===2}">Access</a>
       <a (click)="active=4" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===4}">Notifications</a>
+      <a (click)="active=5" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===5}">Currency</a>
     </nz-card>
     <nz-card nzTitle="Funds settings" [nzBodyStyle]="{padding: '0'}">
-      <a (click)="active=5" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===5}">Private funds</a>
+      <a (click)="active=100" class="d-block py-sm px-md" [ngClass]="{'bg-selection text-white':active===100}">Private funds</a>
     </nz-card>
   </nz-col>
 
@@ -26,7 +27,7 @@
           <h4>Profile picture</h4>
           <div class="head-photo">
             <img
-              [src]="gravatar.getGravatarUrl(currentProfile?.email, 250)" alt="user image">
+              [src]="gravatar.getGravatarUrl(currentProfile?.email, 150)" alt="user image">
           </div>
           <nz-form-explain>
             <span class="line">Set your picture via <a href="https://en.gravatar.com" target="_blank">Gravatar</a></span>
@@ -70,9 +71,21 @@
       </nz-list>-->
     </nz-card>
 
+    <nz-card nzTitle="Currency" *ngIf="active===5">
+
+      <p class="pb-md">Choose your default currency</p>
+
+      <nz-radio-group [(ngModel)]="currencyService.selectedCurrency">
+        <label nz-radio nzValue="USD">Dollar (USD)</label>
+        <label nz-radio nzValue="CZK">Czech crown (CZK)</label>
+        <label nz-radio nzValue="BTC">Bitcoin (BTC)</label>
+      </nz-radio-group>
+
+    </nz-card>
 
 
-    <nz-card class="ant-card__body-nopadding" *ngIf="active===5" [nzBordered]="false">
+
+    <nz-card class="ant-card__body-nopadding" *ngIf="active===100" [nzBordered]="false">
       <div class="border rounded-md text-center p-lg bg-grey-lighter">
         <h3>No private funds configured</h3>
         <p class="py-md">Private funds are visible only to you.

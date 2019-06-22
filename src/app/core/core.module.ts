@@ -11,6 +11,7 @@ import {AuthService} from '@core/network/auth.service';
 import {HttpClientModule} from '@angular/common/http';
 import {NxGravatarService} from '@core/services/nx-gravatar.service';
 import {SystemService} from '@core/backend/generated/controllers/System';
+import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
 
 const generatedServices = [
   FundsService,
@@ -30,7 +31,8 @@ const modules = [
 ];
 
 const services = [
-  NxGravatarService
+  NxGravatarService,
+  NxCurrencySelectorService
 ];
 
 @NgModule({

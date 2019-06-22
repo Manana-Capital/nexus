@@ -1,6 +1,7 @@
 <nz-card
   *ngIf="_currentPortfolio?.activeFundsInfo.length > 1"
-  [nzBordered]="false" [nzLoading]="loading"
+  [nzBordered]="false"
+  [nzLoading]="loading"
   [nzBodyStyle]="{'padding': '0'}"
 >
   <div nz-row>
@@ -9,8 +10,8 @@
 
       <nz-statistic
         class="stat"
-        [nzValue]="'$ ' + (_currentPortfolio?.totalAssetsUsd | number: '1.0-0')"
-        [nzTitle]="'Total Assets'">
+        [nzValue]="currency.getCurrencySign() + ' ' + (currency.getTotalAssetsForPortfolio(_currentPortfolio) | number: currency.getHighDecimalFormat())"
+        [nzTitle]="'Total Balance'">
       </nz-statistic>
 
     </div>
@@ -19,10 +20,10 @@
 
       <nz-statistic
         class="stat"
-        [nzValue]="_currentPortfolio?.totalProfitUsd | number: '1.2-2'"
+        [nzValue]="currency.getTotalProfitForPortfolio(_currentPortfolio) | number: currency.getDetailDecimalFormat()"
         [nzTitle]="'Total Profit'"
-        [nzPrefix]="'$ '"
-        [nzValueStyle]="{ color: _currentPortfolio?.totalProfitUsd < 0 ? '#a8071a' : '#237804' }"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: currency.getTotalProfitForPortfolio(_currentPortfolio) < 0 ? '#a8071a' : '#237804' }"
       >
       </nz-statistic>
 
@@ -42,17 +43,34 @@
 </nz-card>
 
 <nx-portfolio-balance-chart
-                            *ngIf="!!_totalBalanceTicks && _totalBalanceTicks.length && _currentPortfolio?.activeFundsInfo.length > 1"
+                            *ngIf="_displayFundDetail && !!_totalBalanceTicks && _totalBalanceTicks.length && _currentPortfolio?.activeFundsInfo.length > 1"
                             [ticksBalance]="_totalBalanceTicks"
                             [ticksProfit]="_totalProfitTicks"
 >
 </nx-portfolio-balance-chart>
 
 
-<nz-tabset nzTabPosition="top" [nzType]="'line'" [nzShowPagination]="false" [class.large]="fullSize" [(nzSelectedIndex)]="_selectedFundIndex">
+<nz-tabset nzTabPosition="top" [nzType]="'line'" [nzShowPagination]="false"
+           [class.large]="fullSize" [(nzSelectedIndex)]="_selectedFundIndex"
+           *ngIf="_displayFundDetail"
+>
   <nz-tab *ngFor="let info of _currentPortfolio?.activeFundsInfo; let i = index" [nzTitle]="info.fund.displayName">
     <nx-portfolio-fund [fund]="info" [isSelected]="_selectedFundIndex === i"></nx-portfolio-fund>
   </nz-tab>
 </nz-tabset>
 
+<nz-card
+  *ngIf="fullSize"
+  [nzBordered]="false"
+  [nzLoading]="loading"
+  nzTitle="Default currency"
+  class="card"
+>
 
+  <nz-radio-group [(ngModel)]="currency.selectedCurrency" (ngModelChange)="reloadFundDetail()">
+    <label nz-radio nzValue="USD">Dollar (USD)</label>
+    <label nz-radio nzValue="CZK">Czech crown (CZK)</label>
+    <label nz-radio nzValue="BTC">Bitcoin (BTC)</label>
+  </nz-radio-group>
+
+</nz-card>

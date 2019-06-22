@@ -15,7 +15,7 @@
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
       xAxisLabel="Date"
-      yAxisLabel="Balance (USD)"
+      [yAxisLabel]="'Balance (' + currency.getCurrencyShortName() + ')'"
       [autoScale]="true"
       [timeline]="false"
     >
@@ -53,7 +53,7 @@
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
       xAxisLabel="Date"
-      yAxisLabel="Profit (USD)"
+      [yAxisLabel]="'Profit (' + currency.getCurrencyShortName() + ')'"
       [autoScale]="true"
       [timeline]="false"
       [baseValue]="0"

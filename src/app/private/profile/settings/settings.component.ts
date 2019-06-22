@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProfileService} from '@core/backend/generated/controllers/Profile';
 import {ProfileInfoDto} from '@core/backend/generated/defs/ProfileInfoDto';
 import {NxGravatarService} from '@core/services/nx-gravatar.service';
+import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
 
 @Component({
   selector: 'nx-profile-settings',
@@ -17,7 +18,8 @@ export class ProfileSettingsComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     public msg: NzMessageService,
-    public gravatar: NxGravatarService
+    public gravatar: NxGravatarService,
+    public currencyService: NxCurrencySelectorService
   ) {
 
     profileService.apiProfileGet().subscribe(data => {

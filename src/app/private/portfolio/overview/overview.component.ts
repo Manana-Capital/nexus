@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {PortfolioInfo} from 'app/core/backend/generated/defs/PortfolioInfo';
 import {PortfolioBalanceTick} from '@core/backend/generated/defs/PortfolioBalanceTick';
+import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
 
 @Component({
   selector: 'nx-portfolio-overview',
@@ -15,9 +16,9 @@ export class PortfolioOverviewComponent implements OnInit {
   }
   set currentPortfolio(val: PortfolioInfo) {
     this._currentPortfolio = val;
-    this._totalBalanceTicks = this.mergeBalanceTicks(this.currentPortfolio);
-    this._totalProfitTicks = this.mergeProfitTicks(this.currentPortfolio);
+    this.reloadChartData();
   }
+
   _currentPortfolio: PortfolioInfo;
 
   @Input()
@@ -32,12 +33,21 @@ export class PortfolioOverviewComponent implements OnInit {
   _totalBalanceTicks: PortfolioBalanceTick[];
   _totalProfitTicks: PortfolioBalanceTick[];
   _selectedFundIndex = 0;
+  _displayFundDetail = true;
 
   constructor(
+    public currency: NxCurrencySelectorService
   ) {
   }
 
   ngOnInit() {
+  }
+
+  private reloadChartData() {
+    this._totalBalanceTicks = [];
+    this._totalProfitTicks = [];
+    this._totalBalanceTicks = this.mergeBalanceTicks(this.currentPortfolio);
+    this._totalProfitTicks = this.mergeProfitTicks(this.currentPortfolio);
   }
 
   private mergeBalanceTicks(portfolio: PortfolioInfo): PortfolioBalanceTick[] {
@@ -100,5 +110,10 @@ export class PortfolioOverviewComponent implements OnInit {
       }
     });
     return result;
+  }
+
+  reloadFundDetail() {
+    this._displayFundDetail = false;
+    setTimeout(() => this._displayFundDetail = true, 10);
   }
 }

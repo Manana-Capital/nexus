@@ -36,7 +36,10 @@
   <nz-collapse-panel *ngFor="let portfolio of _data" [nzHeader]="clientHeader">
 
     <ng-template #clientHeader>
-      {{getClientDisplay(portfolio.client)}}
+      <div class="header-item">
+        <strong>#{{portfolio?.client?.id}}</strong>
+      </div>
+      <span class="header-item">{{getClientDisplay(portfolio.client)}}</span>
       <nz-tag *ngFor="let role of portfolio.client.roles">
         {{role}}
       </nz-tag>

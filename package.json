@@ -48,7 +48,8 @@
     "zone.js": "~0.8.29",
     "angular-gtag": "1.0.3",
     "angular-auth-oidc-client": "9.0.8",
-    "@swimlane/ngx-charts": "11.1.0"
+    "@swimlane/ngx-charts": "11.1.0",
+    "ngx-store": "2.1.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.13.9",
@@ -60,7 +61,8 @@
     "@types/jasminewd2": "2.0.6",
     "codelyzer": "5.0.1",
     "jasmine-core": "2.99.1",
-    "jasmine-spec-reporter": "4.2.1",    "karma": "4.0.1",
+    "jasmine-spec-reporter": "4.2.1",
+    "karma": "4.0.1",
     "karma-chrome-launcher": "2.2.0",
     "karma-coverage-istanbul-reporter": "2.0.5",
     "karma-jasmine": "1.1.2",

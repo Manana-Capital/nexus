@@ -43,7 +43,7 @@
   </div>
 
 
-  <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6" *ngFor="let fund of _funds">
+  <div class="fund-card" nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6" *ngFor="let fund of _funds">
 
     <nx-fund-overview-card [bordered]="true" [title]="fund.fund.displayName"
                   [total]="'$ ' + (fund.amountUsd | number:'1.0-0')"
@@ -101,10 +101,9 @@
 
 </div>
 
-<div nz-row [nzGutter]="24" *ngIf="_selectedFund">
-  <div *ngFor="let balance of _selectedFund.balances"
-       nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="6"
-      style="padding-top: 12px;"
+<div *ngIf="_selectedFund" class="balances">
+  <div *ngFor="let balance of sortBalances(_selectedFund.balances)"
+    class="balance-item"
   >
     <nz-card
               [nzBodyStyle]="{padding: '0'}"

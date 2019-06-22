@@ -16,6 +16,7 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {DefaultInterceptor} from '@core/network/default.interceptor';
 import {CoreModule} from '@core/core.module';
 import {LayoutModule} from '@angular/cdk/layout';
+import {WebStorageModule} from 'ngx-store';
 
 registerLocaleData(en);
 
@@ -27,6 +28,7 @@ registerLocaleData(en);
     GtagModule.forRoot({ trackingId: 'UA-118576897-2', trackPageviews: true }),
     BrowserModule,
     BrowserAnimationsModule,
+    WebStorageModule,
     LayoutModule,
     CoreModule,
     AuthModule.forRoot(),

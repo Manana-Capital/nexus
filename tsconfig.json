@@ -25,6 +25,12 @@
       "@core/*": [
         "app/core/*"
       ],
+      "@shared": [
+        "app/shared/"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
       "@env": [
         "environments/"
       ],
