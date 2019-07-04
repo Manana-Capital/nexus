@@ -6,7 +6,7 @@ Web GUI to our back-office system
 
 #### Frontend
 
-* Angular 7+
+* Angular 8+
 * Ant design
 * OpenID Connect
 
