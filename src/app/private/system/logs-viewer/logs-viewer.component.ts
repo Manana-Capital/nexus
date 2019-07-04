@@ -20,6 +20,7 @@ export class LogsViewerComponent implements OnInit {
     { label: 'Errors', value: 'error', checked: false },
     { label: 'Warnings', value: 'warning', checked: false },
     { label: 'Information', value: 'information', checked: false },
+    { label: 'Debug', value: 'debug', checked: false },
     { label: 'Verbose', value: 'verbose', checked: false },
   ];
 

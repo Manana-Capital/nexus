@@ -15,10 +15,13 @@ export interface NxLogEvent {
   /** format: int32 */
   level?: LevelNxLogEventEnum;
   levelString?: string;
+  callStack?: string;
   exceptionType?: string;
   exceptionMessage?: string;
+  exceptionCallStack?: string;
   innerExceptionType?: string;
   innerExceptionMessage?: string;
+  innerExceptionCallStack?: string;
   username?: string;
 }
 

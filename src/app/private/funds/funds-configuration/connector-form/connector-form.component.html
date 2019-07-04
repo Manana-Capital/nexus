@@ -36,6 +36,14 @@
     </nz-form-control>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <label nz-checkbox [(ngModel)]="_connector.isMarketMakerEnabled" name="isMarketMaker">
+        Market maker enabled
+      </label>
+    </nz-form-control>
+  </nz-form-item>
+
   <nz-divider nzText="Configuration"></nz-divider>
 
   <nx-config-properties-editor

@@ -17,6 +17,7 @@ export interface Connector {
   configuration?: string;
   isDisabled?: boolean;
   isLendingEnabled?: boolean;
+  isMarketMakingEnabled?: boolean;
   /** format: int32 */
   targetFundFundId?: number;
   targetFund?: __model.Fund;

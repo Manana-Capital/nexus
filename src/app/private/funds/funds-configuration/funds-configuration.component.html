@@ -87,7 +87,6 @@
     [nzBordered]="false"
     class="mt-lg"
     [nzHoverable]="false"
-    [nzLoading]="_loading"
   >
 
     <nz-table #connectorsTable
@@ -103,6 +102,7 @@
         <th>Display name</th>
         <th nzAlign="center">Is disabled</th>
         <th nzAlign="center">Is lending</th>
+        <th nzAlign="center">Is market maker</th>
         <th nzWidth="100px" nzRight="0px"></th>
       </tr>
       </thead>
@@ -113,6 +113,7 @@
           <td>{{ data.displayName }}</td>
           <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isDisabled"></td>
           <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isLendingEnabled"></td>
+          <td nzShowCheckbox [nzDisabled]="true" [(nzChecked)]="data.isMarketMakerEnabled"></td>
           <td nzRight="0px" class="row">
             <button nz-button nzType="default" nzShape="round" (click)="editConnector(data)"
                     nz-tooltip nzTitle="Edit connector"
@@ -138,6 +139,7 @@
       >
         <i nz-icon type="plus"></i>
       </button>
+      <nz-spin *ngIf="_loadingConnectors" nzSimple class="spinner"></nz-spin>
     </ng-template>
 
   </nz-card>

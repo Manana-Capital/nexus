@@ -17,4 +17,5 @@ export interface FundConnectorDto {
   configuration?: object;
   isDisabled?: boolean;
   isLendingEnabled?: boolean;
+  isMarketMakerEnabled?: boolean;
 }
