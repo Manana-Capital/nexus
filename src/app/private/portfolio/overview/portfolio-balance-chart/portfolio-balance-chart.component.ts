@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PortfolioBalanceTick} from '@core/backend/generated/defs/PortfolioBalanceTick';
 import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
-import {curveStepAfter} from 'd3-shape';
+import {curveStepBefore} from 'd3-shape';
 
 @Component({
   selector: 'nx-portfolio-balance-chart',
@@ -27,7 +27,7 @@ export class PortfolioBalanceChartComponent implements OnInit {
     domain: ['#676e78', '#C3E6CB']
   };
 
-  _curveBalance = curveStepAfter;
+  _curveBalance = curveStepBefore;
 
   _chartDataBalance = [];
   _chartDataProfit = [];

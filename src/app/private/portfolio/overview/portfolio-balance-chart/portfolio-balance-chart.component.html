@@ -23,19 +23,24 @@
 
       <ng-template #seriesTooltipTemplate let-model="model">
 
-        <div *ngIf="model.length == 1">
+        <div>
           {{model[0].name | date:'fullDate'}}
           <div>
             <span>{{model[0].series}}</span>
           </div>
           <div>
-            ${{model[0].valueUsd | number:'1.0-0'}}
+            <span class="chart-value-info">${{model[0].valueUsd | number:'1.0-0'}}</span>
+            <span class="chart-value-info">{{model[0].valueBtc | number:'1.4-4'}} BTC</span>
+            <span>{{model[0].valueCzk | number:'1.0-0'}} CZK</span>
+          </div>
+
+          <div>
+            <span>{{model[1].series}}</span>
           </div>
           <div>
-            {{model[0].valueBtc | number:'1.4-4'}} BTC
-          </div>
-          <div>
-            {{model[0].valueCzk | number:'1.0-0'}} CZK
+            <span class="chart-value-info">${{model[1].valueUsd | number:'1.0-0'}}</span>
+            <span class="chart-value-info">{{model[1].valueBtc | number:'1.4-4'}} BTC</span>
+            <span>{{model[1].valueCzk | number:'1.0-0'}} CZK</span>
           </div>
         </div>
 
@@ -63,7 +68,7 @@
 
       <ng-template #seriesTooltipTemplate let-model="model">
 
-        <div *ngIf="model.length == 1">
+        <div>
           {{model[0].name | date:'fullDate'}}
           <div>
             <span>{{model[0].series}}</span>

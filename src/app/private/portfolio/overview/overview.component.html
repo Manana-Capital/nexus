@@ -5,40 +5,50 @@
   [nzBodyStyle]="{'padding': '0'}"
 >
   <div nz-row>
-
     <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6">
-
       <nz-statistic
-        class="stat"
+        class="stat-top"
         [nzValue]="currency.getCurrencySign() + ' ' + (currency.getTotalAssetsForPortfolio(_currentPortfolio) | number: currency.getHighDecimalFormat())"
         [nzTitle]="'Total Balance'">
       </nz-statistic>
-
     </div>
-
     <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6" class="header-info" >
-
       <nz-statistic
-        class="stat"
+        class="stat-top"
         [nzValue]="currency.getTotalProfitForPortfolio(_currentPortfolio) | number: currency.getDetailDecimalFormat()"
         [nzTitle]="'Total Profit'"
         [nzPrefix]="currency.getCurrencySign() + ' '"
         [nzValueStyle]="{ color: currency.getTotalProfitForPortfolio(_currentPortfolio) < 0 ? '#a8071a' : '#237804' }"
       >
       </nz-statistic>
-
     </div>
-
     <div nz-col [nzXs]="0" [nzSm]="0" [nzMd]="0" [nzLg]="6">
-
     </div>
-
-    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6">
-
+    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6" class="distribution-chart">
       <nx-portfolio-distribution-chart [info]="currentPortfolio"></nx-portfolio-distribution-chart>
-
     </div>
-
+  </div>
+  <div nz-row>
+    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6">
+      <nz-statistic
+        class="stat-bottom"
+        [nzValue]="currency.getTotalDepositedForPortfolio(_currentPortfolio) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Deposited'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: '#70bbe5' }"
+      >
+      </nz-statistic>
+    </div>
+    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6" class="header-info" >
+      <nz-statistic
+        class="stat-bottom"
+        [nzValue]="currency.getTotalWithdrawnForPortfolio(_currentPortfolio) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Withdrawn'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: '#a98c62' }"
+      >
+      </nz-statistic>
+    </div>
   </div>
 </nz-card>
 

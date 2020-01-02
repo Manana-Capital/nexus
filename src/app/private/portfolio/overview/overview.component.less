@@ -27,8 +27,12 @@
   margin-right: 5px;
 }
 
-.stat {
-  padding: 40px
+.stat-top {
+  padding: 20px 20px 10px 40px;
+}
+
+.stat-bottom {
+  padding: 10px 20px 20px 40px;
 }
 
 .strong {
@@ -42,6 +46,11 @@
 
 .card {
   margin-top: 20px;
+}
+
+.distribution-chart {
+  position: absolute;
+  right: 40px;
 }
 
 :host ::ng-deep {
@@ -271,6 +280,18 @@
       & > div {
         float: none;
       }
+    }
+
+    .distribution-chart {
+      display: none;
+    }
+
+    .stat-top {
+      padding: 10px 20px 10px 40px;
+    }
+
+    .stat-bottom {
+      padding: 10px 20px 10px 40px;
     }
 
     ::ng-deep {

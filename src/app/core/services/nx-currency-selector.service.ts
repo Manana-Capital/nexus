@@ -91,6 +91,22 @@ export class NxCurrencySelectorService {
     }
   }
 
+  public getTotalDepositedForPortfolio(info: PortfolioInfo): number {
+    if (!info) {
+      return 0;
+    }
+    return info.activeFundsInfo
+      .reduce((sum, current) => sum + this.getTotalDepositedPortfolioFund(current), 0);
+  }
+
+  public getTotalWithdrawnForPortfolio(info: PortfolioInfo): number {
+    if (!info) {
+      return 0;
+    }
+    return info.activeFundsInfo
+      .reduce((sum, current) => sum + this.getTotalWithdrawnPortfolioFund(current), 0);
+  }
+
   public getTotalAssetsForPortfolioFund(info: PortfolioFundInfo): number {
     if (!info) {
       return 0;
@@ -116,6 +132,34 @@ export class NxCurrencySelectorService {
         return info.profitBtc;
       default:
         return info.profitUsd;
+    }
+  }
+
+  public getTotalDepositedPortfolioFund(info: PortfolioFundInfo): number {
+    if (!info) {
+      return 0;
+    }
+    switch (this._selectedCurrency) {
+      case 'CZK':
+        return info.deposits.reduce((sum, current) => sum + current.amountCzk, 0);
+      case 'BTC':
+        return info.deposits.reduce((sum, current) => sum + current.amountBtc, 0);
+      default:
+        return info.deposits.reduce((sum, current) => sum + current.amountUsd, 0);
+    }
+  }
+
+  public getTotalWithdrawnPortfolioFund(info: PortfolioFundInfo): number {
+    if (!info) {
+      return 0;
+    }
+    switch (this._selectedCurrency) {
+      case 'CZK':
+        return info.withdrawals.reduce((sum, current) => sum + current.amountCzk, 0);
+      case 'BTC':
+        return info.withdrawals.reduce((sum, current) => sum + current.amountBtc, 0);
+      default:
+        return info.withdrawals.reduce((sum, current) => sum + current.amountUsd, 0);
     }
   }
 

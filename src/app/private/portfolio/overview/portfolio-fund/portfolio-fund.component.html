@@ -1,17 +1,14 @@
 <nz-card class="overview" [nzBordered]="false" >
   <div nz-row>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
-
       <nz-statistic
         [nzValue]="currency.getTotalAssetsForPortfolioFund(fund) | number: currency.getHighDecimalFormat()"
         [nzTitle]="'Balance'"
         [nzPrefix]="currency.getCurrencySign() + ' '"
       >
       </nz-statistic>
-
     </div>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
-
       <nz-statistic
         [nzValue]="currency.getTotalProfitForPortfolioFund(fund) | number: currency.getDetailDecimalFormat()"
         [nzTitle]="'Profit'"
@@ -19,7 +16,24 @@
         [nzValueStyle]="{ color: currency.getTotalProfitForPortfolioFund(fund) < 0 ? '#a8071a' : '#237804' }"
       >
       </nz-statistic>
-
+    </div>
+    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
+      <nz-statistic
+        [nzValue]="currency.getTotalDepositedPortfolioFund(fund) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Deposited'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: '#70bbe5' }"
+      >
+      </nz-statistic>
+    </div>
+    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
+      <nz-statistic
+        [nzValue]="currency.getTotalWithdrawnPortfolioFund(fund) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Withdrawn'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: '#a98c62' }"
+      >
+      </nz-statistic>
     </div>
   </div>
 </nz-card>
