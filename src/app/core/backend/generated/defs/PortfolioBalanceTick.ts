@@ -18,4 +18,10 @@ export interface PortfolioBalanceTick {
   valueUsd?: number;
   /** format: double */
   valueCzk?: number;
+  /** format: double */
+  depositedBtc?: number;
+  /** format: double */
+  depositedUsd?: number;
+  /** format: double */
+  depositedCzk?: number;
 }

@@ -37,7 +37,6 @@ export class AccountService {
     Object.entries(queryParamBase).forEach(([key, value]: [string, any]) => {
       if (value !== undefined) {
         if (typeof value === 'string') queryParams = queryParams.set(key, value);
-        else if (Array.isArray(value)) value.forEach(v => queryParams = queryParams.append(key, v));
         else queryParams = queryParams.set(key, JSON.stringify(value));
       }
     });
@@ -55,7 +54,6 @@ export class AccountService {
     Object.entries(queryParamBase).forEach(([key, value]: [string, any]) => {
       if (value !== undefined) {
         if (typeof value === 'string') queryParams = queryParams.set(key, value);
-        else if (Array.isArray(value)) value.forEach(v => queryParams = queryParams.append(key, v));
         else queryParams = queryParams.set(key, JSON.stringify(value));
       }
     });
@@ -73,7 +71,6 @@ export class AccountService {
     Object.entries(queryParamBase).forEach(([key, value]: [string, any]) => {
       if (value !== undefined) {
         if (typeof value === 'string') queryParams = queryParams.set(key, value);
-        else if (Array.isArray(value)) value.forEach(v => queryParams = queryParams.append(key, v));
         else queryParams = queryParams.set(key, JSON.stringify(value));
       }
     });

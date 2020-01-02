@@ -32,6 +32,7 @@ export * from './defs/ConnectorDefinitionDto';
 export * from './defs/ConfigProperty';
 export * from './defs/FundConnectorDto';
 export * from './defs/Balance';
+export * from './defs/TotalBalance';
 export * from './defs/FundTotalBalanceInfo';
 export * from './defs/FundBalancePerExchange';
 export * from './defs/FundBalance';

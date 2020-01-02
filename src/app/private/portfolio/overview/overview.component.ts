@@ -84,6 +84,9 @@ export class PortfolioOverviewComponent implements OnInit {
       valueUsd: group.reduce((sum, current) => sum + current.valueUsd, 0),
       valueBtc: group.reduce((sum, current) => sum + current.valueBtc, 0),
       valueCzk: group.reduce((sum, current) => sum + current.valueCzk, 0),
+      depositedUsd: group.reduce((sum, current) => sum + current.depositedUsd, 0),
+      depositedBtc: group.reduce((sum, current) => sum + current.depositedBtc, 0),
+      depositedCzk: group.reduce((sum, current) => sum + current.depositedCzk, 0),
     }));
   }
 

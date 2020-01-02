@@ -147,7 +147,7 @@
 
   <nz-modal
             [(nzVisible)]="_isVisibleFundEdit"
-            [nzTitle]="'Edit fund: ' + _selectedFundForEdit?.displayName"
+            [nzTitle]="'Edit fund: ' + '#' + _selectedFundForEdit?.id + ' ' + _selectedFundForEdit?.displayName"
             (nzOnCancel)="_isVisibleFundEdit = false;"
             [nzFooter]="null">
     <nx-fund-form
@@ -172,7 +172,7 @@
 
   <nz-modal
     [(nzVisible)]="_isVisibleConnectorEdit"
-    [nzTitle]="'Edit connector: ' + _selectedConnectorForEdit?.displayName"
+    [nzTitle]="'Edit connector: ' + '#' + _selectedConnectorForEdit?.connectorId + ' ' + _selectedConnectorForEdit?.displayName"
     (nzOnCancel)="_isVisibleConnectorEdit = false;"
     [nzFooter]="null">
     <nx-connector-form
@@ -213,7 +213,32 @@
 
     <nx-fund-balance [data]="_checkedConnectorBalance"></nx-fund-balance>
 
+    <br />
+
+    <div *ngIf="_checkedConnectorTotalBalance">
+      <nz-list>
+        <nz-list
+          nzBordered
+          nzSize="small"
+        >
+          <nz-list-item>
+            <strong>Total BTC: </strong>
+            <span class="total-balance"> {{_checkedConnectorTotalBalance.totalBtc | number:'1.3-3'}}</span>
+          </nz-list-item>
+          <nz-list-item>
+            <strong>BTC: </strong>
+            <span class="total-balance"> {{_checkedConnectorTotalBalance.btc | number:'1.3-3'}}</span>
+          </nz-list-item>
+          <nz-list-item>
+            <strong>USD: </strong>
+            <span class="total-balance"> {{_checkedConnectorTotalBalance.usd | number:'1.3-3'}}</span>
+          </nz-list-item>
+        </nz-list>
+      </nz-list>
+    </div>
+
     <ng-template #modalFooter>
+      <button nz-button nzType="default" (click)="checkConnectorTotal(_checkedConnector)">Compute total</button>
       <button nz-button nzType="primary" (click)="_isVisibleConnectorCheck = false">OK</button>
     </ng-template>
   </nz-modal>

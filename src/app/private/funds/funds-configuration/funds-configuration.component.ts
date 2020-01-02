@@ -7,6 +7,7 @@ import {ClientsService} from '@core/backend/generated/controllers/Clients';
 import {FundConnectorDto} from '@core/backend/generated/defs/FundConnectorDto';
 import {Balance} from '@core/backend/generated/defs/Balance';
 import {ConnectorDefinitionDto} from '@core/backend/generated/defs/ConnectorDefinitionDto';
+import {TotalBalance} from '@core/backend/generated/defs/TotalBalance';
 
 @Component({
   selector: 'nx-funds-configuration',
@@ -29,6 +30,7 @@ export class FundsConfigurationComponent implements OnInit {
 
   _checkedConnector: FundConnectorDto;
   _checkedConnectorBalance: Balance[];
+  _checkedConnectorTotalBalance: TotalBalance;
 
   _isVisibleFundEdit = false;
   _isVisibleFundCreate = false;
@@ -164,6 +166,8 @@ export class FundsConfigurationComponent implements OnInit {
 
   checkConnector(connector: FundConnectorDto) {
     const msgHandle = this.msg.loading(`Checking connector '${connector.exchangeName}'...`, {nzDuration: 1000 * 10});
+    this._checkedConnectorBalance = null;
+    this._checkedConnectorTotalBalance = null;
     this.fundsApi
       .checkConnector({connectorid: connector.connectorId})
       .subscribe(balances => {
@@ -171,6 +175,18 @@ export class FundsConfigurationComponent implements OnInit {
         this._checkedConnectorBalance = balances;
         this.msg.remove(msgHandle.messageId);
         this._isVisibleConnectorCheck = true;
+      }, error => {
+        this.msg.remove(msgHandle.messageId);
+      });
+  }
+
+  checkConnectorTotal(connector: FundConnectorDto) {
+    const msgHandle = this.msg.loading(`Checking connector total '${connector.exchangeName}'...`, {nzDuration: 1000 * 10});
+    this.fundsApi
+      .total({connectorid: connector.connectorId})
+      .subscribe(total => {
+        this._checkedConnectorTotalBalance = total;
+        this.msg.remove(msgHandle.messageId);
       }, error => {
         this.msg.remove(msgHandle.messageId);
       });

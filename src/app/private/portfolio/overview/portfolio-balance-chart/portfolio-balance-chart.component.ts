@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PortfolioBalanceTick} from '@core/backend/generated/defs/PortfolioBalanceTick';
 import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
+import {curveStepAfter} from 'd3-shape';
 
 @Component({
   selector: 'nx-portfolio-balance-chart',
@@ -26,6 +27,8 @@ export class PortfolioBalanceChartComponent implements OnInit {
     domain: ['#676e78', '#C3E6CB']
   };
 
+  _curveBalance = curveStepAfter;
+
   _chartDataBalance = [];
   _chartDataProfit = [];
   _selectedChart = 'balance';
@@ -41,7 +44,7 @@ export class PortfolioBalanceChartComponent implements OnInit {
 
   private formatBalanceChartData(ticks: PortfolioBalanceTick[]) {
 
-    const ticksForChart = ticks.map(x => ({
+    const balanceTicks = ticks.map(x => ({
       name: new Date(x.timestamp),
       value: this.currency.getPortfolioTick(x),
       valueUsd: x.valueUsd,
@@ -49,10 +52,22 @@ export class PortfolioBalanceChartComponent implements OnInit {
       valueCzk: x.valueCzk
     }));
 
+    const depositedTicks = ticks.map(x => ({
+      name: new Date(x.timestamp),
+      value: this.currency.getDepositedTick(x),
+      valueUsd: x.depositedUsd,
+      valueBtc: x.depositedBtc,
+      valueCzk: x.depositedCzk
+    }));
+
     return [
       {
         name: 'Portfolio balance',
-        series: ticksForChart
+        series: balanceTicks
+      },
+      {
+        name: 'Deposited balance',
+        series: depositedTicks
       }
     ];
   }

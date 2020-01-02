@@ -132,4 +132,18 @@ export class NxCurrencySelectorService {
         return info.valueUsd;
     }
   }
+
+  getDepositedTick(info: PortfolioBalanceTick) {
+    if (!info) {
+      return 0;
+    }
+    switch (this._selectedCurrency) {
+      case 'CZK':
+        return info.depositedCzk;
+      case 'BTC':
+        return info.depositedBtc;
+      default:
+        return info.depositedUsd;
+    }
+  }
 }

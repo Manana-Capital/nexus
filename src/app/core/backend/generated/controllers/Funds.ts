@@ -44,6 +44,11 @@ export interface CheckConnectorParams {
   connectorid: number;
 }
 
+export interface TotalParams {
+  /** format: int32 */
+  connectorid: number;
+}
+
 @Injectable()
 export class FundsService {
   constructor(private http: HttpClient) {}
@@ -125,6 +130,14 @@ export class FundsService {
       connectorid: params.connectorid,
     };
     return this.http.post<__model.Balance[]>(`/api/funds/check-connector/${pathParams.connectorid}`, {});
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsCheck-connectorTotalByConnectoridPost */
+  total(params: TotalParams): Observable<__model.TotalBalance> {
+    const pathParams = {
+      connectorid: params.connectorid,
+    };
+    return this.http.post<__model.TotalBalance>(`/api/funds/check-connector/total/${pathParams.connectorid}`, {});
   }
 
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsAll-status-connectorsPost */
