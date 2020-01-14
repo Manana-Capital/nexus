@@ -60,6 +60,7 @@ export class FundOverviewCardComponent implements OnInit {
   }
 
   @Input() total = '';
+  @Input() totalNumber = 0;
   @Input() totalSecondary = '';
 
   _height = 'auto';
@@ -96,5 +97,9 @@ export class FundOverviewCardComponent implements OnInit {
     if (!this.totalSecondary) {
       this.totalSecondary = this.total;
     }
+  }
+
+  abs(value: number) {
+    return Math.abs(value);
   }
 }

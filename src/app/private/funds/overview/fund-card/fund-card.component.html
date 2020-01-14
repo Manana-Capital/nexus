@@ -14,7 +14,8 @@
          [class.profit]="diff > 0"
          [class.loss]="diff < 0"
     >
-      <span *ngIf="diff > 0">+</span>{{diff | number:'1.2-2'}}
+      <div><span *ngIf="diff > 0">+</span>{{diff | number:'1.2-2'}}</div>
+      <div style="margin-left: 10px">{{abs(diff) / totalNumber * 100 | number:'1.2-2'}}%</div>
     </div>
   </div>
 

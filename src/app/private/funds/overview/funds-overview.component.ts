@@ -3,6 +3,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 import {FundsService} from '@core/backend/generated/controllers/Funds';
 import {FundTotalBalanceInfo} from '@core/backend/generated/defs/FundTotalBalanceInfo';
 import {FundBalancePerExchange} from '@core/backend/generated/defs/FundBalancePerExchange';
+import {FundBalance} from '@core/backend/generated/defs/FundBalance';
 
 @Component({
   selector: 'nx-funds-overview',
@@ -65,5 +66,37 @@ export class FundsOverviewComponent implements OnInit {
 
   sortBalances(balances: FundBalancePerExchange[]) {
     return balances.sort((a, b) => a.balances.length - b.balances.length);
+  }
+
+  getBtcRatioForFund(fund: FundTotalBalanceInfo) {
+    const btcOnly = this.getBtcOnlyForFund(fund);
+    const btcTotal = fund.amountBtc;
+    return btcOnly / btcTotal;
+  }
+
+  getBtcOnlyForFund(fund: FundTotalBalanceInfo) {
+    return fund.balances.reduce((a, c) => a + this.getBtcOnly(c.balances), 0);
+  }
+
+  getBtcRatio(balance: FundBalancePerExchange) {
+    const btcOnly = this.getBtcOnly(balance.balances);
+    const btcTotal = balance.amountBtc;
+    return btcOnly / btcTotal;
+  }
+
+  getBtcOnly(balances: FundBalance[]) {
+    return balances.reduce((a, c) => a + this.getBtcOnlyFromBalance(c), 0);
+  }
+
+  getBtcOnlyFromBalance(balance: FundBalance) {
+    const cur = balance.currency.toLowerCase();
+    if (cur === 'btc' || cur === 'xbt' || cur === 'xxbt') {
+      return balance.amount;
+    }
+    return 0;
+  }
+
+  abs(value: number) {
+    return Math.abs(value);
   }
 }

@@ -47,7 +47,8 @@
 
     <nx-fund-overview-card [bordered]="true" [title]="fund.fund.displayName"
                   [total]="'$ ' + (fund.amountUsd | number:'1.0-0')"
-                  contentHeight="84px" [action]="action1" [footer]="footer1"
+                  [totalNumber]="fund.amountUsd"
+                  contentHeight="124px" [action]="action1" [footer]="footer1"
                   [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
                   [diff]="fund.amountUsdDiff"
     >
@@ -70,7 +71,9 @@
              [class.profit]="fund.amountCzkDiff > 0"
              [class.loss]="fund.amountCzkDiff < 0"
         >
-          <span *ngIf="fund.amountCzkDiff > 0">+</span>{{fund.amountCzkDiff | number:'1.2-2'}}</div>
+          <div><span *ngIf="fund.amountCzkDiff > 0">+</span>{{fund.amountCzkDiff | number:'1.2-2'}}</div>
+          <div style="margin-left: 10px">{{abs(fund.amountCzkDiff) / fund.amountCzk * 100 | number:'1.2-2'}}%</div>
+        </div>
       </nx-trend>
 
       <nx-trend>
@@ -80,6 +83,14 @@
           {{fund.amountBtc | number:'1.2-2'}}
           </span>
         </div>
+        <div *ngIf="fund.amountBtcDiff"
+             class="diff"
+             [class.profit]="fund.amountBtcDiff > 0"
+             [class.loss]="fund.amountBtcDiff < 0"
+        >
+          <div><span *ngIf="fund.amountBtcDiff > 0">+</span>{{fund.amountBtcDiff | number:'1.2-4'}}</div>
+          <div style="margin-left: 10px">{{abs(fund.amountBtcDiff) / fund.amountBtc * 100 | number:'1.2-2'}}%</div>
+        </div>
       </nx-trend>
 
       <nx-trend>
@@ -87,6 +98,26 @@
           Shares
           <span class="pl-sm performance-number">
           {{fund.shares | number:'1.0-0'}}
+          </span>
+        </div>
+      </nx-trend>
+
+      <hr/>
+
+      <nx-trend>
+        <div class="performance-row">
+          BTC only
+          <span class="pl-sm performance-number">
+          {{getBtcOnlyForFund(fund) | number:'1.2-2'}}
+          </span>
+        </div>
+      </nx-trend>
+
+      <nx-trend>
+        <div class="performance-row">
+          BTC ratio
+          <span class="pl-sm performance-number">
+          {{getBtcRatioForFund(fund) | number:'1.2-2'}}%
           </span>
         </div>
       </nx-trend>
@@ -145,6 +176,24 @@
             </span>
           </div>
         </nz-list-item>
+        <hr/>
+        <nz-list-item>
+          <div class="amount-row">
+            <span>BTC only</span>
+            <span class="amount-number">
+            {{getBtcOnly(balance.balances) | number:'1.2-4'}}
+            </span>
+          </div>
+        </nz-list-item>
+        <nz-list-item>
+          <div class="amount-row">
+            <span>BTC ratio</span>
+            <span class="amount-number">
+            {{getBtcRatio(balance) * 100 | number:'1.2-2'}}%
+            </span>
+          </div>
+        </nz-list-item>
+        <hr/>
       </nz-list>
       <div>
         <nx-fund-balance [exchangeName]="balance.exchangeName" [data]="balance.balances"></nx-fund-balance>
