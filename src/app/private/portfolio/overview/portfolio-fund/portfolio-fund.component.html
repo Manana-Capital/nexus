@@ -1,19 +1,19 @@
 <nz-card class="overview" [nzBordered]="false" >
   <div nz-row>
-    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
-      <nz-statistic
-        [nzValue]="currency.getTotalAssetsForPortfolioFund(fund) | number: currency.getHighDecimalFormat()"
-        [nzTitle]="'Balance'"
-        [nzPrefix]="currency.getCurrencySign() + ' '"
-      >
-      </nz-statistic>
-    </div>
     <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
       <nz-statistic
         [nzValue]="currency.getTotalProfitForPortfolioFund(fund) | number: currency.getDetailDecimalFormat()"
         [nzTitle]="'Profit'"
         [nzPrefix]="currency.getCurrencySign() + ' '"
         [nzValueStyle]="{ color: currency.getTotalProfitForPortfolioFund(fund) < 0 ? '#a8071a' : '#237804' }"
+      >
+      </nz-statistic>
+    </div>
+    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
+      <nz-statistic
+        [nzValue]="currency.getTotalAssetsForPortfolioFund(fund) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Balance'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
       >
       </nz-statistic>
     </div>
@@ -35,6 +35,13 @@
       >
       </nz-statistic>
     </div>
+    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
+      <nz-statistic
+        [nzValue]="(currency.getTotalPercentageProfitForPortfolioFund(fund) | number:'1.2-2') + '%'"
+        [nzValueStyle]="{ color: currency.getTotalPercentageProfitForPortfolioFund(fund) < 0 ? '#a8071a' : '#237804' }"
+      >
+      </nz-statistic>
+    </div>
   </div>
 </nz-card>
 
@@ -47,9 +54,30 @@
 
 <nz-card [nzBordered]="false" >
 
+  <div nz-row>
+    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info" >
+      <nz-statistic
+        [nzValue]="currency.getAverageDepositPriceFund(fund) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Average deposit price'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: '#70bbe5', fontSize: '18px' }"
+      >
+      </nz-statistic>
+    </div>
+    <div nz-col [nzXs]="18" [nzSm]="6" class="header-info">
+      <nz-statistic
+        [nzValue]="currency.getAverageWithdrawnPriceFund(fund) | number: currency.getHighDecimalFormat()"
+        [nzTitle]="'Average withdrawal price'"
+        [nzPrefix]="currency.getCurrencySign() + ' '"
+        [nzValueStyle]="{ color: '#a98c62', fontSize: '18px' }"
+      >
+      </nz-statistic>
+    </div>
+  </div>
+
   <div class="transaction-switch">
-      <span class="switch-label">Display transactions together</span>
-      <nz-switch [(ngModel)]="_displayTransactionsTogether"></nz-switch>
+    <span class="switch-label">Display transactions together</span>
+    <nz-switch [(ngModel)]="_displayTransactionsTogether"></nz-switch>
   </div>
 
   <div nz-row class="transaction-table">
@@ -74,6 +102,7 @@
             <th>USD</th>
             <th class="hide-small">BTC</th>
             <th class="hide-small">CZK</th>
+            <th class="hide-small">BTC Price</th>
             <th>Note</th>
           </tr>
           </thead>
@@ -86,6 +115,8 @@
             <td>${{data.amountUsd | number:'1.2-2'}}</td>
             <td class="hide-small">{{data.amountBtc | number:'1.4-4'}} BTC</td>
             <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
+            <td *ngIf="currency.selectedCurrency === 'CZK'">{{data.amountCzk / data.amountBtc | number:'1.0-0'}} Kč</td>
+            <td *ngIf="currency.selectedCurrency !== 'CZK'">${{data.amountUsd / data.amountBtc | number:'1.2-2'}}</td>
             <td class="limit-width">{{data.note}}</td>
           </tr>
           </tbody>

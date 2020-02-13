@@ -22,6 +22,15 @@
       >
       </nz-statistic>
     </div>
+    <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6" class="header-info" >
+      <nz-statistic
+        class="stat-top"
+        [nzValue]="(currency.getTotalPercentageProfitForPortfolio(_currentPortfolio) | number:'1.2-2') + '%'"
+        [nzTitle]="'Total Profit (%)'"
+        [nzValueStyle]="{ color: currency.getTotalProfitForPortfolio(_currentPortfolio) < 0 ? '#a8071a' : '#237804' }"
+      >
+      </nz-statistic>
+    </div>
     <div nz-col [nzXs]="0" [nzSm]="0" [nzMd]="0" [nzLg]="6">
     </div>
     <div nz-col [nzXs]="18" [nzSm]="8" [nzMd]="8" [nzLg]="6" class="distribution-chart">

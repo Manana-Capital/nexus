@@ -91,6 +91,17 @@ export class NxCurrencySelectorService {
     }
   }
 
+  public getTotalPercentageProfitForPortfolio(info: PortfolioInfo): number {
+    if (!info) {
+      return 0;
+    }
+    const balance = this.getTotalAssetsForPortfolio(info);
+    const deposited = this.getTotalDepositedForPortfolio(info);
+    const withdrawn = this.getTotalWithdrawnForPortfolio(info);
+    const profitPer = ((balance + withdrawn) / deposited - 1.0) * 100.0;
+    return profitPer;
+  }
+
   public getTotalDepositedForPortfolio(info: PortfolioInfo): number {
     if (!info) {
       return 0;
@@ -135,6 +146,17 @@ export class NxCurrencySelectorService {
     }
   }
 
+  public getTotalPercentageProfitForPortfolioFund(info: PortfolioFundInfo): number {
+    if (!info) {
+      return 0;
+    }
+    const balance = this.getTotalAssetsForPortfolioFund(info);
+    const deposited = this.getTotalDepositedPortfolioFund(info);
+    const withdrawn = this.getTotalWithdrawnPortfolioFund(info);
+    const profitPer = ((balance + withdrawn) / deposited - 1.0) * 100.0;
+    return profitPer;
+  }
+
   public getTotalDepositedPortfolioFund(info: PortfolioFundInfo): number {
     if (!info) {
       return 0;
@@ -161,6 +183,46 @@ export class NxCurrencySelectorService {
       default:
         return info.withdrawals.reduce((sum, current) => sum + current.amountUsd, 0);
     }
+  }
+
+  public getAverageDepositPriceFund(info: PortfolioFundInfo): number {
+    if (!info) {
+      return 0;
+    }
+    let total = 0;
+    switch (this._selectedCurrency) {
+      case 'CZK':
+        total = info.deposits.reduce((sum, current) => sum + current.amountCzk / current.amountBtc * current.amountBtc, 0);
+        break;
+      case 'BTC':
+        total = info.deposits.reduce((sum, current) => sum + current.amountBtc, 0);
+        break;
+      default:
+        total = info.deposits.reduce((sum, current) => sum + current.amountUsd / current.amountBtc * current.amountBtc, 0);
+    }
+
+    const all = info.deposits.reduce((sum, current) => sum + current.amountBtc, 0);
+    return total / all;
+  }
+
+  public getAverageWithdrawnPriceFund(info: PortfolioFundInfo): number {
+    if (!info) {
+      return 0;
+    }
+    let total = 0;
+    switch (this._selectedCurrency) {
+      case 'CZK':
+        total = info.withdrawals.reduce((sum, current) => sum + current.amountCzk / current.amountBtc * current.amountBtc, 0);
+        break;
+      case 'BTC':
+        total = info.withdrawals.reduce((sum, current) => sum + current.amountBtc, 0);
+        break;
+      default:
+        total = info.withdrawals.reduce((sum, current) => sum + current.amountUsd / current.amountBtc * current.amountBtc, 0);
+    }
+
+    const all = info.withdrawals.reduce((sum, current) => sum + current.amountBtc, 0);
+    return total / all;
   }
 
   getPortfolioTick(info: PortfolioBalanceTick) {
