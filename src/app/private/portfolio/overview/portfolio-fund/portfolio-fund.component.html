@@ -115,8 +115,8 @@
             <td>${{data.amountUsd | number:'1.2-2'}}</td>
             <td class="hide-small">{{data.amountBtc | number:'1.4-4'}} BTC</td>
             <td class="hide-small">{{data.amountCzk | number:'1.2-2'}} Kč</td>
-            <td *ngIf="currency.selectedCurrency === 'CZK'">{{data.amountCzk / data.amountBtc | number:'1.0-0'}} Kč</td>
-            <td *ngIf="currency.selectedCurrency !== 'CZK'">${{data.amountUsd / data.amountBtc | number:'1.2-2'}}</td>
+            <td class="hide-small" *ngIf="currency.selectedCurrency === 'CZK'">{{data.amountCzk / data.amountBtc | number:'1.0-0'}} Kč</td>
+            <td class="hide-small" *ngIf="currency.selectedCurrency !== 'CZK'">${{data.amountUsd / data.amountBtc | number:'1.2-2'}}</td>
             <td class="limit-width">{{data.note}}</td>
           </tr>
           </tbody>
