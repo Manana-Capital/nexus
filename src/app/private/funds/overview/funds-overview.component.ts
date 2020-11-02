@@ -13,9 +13,21 @@ import {FundBalance} from '@core/backend/generated/defs/FundBalance';
 export class FundsOverviewComponent implements OnInit {
 
   _loading = true;
+  _loadingConnectorData = false;
   _funds: FundTotalBalanceInfo[];
   _selectedFund: FundTotalBalanceInfo;
+  _selectedConnectorId: number;
+  _selectedConnectorCurrency: string;
   _today: Date;
+
+  _connectorData: FundBalancePerExchange[];
+  _connectorChartDataUsd = [];
+  _connectorChartDataBtc = [];
+  _connectorChartDataCzk = [];
+  _connectorChartType = 'usd';
+  _connectorChartScheme = {
+    domain: ['#85bb65', '#ffcc80', '#33A1DE']
+  };
 
   constructor(
     private fundsApi: FundsService,
@@ -29,6 +41,7 @@ export class FundsOverviewComponent implements OnInit {
 
   selectFund(fund: FundTotalBalanceInfo) {
     this._selectedFund = fund;
+    this._selectedConnectorId = 0;
   }
 
   refreshData() {
@@ -40,7 +53,7 @@ export class FundsOverviewComponent implements OnInit {
     this._funds = [];
     this._selectedFund = null;
     this._loading = true;
-    this.fundsApi.balances()
+    this.fundsApi.apiFundsBalancesGet()
       .subscribe(data => {
         this._funds = data;
         this.selectFund(this._funds.find(x => x.fund.id === 1));
@@ -98,5 +111,50 @@ export class FundsOverviewComponent implements OnInit {
 
   abs(value: number) {
     return Math.abs(value);
+  }
+
+  selectConnector(connectorId: number) {
+    this._selectedConnectorId = connectorId;
+    this._loadingConnectorData = true;
+    this.fundsApi.apiFundsBalancesByConnectoridGet({connectorid: connectorId})
+      .subscribe(data => {
+        this._connectorData = data;
+        this.transformChartData(this._connectorData);
+        this._loadingConnectorData = false;
+      });
+  }
+
+  private transformChartData(data: FundBalancePerExchange[]) {
+    if (!data || !data.length) {
+      this._connectorChartDataUsd = this.formatChartData('USD', []);
+      this._connectorChartDataBtc = this.formatChartData('BTC', []);
+      this._connectorChartDataCzk = this.formatChartData('CZK', []);
+      return;
+    }
+
+    const usd = data.map(x => ({
+      name: new Date(x.gathered),
+      value: x.amountUsd
+    }));
+    const btc = data.map(x => ({
+      name: new Date(x.gathered),
+      value: x.amountBtc
+    }));
+    const czk = data.map(x => ({
+      name: new Date(x.gathered),
+      value: x.amountCzk
+    }));
+    this._connectorChartDataUsd = this.formatChartData('USD', usd);
+    this._connectorChartDataBtc = this.formatChartData('BTC', btc);
+    this._connectorChartDataCzk = this.formatChartData('CZK', czk);
+  }
+
+  private formatChartData(name: string, data: any[]) {
+    return [
+      {
+        name: name,
+        series: data
+      }
+    ];
   }
 }

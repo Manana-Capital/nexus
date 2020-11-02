@@ -10,9 +10,13 @@
 import * as __model from '../model';
 
 export interface FundBalancePerExchange {
+  /** format: int32 */
+  connectorId?: number;
   exchangeName?: string;
   exchangeDisplayName?: string;
   balances?: __model.FundBalance[];
+  /** format: date-time */
+  gathered?: string;
   /** format: double */
   amountUsd?: number;
   /** format: double */

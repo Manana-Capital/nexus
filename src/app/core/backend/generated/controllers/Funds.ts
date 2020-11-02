@@ -49,6 +49,17 @@ export interface TotalParams {
   connectorid: number;
 }
 
+export interface ApiFundsBalancesByConnectoridGetParams {
+  /** format: int32 */
+  connectorid: number;
+}
+
+export interface ApiFundsBalancesByConnectoridByCurrencyGetParams {
+  /** format: int32 */
+  connectorid: number;
+  currency: string;
+}
+
 @Injectable()
 export class FundsService {
   constructor(private http: HttpClient) {}
@@ -146,7 +157,24 @@ export class FundsService {
   }
 
   /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsBalancesGet */
-  balances(): Observable<__model.FundTotalBalanceInfo[]> {
+  apiFundsBalancesGet(): Observable<__model.FundTotalBalanceInfo[]> {
     return this.http.get<__model.FundTotalBalanceInfo[]>(`/api/funds/balances`);
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsBalancesByConnectoridGet */
+  apiFundsBalancesByConnectoridGet(params: ApiFundsBalancesByConnectoridGetParams): Observable<__model.FundBalancePerExchange[]> {
+    const pathParams = {
+      connectorid: params.connectorid,
+    };
+    return this.http.get<__model.FundBalancePerExchange[]>(`/api/funds/balances/${pathParams.connectorid}`);
+  }
+
+  /** http://undefined/swagger/swagger-ui.html#!/Funds/ApiFundsBalancesByConnectoridByCurrencyGet */
+  apiFundsBalancesByConnectoridByCurrencyGet(params: ApiFundsBalancesByConnectoridByCurrencyGetParams): Observable<__model.FundBalance[]> {
+    const pathParams = {
+      connectorid: params.connectorid,
+      currency: params.currency,
+    };
+    return this.http.get<__model.FundBalance[]>(`/api/funds/balances/${pathParams.connectorid}/${pathParams.currency}`);
   }
 }

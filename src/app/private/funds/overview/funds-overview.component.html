@@ -49,7 +49,8 @@
                   [total]="'$ ' + (fund.amountUsd | number:'1.0-0')"
                   [totalNumber]="fund.amountUsd"
                   contentHeight="124px" [action]="action1" [footer]="footer1"
-                  [isSelected]="_selectedFund == fund" (click)="selectFund(fund)"
+                  [isSelected]="_selectedFund == fund" 
+                  (click)="selectFund(fund)"
                   [diff]="fund.amountUsdDiff"
     >
 
@@ -132,6 +133,83 @@
 
 </div>
 
+
+<nz-card *ngIf="_selectedFund && _selectedConnectorId" [nzLoading]="_loadingConnectorData"
+         [nzBordered]="false"
+         [nzBodyStyle]="{'padding': '10px 30px 10px 0'}"
+         class="mt-lg chart-wrapper">
+  <div class="chart">
+
+    <ngx-charts-line-chart
+      *ngIf="_connectorChartType === 'usd'"
+      [scheme]="{domain: ['#85bb65', '#ffcc80', '#33A1DE']}"
+      [results]="_connectorChartDataUsd"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Date"
+      yAxisLabel="Balance"
+      [autoScale]="true"
+      [timeline]="true"
+      [animations]="true"
+    >
+    </ngx-charts-line-chart>
+
+    <ngx-charts-line-chart
+      *ngIf="_connectorChartType === 'btc'"
+      [scheme]="{domain: ['#ffcc80']}"
+      [results]="_connectorChartDataBtc"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Date"
+      yAxisLabel="Balance"
+      [autoScale]="false"
+      [timeline]="true"
+      [animations]="true"
+    >
+    </ngx-charts-line-chart>
+
+    <ngx-charts-line-chart
+      *ngIf="_connectorChartType === 'czk'"
+      [scheme]="{domain: ['#33A1DE']}"
+      [results]="_connectorChartDataCzk"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Date"
+      yAxisLabel="Balance"
+      [autoScale]="true"
+      [timeline]="true"
+      [animations]="true"
+    >
+    </ngx-charts-line-chart>
+
+  </div>
+
+  <div class="chart-selector">
+    <nz-radio-group [(ngModel)]="_connectorChartType" [nzButtonStyle]="'solid'">
+      <label nz-radio-button nzValue="usd">USD</label>
+      <label nz-radio-button nzValue="btc">BTC</label>
+      <label nz-radio-button nzValue="czk">CZK</label>
+    </nz-radio-group>
+  </div>
+</nz-card>
+
+
+
+
+
+
 <div *ngIf="_selectedFund" class="balances">
   <div *ngFor="let balance of sortBalances(_selectedFund.balances)"
     class="balance-item"
@@ -141,7 +219,9 @@
               [nzTitle]="extraTemplate"
               [nzBordered]="false"
               class="mt-lg"
-              [nzHoverable]="false"
+              [nzHoverable]="true"
+              [class.selected]="_selectedConnectorId == balance.connectorId"
+              (click)="selectConnector(balance.connectorId)"
     >
       <nz-list nzSize="small" class="exchange-balance">
         <nz-list-item>
