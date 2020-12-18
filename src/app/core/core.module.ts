@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {NxGravatarService} from '@core/services/nx-gravatar.service';
 import {SystemService} from '@core/backend/generated/controllers/System';
 import {NxCurrencySelectorService} from '@core/services/nx-currency-selector.service';
+import { PricesService } from './backend/generated/controllers/Prices';
 
 const generatedServices = [
   FundsService,
@@ -19,7 +20,8 @@ const generatedServices = [
   ProfileService,
   PortfolioService,
   StatisticsService,
-  SystemService
+  SystemService,
+  PricesService
 ];
 
 

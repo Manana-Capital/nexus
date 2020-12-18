@@ -3,6 +3,8 @@ import {AuthService} from '@core/network/auth.service';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {RouteConfigLoadEnd, RouteConfigLoadStart, Router} from '@angular/router';
 import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
+import { PricesDto } from '@core/backend/generated/model';
+import { PricesService } from '@core/backend/generated/controllers/Prices';
 
 @Component({
   selector: 'nx-main-layout',
@@ -33,10 +35,12 @@ export class MainLayoutComponent implements OnInit {
   _userData: any;
   _isLoadingLazyModule = false;
   _isSmallScreen = false;
+  _prices: PricesDto;
 
   constructor(public auth: AuthService,
               public router: Router,
-              public breakpointObserver: BreakpointObserver
+              public breakpointObserver: BreakpointObserver,
+              public pricesService: PricesService
   ) {
     this.auth.isAuthorizedStream().subscribe(is => {
       this._isAuthenticated = is;
@@ -54,6 +58,8 @@ export class MainLayoutComponent implements OnInit {
           this._isSmallScreen = false;
         }
       });
+
+      this.pricesService.prices().subscribe(x => this._prices = x);
   }
 
   ngOnInit() {

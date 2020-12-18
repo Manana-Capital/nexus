@@ -98,7 +98,7 @@
 }
 
 .auth-button {
-  margin: 15px 15px 15px auto;
+  margin: 15px 15px 15px 15px;
 
   font-size: 18px;
   line-height: 24px;
@@ -129,6 +129,18 @@
   height: 100%;
 }
 
+.prices {
+  margin: 10px 10px 10px auto;
+}
+
+.prices-column {
+  display: flex;
+  flex-direction: column-reverse;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: end;
+}
+
 @media (max-width: 767px) {
   .content {
     transform: translate3d(200px,0,0);
@@ -140,6 +152,14 @@
   }
 
   .auth-button-not-collapsed {
-    margin: 15px;
+    margin: 15px 15px 15px auto;
+  }
+
+  .prices {
+    margin: 10px 2px 2px auto;
+  }
+
+  .prices-not-collapsed {
+    display: none;
   }
 }

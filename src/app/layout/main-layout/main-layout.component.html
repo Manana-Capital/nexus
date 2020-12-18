@@ -20,6 +20,14 @@
       <div *ngIf="_isLoadingLazyModule">
         <i class="trigger" nz-icon [nzType]="'loading'"></i>
       </div>
+      <div class="prices" 
+           [class.prices-not-collapsed]="!_isCollapsed"
+      >
+        <div class="prices-column">
+          <span>{{_prices?.btcCzk | currency:'CZK':'symbol-narrow':'4.0-0'}}</span>
+          <span>{{_prices?.btcUsd | currency:'USD':'symbol':'4.0-0'}}</span>
+        </div>
+      </div>
       <div
         class="auth-button"
         [class.auth-button-not-collapsed]="!_isCollapsed"

@@ -41,6 +41,7 @@ export * from './defs/PortfolioFundInfo';
 export * from './defs/LastLoginInfoDto';
 export * from './defs/PortfolioTransaction';
 export * from './defs/PortfolioBalanceTick';
+export * from './defs/PricesDto';
 export * from './defs/UpdateProfileDto';
 export * from './defs/UpdateProfilePasswordDto';
 export * from './defs/SharesSimpleInfo';
