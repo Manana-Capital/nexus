@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118576897-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-118576897-2', { 'send_page_view': true });
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="description" content="Mañana Capital back-office system - Nexus. Client's portal, assets monitoring among exchanges and more.." >
+  <meta name="keywords" content="Crypto, Mañana Capital, back-office, Bitcoin, quantitative trading, algorithmic trading, mathematical models, market-making, arbitrage">
+
+  <meta property='og:title' content='Mañana Capital - Nexus' />
+  <meta property='og:url' content='https://nexus.manana.capital' />
+  <meta property='og:site_name' content='Nexus' />
+  <meta property='og:description' content="Mañana Capital back-office system - Nexus. Client's portal, assets monitoring among exchanges and more.." />
+  <meta property='og:image' content='https://nexus.manana.capital/assets/logo-color-square.png' />
+
+  <meta property="twitter:card" content="summary" />
+  <meta property='twitter:site' content='@MananaCapital' />
+  <meta property='twitter:title' content='Mañana Capital back-office system - Nexus' />
+  <meta property='twitter:description' content="Client's portal, assets monitoring among exchanges and more.." />
+  <meta property='twitter:url' content='https://nexus.manana.capital' />
+
+  <title>Nexus</title>
+  <base href="./">  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+  <style type="text/css">
+
+    .loader-logo {
+      width: 100%;
+      height: 100%;
+    }
+
+    .loader-sub-logo {
+      width: 199px;
+      height: 132px;
+      opacity: 0.6;
+      transform: translateY(-50%) translateX(-50%);
+      top: 50%;
+      left: 50%;
+      position: absolute;
+    }
+
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #2d388e;
+      z-index: 9999;
+      transition: opacity .65s
+    }
+
+    .preloader-hidden-add {
+      opacity: 1;
+      display: block
+    }
+
+    .preloader-hidden-add-active {
+      opacity: 0
+    }
+
+    .preloader-hidden {
+      display: none
+    }
+
+    .cs-loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%
+    }
+
+    .cs-loader-inner {
+      transform: translateY(-50%);
+      top: 60%;
+      position: absolute;
+      width: 100%;
+      color: #4183A8;
+      text-align: center
+    }
+
+    .cs-loader-inner label {
+      font-size: 20px;
+      opacity: 0;
+      display: inline-block
+    }
+
+    @keyframes lol {
+      0% {
+        opacity: 0;
+        transform: translateX(-300px)
+      }
+      33% {
+        opacity: 1;
+        transform: translateX(0)
+      }
+      66% {
+        opacity: 1;
+        transform: translateX(0)
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(300px)
+      }
+    }
+
+    .cs-loader-inner label:nth-child(6) {
+      animation: lol 3s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(5) {
+      animation: lol 3s .1s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(4) {
+      animation: lol 3s .2s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(3) {
+      animation: lol 3s .3s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(2) {
+      animation: lol 3s .4s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(1) {
+      animation: lol 3s .5s infinite ease-in-out
+    }
+  </style>
+<link rel="stylesheet" href="styles.d5eed3ad67fe9b58203b.css"></head>
+<body>
+  <nx-root>
+    <div class="preloader">
+      <div class="loader-logo">
+        <img src="./assets/logo-color-square.png" alt="Nexus logo" class="loader-sub-logo" />
+      </div>
+      <div class="cs-loader">
+        <div class="cs-loader-inner">
+          <label> ●</label>
+          <label> ●</label>
+          <label> ●</label>
+          <label> ●</label>
+          <label> ●</label>
+          <label> ●</label>
+        </div>
+      </div>
+    </div>
+  </nx-root>
+<script src="runtime-es2015.905d126e8fd733171831.js" type="module"></script><script src="polyfills-es2015.9a05c5eeb2c24cb2663d.js" type="module"></script><script src="runtime-es5.fa24b7d1b444d6697d32.js" nomodule></script><script src="polyfills-es5.d2dd8f7c1c1b54301f62.js" nomodule></script><script src="main-es2015.bd9af506c7e6ccd169d1.js" type="module"></script><script src="main-es5.c4ac1a38b3259e86bf16.js" nomodule></script></body>
+</html>

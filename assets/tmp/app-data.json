@@ -1,0 +1,148 @@
+{
+  "app": {
+    "name": "Nexus",
+    "description": "WebUI to Manana Capital Nexus"
+  },
+  "user": {
+    "name": "Guest",
+    "avatar": "./assets/tmp/img/avatar.png",
+    "email": ""
+  },
+  "menu": [
+    {
+      "text": "Primary navigation",
+      "i18n": "main_navigation",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [
+        {
+          "text": "Dashboard",
+          "i18n": "dashboard",
+          "icon": "icon-speedometer",
+          "link": "/dashboard"
+        },
+        {
+          "text": "Statistics",
+          "icon": "icon-pie-chart",
+          "link": "/statistics"
+        },
+        {
+          "text": "My portfolio",
+          "icon": "icon-briefcase",
+          "link": "/private/portfolio",
+          "acl": "Client"
+        }
+      ]
+    },
+    {
+      "text": "Company",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "acl": "Employee",
+      "children": [
+        {
+          "text": "Funds",
+          "icon": "icon-layers",
+          "link": "/private/funds",
+          "children": [
+            {
+              "text": "Overview",
+              "link": "/private/funds/overview"
+            },
+            {
+              "text": "Configuration",
+              "link": "/private/funds/configuration",
+              "acl": "Manager"
+            }
+          ]
+        },
+        {
+          "text": "Clients",
+          "icon": "icon-people",
+          "link": "/private/clients",
+          "children": [
+            {
+              "text": "Overview",
+              "link": "/private/clients/overview"
+            },
+            {
+              "text": "Deposit",
+              "link": "/private/clients/transaction/deposit"
+            },
+            {
+              "text": "Withdraw",
+              "link": "/private/clients/transaction/withdrawal"
+            },
+            {
+              "text": "Transfer shares",
+              "link": "/private/clients/transaction/transfer"
+            }
+          ]
+        },
+        {
+          "text": "Products",
+          "icon": "icon-social-dropbox",
+          "children": [
+            {
+              "text": "Market maker",
+              "icon": "icon-note",
+              "link": "/products/market-maker"
+            },
+            {
+              "text": "Lending",
+              "icon": "icon-grid",
+              "link": "/products/lending"
+            },
+            {
+              "text": "Arbitrage",
+              "link": "/products/arbitrage"
+            }
+          ]
+        },
+        {
+          "text": "Charts",
+          "icon": "icon-chart",
+          "link": "/charts"
+        }
+      ]
+    },
+    {
+      "text": "System",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "acl": "Employee",
+      "children": [
+        {
+          "text": "Bots",
+          "icon": "anticon anticon-cloud-o",
+          "children": [
+            {
+              "text": "Monitoring",
+              "link": "/data-v/relation",
+              "reuse": true
+            }
+          ]
+        },
+        {
+          "text": "Tools",
+          "icon": "anticon anticon-tool",
+          "children": [
+            {
+              "text": "REST Api",
+              "link": "/system/restapi"
+            },
+            {
+              "text": "Background jobs",
+              "link": "/system/background-jobs"
+            },
+            {
+              "text": "Settings",
+              "link": "/extras/settings",
+              "i18n": "settings"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
