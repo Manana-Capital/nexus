@@ -2,6 +2,5 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "nexus-ui",
   "compatibility_date": "2026-10-01",
-  "assets": { "directory": "./dist/nexus/browser" },
-  "routes": [{ "pattern": "manana.kotas.host", "custom_domain": true }]
+  "pages_build_output_dir": "./dist/nexus/browser"
 }
