@@ -1,0 +1,94 @@
+@if (funds().length > 1) {
+  <section class="nx-panel">
+    <div class="nx-panel-head"><h2>All funds</h2></div>
+    <div class="nx-stats">
+      <div><div class="nx-stat-label">Total balance</div><div class="nx-stat-value">{{ currency.format(summary().balance) }}</div></div>
+      <div><div class="nx-stat-label">Total profit</div><div class="nx-stat-value" [class]="tone(summary().profit)">{{ currency.format(summary().profit, true) }}</div></div>
+      <div><div class="nx-stat-label">Total return</div><div class="nx-stat-value" [class]="tone(summary().percent)">{{ summary().percent | number: '1.2-2' }}%</div></div>
+      <div><div class="nx-stat-label">Deposited</div><div class="nx-stat-value">{{ currency.format(summary().deposited) }}</div></div>
+      <div><div class="nx-stat-label">Withdrawn</div><div class="nx-stat-value">{{ currency.format(summary().withdrawn) }}</div></div>
+    </div>
+  </section>
+
+  @if (totalBalance().length) {
+    <section class="nx-panel">
+      <nx-balance-chart title="All funds" [balance]="totalBalance()" [profit]="totalProfit()" />
+    </section>
+  }
+}
+
+@if (funds().length) {
+  <nz-tabs [nzSelectedIndex]="selectedIndex()" (nzSelectedIndexChange)="selectedIndex.set($event)" class="tabs">
+    @for (fund of funds(); track fund.fund?.id) {
+      <nz-tab [nzTitle]="fund.fund?.displayName ?? ''">
+        <ng-template nz-tab>
+          <section class="nx-panel">
+            <div class="nx-stats">
+              <div><div class="nx-stat-label">Balance</div><div class="nx-stat-value">{{ currency.format(currency.pick(fund, 'assets')) }}</div></div>
+              <div><div class="nx-stat-label">Profit</div><div class="nx-stat-value" [class]="tone(currency.pick(fund, 'profit'))">{{ currency.format(currency.pick(fund, 'profit'), true) }}</div></div>
+              <div><div class="nx-stat-label">Return</div><div class="nx-stat-value" [class]="tone(fundPercent(fund))">{{ fundPercent(fund) | number: '1.2-2' }}%</div></div>
+              <div><div class="nx-stat-label">Deposited</div><div class="nx-stat-value">{{ currency.format(deposited(fund)) }}</div></div>
+              <div><div class="nx-stat-label">Withdrawn</div><div class="nx-stat-value">{{ currency.format(withdrawn(fund)) }}</div></div>
+            </div>
+          </section>
+
+          @if (fund.balanceTicks?.length) {
+            <section class="nx-panel">
+              <nx-balance-chart [title]="fund.fund?.displayName ?? 'Fund'" [balance]="fund.balanceTicks!" [profit]="fund.profitTicks ?? []" />
+            </section>
+          }
+
+          <section class="nx-panel">
+            <div class="nx-panel-head">
+              <h2>Transactions</h2>
+              <label class="switch"><nz-switch nzSize="small" [ngModel]="together()" (ngModelChange)="together.set($event)"></nz-switch> Together</label>
+            </div>
+            <div class="nx-stats averages">
+              <div><div class="nx-stat-label">Average deposit BTC price</div><div class="small">{{ currency.format(averagePrice(fund.deposits)) }}</div></div>
+              <div><div class="nx-stat-label">Average withdrawal BTC price</div><div class="small">{{ currency.format(averagePrice(fund.withdrawals)) }}</div></div>
+            </div>
+
+            @if (together()) {
+              <ng-container *ngTemplateOutlet="table; context: { rows: transactions(fund), kind: true }"></ng-container>
+            } @else {
+              <div class="split">
+                <div><h3>Deposits</h3><ng-container *ngTemplateOutlet="table; context: { rows: sorted(fund.deposits), kind: false }"></ng-container></div>
+                <div><h3>Withdrawals</h3><ng-container *ngTemplateOutlet="table; context: { rows: sorted(fund.withdrawals), kind: false }"></ng-container></div>
+              </div>
+            }
+          </section>
+        </ng-template>
+      </nz-tab>
+    }
+  </nz-tabs>
+} @else if (portfolio()) {
+  <div class="nx-panel nx-muted">No active funds.</div>
+}
+
+<ng-template #table let-rows="rows" let-kind="kind">
+  <div class="nx-table-wrap">
+    <table class="nx-table">
+      <thead>
+        <tr>
+          @if (kind) { <th>Type</th> }
+          <th>Date</th><th class="num">USD</th><th class="num">BTC</th><th class="num">CZK</th><th class="num">BTC price</th><th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows; track $index) {
+          <tr>
+            @if (kind) { <td [class]="row.type === 'deposit' ? 'nx-gain' : 'nx-loss'">{{ row.type === 'deposit' ? 'Deposit' : 'Withdrawal' }}</td> }
+            <td>{{ row.created | date: 'd MMM y, HH:mm' }}</td>
+            <td class="num">{{ row.amountUsd | number: '1.2-2' }}</td>
+            <td class="num">{{ row.amountBtc | number: '1.4-4' }}</td>
+            <td class="num">{{ row.amountCzk | number: '1.0-0' }}</td>
+            <td class="num">{{ row.amountBtc ? (row.amountUsd / row.amountBtc | number: '1.0-0') : '' }}</td>
+            <td class="wrap">{{ row.note }}</td>
+          </tr>
+        } @empty {
+          <tr><td colspan="7" class="nx-muted">None</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</ng-template>

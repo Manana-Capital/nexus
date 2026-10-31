@@ -1,0 +1,98 @@
+<div class="nx-page">
+  <div class="nx-page-head">
+    <div>
+      <h1>Funds</h1>
+      <p>Balances of our funds</p>
+    </div>
+    <button nz-button (click)="load()"><span nz-icon nzType="reload"></span> Refresh</button>
+  </div>
+
+  @if (unhealthy().length) {
+    <section class="nx-panel attention" aria-label="Connectors needing attention">
+      <div class="nx-panel-head"><h2><span nz-icon nzType="warning" nzTheme="fill"></span> {{ unhealthy().length }} connector(s) not updating</h2></div>
+      <p class="nx-muted">Their last known balance is included in the fund's value.</p>
+      <div class="nx-table-wrap">
+        <table class="nx-table">
+          <thead><tr><th>Fund</th><th>Connector</th><th>Last success</th><th>Failures in a row</th><th>Error</th></tr></thead>
+          <tbody>
+            @for (item of unhealthy(); track item.connectorId) {
+              <tr>
+                <td>{{ item.fundName }}</td>
+                <td>{{ item.exchangeName }} · {{ item.displayName }}</td>
+                <td>{{ item.lastSuccess ? (item.lastSuccess | date: 'd MMM y, HH:mm') : 'never' }}</td>
+                <td class="num">{{ item.consecutiveFailures }}</td>
+                <td class="wrap">{{ item.lastError }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  }
+
+  @if (loading()) {
+    <div class="nx-grid">
+      @for (i of [1, 2, 3]; track i) {
+        <div class="nx-panel"><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 3 }"></nz-skeleton></div>
+      }
+    </div>
+  } @else if (!funds().length) {
+    <div class="nx-panel nx-muted">There are no fund balances to display.</div>
+  } @else {
+    <div class="nx-grid" role="tablist" aria-label="Funds">
+      @for (item of funds(); track item.fund?.id) {
+        <button class="fund" role="tab" type="button" [class.selected]="item === selected()" [attr.aria-selected]="item === selected()" (click)="selectFund(item)">
+          <span class="fund-name">{{ item.fund?.displayName }}</span>
+          <span class="fund-main">${{ item.amountUsd | number: '1.0-0' }}</span>
+          <span class="row"><span>Today</span><span [class]="tone(item.amountUsdDiff)">{{ item.amountUsdDiff | number: '1.0-0' }} ({{ percentOf(item.amountUsdDiff, item.amountUsd) | number: '1.2-2' }}%)</span></span>
+          <span class="row"><span>CZK</span><span>{{ item.amountCzk | number: '1.0-0' }}</span></span>
+          <span class="row"><span>BTC</span><span>{{ item.amountBtc | number: '1.2-4' }}</span></span>
+          <span class="row"><span>Shares</span><span>{{ item.shares | number: '1.0-0' }}</span></span>
+          <span class="row"><span>BTC held</span><span>{{ btcOnlyOfFund(item) | number: '1.2-4' }} ({{ btcRatio(btcOnlyOfFund(item), item.amountBtc) | number: '1.0-1' }}%)</span></span>
+          <span class="row updated"><span>Updated</span><span>{{ item.gathered | date: 'd MMM, HH:mm' }}</span></span>
+        </button>
+      }
+    </div>
+
+    @if (selectedConnector()) {
+      <section class="nx-panel">
+        <div class="nx-panel-head">
+          <h2>Balance history</h2>
+          <nz-radio-group [ngModel]="historyCurrency()" (ngModelChange)="historyCurrency.set($event)" nzButtonStyle="solid" nzSize="small">
+            <label nz-radio-button nzValue="USD">USD</label>
+            <label nz-radio-button nzValue="BTC">BTC</label>
+            <label nz-radio-button nzValue="CZK">CZK</label>
+          </nz-radio-group>
+        </div>
+        @if (historyChart(); as option) {
+          <nx-chart [option]="option" [height]="340" label="Balance history of the selected connector" />
+        } @else {
+          <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 6 }"></nz-skeleton>
+        }
+      </section>
+    }
+
+    <div class="exchanges">
+      @for (exchange of exchanges(); track exchange.connectorId) {
+        <button class="exchange" type="button" [class.selected]="exchange.connectorId === selectedConnector()" (click)="selectConnector(exchange.connectorId)">
+          <span class="exchange-head">
+            @if (status(exchange.connectorId); as state) {
+              <span class="dot" [class.bad]="!state.isHealthy" nz-tooltip [nzTooltipTitle]="state.isHealthy ? 'Updated ' + (state.lastSuccess | date: 'd MMM, HH:mm') : (state.lastError || 'Not updating')"></span>
+            }
+            <strong>{{ exchange.exchangeName }}</strong>
+            <span class="nx-muted name">{{ exchange.exchangeDisplayName }}</span>
+          </span>
+          <span class="row"><span>USD</span><span>{{ exchange.amountUsd | number: '1.0-0' }}</span></span>
+          <span class="row"><span>CZK</span><span>{{ exchange.amountCzk | number: '1.0-0' }}</span></span>
+          <span class="row"><span>BTC</span><span>{{ exchange.amountBtc | number: '1.2-4' }}</span></span>
+          <span class="row"><span>BTC held</span><span>{{ btcOnly(exchange.balances) | number: '1.2-4' }} ({{ btcRatio(btcOnly(exchange.balances), exchange.amountBtc) | number: '1.0-1' }}%)</span></span>
+          <span class="assets">
+            @for (balance of exchange.balances; track balance.currency) {
+              <span class="row asset"><span>{{ balance.currency }}</span><span>{{ balance.amount | number: '1.0-6' }}</span></span>
+            }
+          </span>
+        </button>
+      }
+    </div>
+  }
+</div>

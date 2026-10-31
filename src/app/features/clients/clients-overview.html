@@ -1,0 +1,81 @@
+<div class="nx-page">
+  <div class="nx-page-head">
+    <div>
+      <h1>Clients</h1>
+      <p>Clients of the company</p>
+    </div>
+    <div class="head-actions">
+      <button nz-button type="button" (click)="load()"><span nz-icon nzType="reload"></span> Refresh</button>
+      @if (canManage()) {
+        <button nz-button nzType="primary" type="button" (click)="open('create')"><span nz-icon nzType="user-add"></span> New client</button>
+      }
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="nx-panel"><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 6 }"></nz-skeleton></div>
+  } @else if (!portfolios().length) {
+    <div class="nx-panel nx-muted">There are no clients to display.</div>
+  } @else {
+    <nz-collapse nzAccordion class="clients">
+      @for (portfolio of portfolios(); track portfolio.client?.id) {
+        <nz-collapse-panel [nzHeader]="header" (nzActiveChange)="onToggle(portfolio.client?.id, $event)">
+          <ng-template #header>
+            <span class="client-head">
+              <strong>#{{ portfolio.client?.id }}</strong>
+              <span class="client-name">{{ label(portfolio.client) }}</span>
+              @for (role of portfolio.client?.roles; track role) {
+                <nz-tag>{{ role }}</nz-tag>
+              }
+            </span>
+          </ng-template>
+
+          @if (expandedId() === portfolio.client?.id) {
+            <div class="detail-head">
+              <nz-avatar [nzText]="initials(portfolio.client)" nzSize="large"></nz-avatar>
+              @if (canManage()) {
+                <button nz-button type="button" (click)="open('profile', portfolio)"><span nz-icon nzType="edit"></span> Edit profile</button>
+                <button nz-button type="button" (click)="open('access', portfolio)"><span nz-icon nzType="key"></span> Edit access</button>
+                <button
+                  nz-button
+                  nzDanger
+                  type="button"
+                  class="remove"
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure? Only a client with no deposits or withdrawals can be removed."
+                  nzPopconfirmPlacement="topRight"
+                  [nzPopconfirmOverlayStyle]="{ maxWidth: '300px' }"
+                  (nzOnConfirm)="removeClient(portfolio)"
+                >
+                  <span nz-icon nzType="user-delete"></span> Remove client
+                </button>
+              }
+            </div>
+            @if (portfolio.lastLoginInfo; as login) {
+              <p class="nx-muted login">Last login {{ login.timestamp | date: 'd MMM y, HH:mm' }} by {{ login.provider }}</p>
+            }
+            <nx-portfolio-overview [portfolio]="portfolio" />
+          }
+        </nz-collapse-panel>
+      }
+    </nz-collapse>
+  }
+
+  <nz-modal [nzVisible]="modal() === 'profile'" [nzTitle]="'Edit profile for ' + selectedName()" [nzFooter]="null" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nx-client-profile-form [profile]="selectedClient()" [showRoles]="true" [saving]="saving()" (saved)="saveProfile($event)" />
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal [nzVisible]="modal() === 'access'" [nzTitle]="'Edit account for ' + selectedName()" [nzFooter]="null" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nx-client-access-form [username]="selectedClient()?.username" [ignoreOldPassword]="true" [saving]="saving()" (saved)="saveAccess($event)" />
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal [nzVisible]="modal() === 'create'" nzTitle="Create client" [nzFooter]="null" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nx-client-profile-form [showRoles]="true" [saving]="saving()" (saved)="createClient($event)" />
+    </ng-container>
+  </nz-modal>
+</div>

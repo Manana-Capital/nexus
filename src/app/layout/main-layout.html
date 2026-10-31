@@ -1,0 +1,68 @@
+<header class="top">
+  <button nz-button nzType="text" class="menu-toggle" (click)="toggleMenu()" [attr.aria-label]="menuOpen() ? 'Hide menu' : 'Show menu'">
+    <span nz-icon [nzType]="menuOpen() ? 'menu-fold' : 'menu-unfold'"></span>
+  </button>
+  <a routerLink="/" class="logo"><img src="assets/logo-color.svg" alt="Mañana Capital Nexus" /></a>
+
+  <div class="spacer"></div>
+
+  @if (prices()?.hasPrice) {
+    <div class="prices" title="Current price of Bitcoin">
+      <span>BTC</span>
+      <strong>{{ prices()?.btcUsd | currency: 'USD' : 'symbol' : '1.0-0' }}</strong>
+      <span class="czk">{{ prices()?.btcCzk | currency: 'CZK' : 'symbol-narrow' : '1.0-0' }}</span>
+    </div>
+  }
+
+  @if (auth.user(); as user) {
+    <button class="user" nz-dropdown [nzDropdownMenu]="userMenu" nzTrigger="click" nzPlacement="bottomRight">
+      <nz-avatar [nzText]="initials()" nzSize="small" class="avatar"></nz-avatar>
+      <span class="user-name">{{ user.name }}</span>
+    </button>
+    <nz-dropdown-menu #userMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item><a routerLink="/private/profile"><span nz-icon nzType="user"></span> Profile</a></li>
+        <li nz-menu-item (click)="auth.logout()"><span nz-icon nzType="logout"></span> Logout</li>
+      </ul>
+    </nz-dropdown-menu>
+  } @else {
+    <button nz-button nzType="primary" (click)="auth.login()"><span nz-icon nzType="login"></span> Login</button>
+  }
+</header>
+
+<div class="body">
+  @if (menuOpen()) {
+    @if (isSmall()) {
+      <div class="backdrop" (click)="toggleMenu()"></div>
+    }
+    <nav class="side" [class.overlay]="isSmall()" aria-label="Main">
+      <a class="item" routerLink="/dashboard" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="dashboard"></span> Dashboard</a>
+      <a class="item" routerLink="/statistics" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="bar-chart"></span> Statistics</a>
+
+      @if (auth.hasRole('Client')) {
+        <a class="item" routerLink="/private/portfolio" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="onNavigate()"><span nz-icon nzType="wallet"></span> My portfolio</a>
+      }
+
+      @if (auth.hasRole('Employee')) {
+        <div class="group">Company</div>
+        <a class="item" routerLink="/private/funds/overview" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="fund"></span> Funds</a>
+        @if (auth.hasRole('Manager')) {
+          <a class="item" routerLink="/private/funds/configuration" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="setting"></span> Fund configuration</a>
+        }
+        <a class="item" routerLink="/private/clients/overview" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="team"></span> Clients</a>
+        <a class="item" routerLink="/private/clients/transaction/deposit" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="down"></span> Deposit</a>
+        <a class="item" routerLink="/private/clients/transaction/withdrawal" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="up"></span> Withdraw</a>
+        <a class="item" routerLink="/private/clients/transaction/transfer" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="swap"></span> Transfer shares</a>
+
+        <div class="group">System</div>
+        <a class="item" routerLink="/system/rest-api" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="api"></span> REST API</a>
+        <a class="item" routerLink="/system/background-jobs" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="clock-circle"></span> Background jobs</a>
+        <a class="item" routerLink="/private/system/logs" routerLinkActive="active" (click)="onNavigate()"><span nz-icon nzType="desktop"></span> Logs</a>
+      }
+    </nav>
+  }
+
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

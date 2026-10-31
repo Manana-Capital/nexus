@@ -1,0 +1,22 @@
+.fund, .exchange {
+  display: flex; flex-direction: column; gap: 3px; text-align: left; cursor: pointer; font: inherit; color: inherit;
+  background: var(--nx-surface); border: 1px solid var(--nx-line); border-radius: 8px; padding: 14px 16px; min-width: 0;
+}
+.fund:hover, .exchange:hover { border-color: #c4c9d4; }
+.fund.selected, .exchange.selected { border-color: var(--nx-primary); box-shadow: 0 0 0 1px var(--nx-primary); }
+.fund-name { font-weight: 600; }
+.fund-main { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+.row { display: flex; justify-content: space-between; gap: 12px; color: var(--nx-ink-3); }
+.row > :last-child { color: var(--nx-ink); text-align: right; }
+.row > .nx-gain { color: var(--nx-gain); }
+.row > .nx-loss { color: var(--nx-loss); }
+.updated { margin-top: 4px; font-size: 12px; }
+.exchanges { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 12px; align-items: start; }
+.exchange-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; min-width: 0; }
+.name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--nx-gain); flex: none; }
+.dot.bad { background: #d98c00; }
+.assets { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--nx-line); max-height: 220px; overflow-y: auto; }
+.asset { font-size: 12px; }
+.attention { border-color: #eed49a; background: #fffbf0; }
+.attention h2 span { color: #b57800; }

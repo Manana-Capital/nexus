@@ -1,0 +1,68 @@
+<div class="nx-page">
+  <div class="nx-page-head">
+    <div>
+      <h1>Fund performance</h1>
+      <p>Mañana Capital back-office system</p>
+    </div>
+    <button nz-button (click)="load()"><span nz-icon nzType="reload"></span> Refresh</button>
+  </div>
+
+  @if (loading()) {
+    <div class="nx-grid">
+      @for (i of [1, 2, 3, 4]; track i) {
+        <div class="nx-panel"><nz-skeleton [nzActive]="true" [nzTitle]="true" [nzParagraph]="{ rows: 2 }"></nz-skeleton></div>
+      }
+    </div>
+  } @else if (!funds().length) {
+    <div class="nx-panel nx-muted">There are no funds to display.</div>
+  } @else {
+    <div class="nx-grid" role="tablist" aria-label="Funds">
+      @for (item of funds(); track item.id) {
+        <button class="fund" role="tab" type="button" [class.selected]="item.id === selected()?.id" [attr.aria-selected]="item.id === selected()?.id" (click)="select(item)">
+          <span class="fund-head">
+            <span class="fund-name">{{ item.displayName }}</span>
+            @if (item.description) {
+              <span nz-icon nzType="info-circle" class="nx-muted" nz-tooltip [nzTooltipTitle]="item.description"></span>
+            }
+          </span>
+          <span class="fund-main" [class]="tone(item.performance?.bigBang)">{{ item.performance?.bigBang | number: '1.2-2' }}%</span>
+          <span class="fund-rows">
+            <span class="row"><span>{{ today.getUTCFullYear() }}</span><span [class]="tone(item.performance?.currentYear)">{{ item.performance?.currentYear | number: '1.2-2' }}%</span></span>
+            <span class="row"><span>Month</span><span [class]="tone(item.performance?.currentMonth)">{{ item.performance?.currentMonth | number: '1.2-2' }}%</span></span>
+            <span class="row"><span>Today</span><span [class]="tone(item.performance?.today)">{{ item.performance?.today | number: '1.2-2' }}%</span></span>
+          </span>
+          @if (staleDays(item); as days) {
+            <span class="stale"><span nz-icon nzType="warning" nzTheme="fill"></span> No update for {{ days }} days</span>
+          }
+        </button>
+      }
+    </div>
+
+    @if (selected(); as current) {
+      @if (current.isUnderConstruction) {
+        <div class="nx-panel nx-muted">{{ current.displayName }} is under construction.</div>
+      } @else {
+        <section class="nx-panel">
+          <div class="nx-panel-head">
+            <h2>{{ current.displayName }} vs Bitcoin</h2>
+            <div class="controls">
+              <label class="log"><nz-switch nzSize="small" [ngModel]="log()" (ngModelChange)="log.set($event)"></nz-switch> Log scale</label>
+              <nz-radio-group [ngModel]="range()" (ngModelChange)="range.set($event)" nzButtonStyle="solid" nzSize="small">
+                @for (item of ranges; track item) {
+                  <label nz-radio-button [nzValue]="item">{{ item }}</label>
+                }
+              </nz-radio-group>
+            </div>
+          </div>
+          @if (chart(); as option) {
+            <nx-chart [option]="option" [height]="400" [label]="(current.displayName ?? 'Fund') + ' share price compared to Bitcoin'" />
+          }
+        </section>
+
+        <section class="nx-panel">
+          <nx-performance-table [years]="current.performanceYears" />
+        </section>
+      }
+    }
+  }
+</div>

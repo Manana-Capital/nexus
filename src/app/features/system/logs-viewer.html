@@ -1,0 +1,75 @@
+<div class="nx-page">
+  <div class="nx-page-head">
+    <div>
+      <h1>Logs</h1>
+      <p>System logs</p>
+    </div>
+    <button nz-button type="button" (click)="load()"><span nz-icon nzType="reload"></span> Refresh</button>
+  </div>
+
+  <section class="nx-panel">
+    @if (loading()) {
+      <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 8 }"></nz-skeleton>
+    } @else {
+      <nz-checkbox-group class="levels" [nzOptions]="levelOptions" [ngModel]="levels()" (ngModelChange)="selectLevels($event)"></nz-checkbox-group>
+
+      @if (!visible().length) {
+        <p class="nx-muted">There are no logs to display.</p>
+      } @else {
+        <div class="nx-table-wrap">
+          <table class="nx-table">
+            <thead>
+              <tr><th>Timestamp</th><th>Level</th><th>Message</th><th>Exception</th><th>User</th><th></th></tr>
+            </thead>
+            <tbody>
+              @for (log of rows(); track $index) {
+                <tr [class]="levelGroup(log)">
+                  <td>{{ log.timestamp | date: 'd MMM y, HH:mm:ss' }}</td>
+                  <td>{{ log.levelString }}</td>
+                  <td class="wrap message">{{ log.message }}</td>
+                  <td>{{ log.exceptionType }}</td>
+                  <td>{{ log.username }}</td>
+                  <td>
+                    @if (log.exceptionType) {
+                      <button nz-button nzShape="circle" nzSize="small" type="button" nz-tooltip nzTooltipTitle="Show detail" aria-label="Show detail" (click)="showDetail(log)">
+                        <span nz-icon nzType="info-circle"></span>
+                      </button>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <nz-pagination
+          class="pagination"
+          nzSize="small"
+          nzShowSizeChanger
+          nzResponsive
+          [nzTotal]="visible().length"
+          [nzPageIndex]="page()"
+          [nzPageSize]="pageSize()"
+          [nzPageSizeOptions]="pageSizes"
+          (nzPageIndexChange)="selectPage($event)"
+          (nzPageSizeChange)="selectPageSize($event)"
+        ></nz-pagination>
+      }
+    }
+  </section>
+
+  <nz-modal [nzVisible]="detailVisible()" [nzTitle]="detail()?.levelString" (nzOnCancel)="detailVisible.set(false)">
+    <ng-container *nzModalContent>
+      @if (detail(); as log) {
+        @if (log.exceptionType) {
+          <nz-alert class="exception" nzType="error" nzShowIcon [nzMessage]="'Exception: ' + log.exceptionType" [nzDescription]="log.exceptionMessage ?? ''"></nz-alert>
+        }
+        @if (log.innerExceptionType) {
+          <nz-alert class="exception" nzType="error" nzShowIcon [nzMessage]="'Inner exception: ' + log.innerExceptionType" [nzDescription]="log.innerExceptionMessage ?? ''"></nz-alert>
+        }
+      }
+    </ng-container>
+    <ng-container *nzModalFooter>
+      <button nz-button nzType="primary" type="button" (click)="detailVisible.set(false)">OK</button>
+    </ng-container>
+  </nz-modal>
+</div>

@@ -1,0 +1,144 @@
+<div class="nx-page">
+  <div class="nx-page-head">
+    <div>
+      <h1>Fund configuration</h1>
+      <p>Our funds and their exchange connectors</p>
+    </div>
+    @if (canManage()) {
+      <div class="head-actions">
+        <button nz-button type="button" (click)="load()"><span nz-icon nzType="reload"></span> Refresh</button>
+        <button nz-button type="button" nz-tooltip nzTooltipTitle="Balance gathering picks up a new fund after this" [nzLoading]="updatingTasks()" (click)="updateTasks()"><span nz-icon nzType="clock-circle"></span> Update tasks</button>
+        <button nz-button nzType="primary" type="button" (click)="openFund(null)"><span nz-icon nzType="plus"></span> New fund</button>
+      </div>
+    }
+  </div>
+
+  @if (!canManage()) {
+    <div class="nx-panel nx-muted">Fund configuration is available to managers only.</div>
+  } @else if (loading()) {
+    <div class="nx-panel"><nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 6 }"></nz-skeleton></div>
+  } @else if (!funds().length) {
+    <div class="nx-panel nx-muted">There are no funds yet, create the first one with New fund.</div>
+  } @else {
+    <section class="nx-panel">
+      <div class="nx-panel-head"><h2>Funds</h2></div>
+      <div class="nx-table-wrap">
+        <table class="nx-table">
+          <thead>
+            <tr><th>Key</th><th>Display name</th><th class="flag">Public</th><th class="flag">Disabled</th><th class="flag">Hidden</th><th>Owner</th><th class="num">Ordering</th><th></th></tr>
+          </thead>
+          <tbody>
+            @for (fund of funds(); track fund.id) {
+              <tr class="selectable" tabindex="0" [class.selected]="fund.id === selectedFundId()" [attr.aria-selected]="fund.id === selectedFundId()" (click)="selectFund(fund.id)" (keydown.enter)="selectFund(fund.id)">
+                <td>{{ fund.key }}</td>
+                <td>{{ fund.displayName }}</td>
+                <td class="flag">@if (fund.isPublic) { <span nz-icon nzType="check" aria-label="Yes"></span> }</td>
+                <td class="flag">@if (fund.isDisabled) { <span nz-icon nzType="check" aria-label="Yes"></span> }</td>
+                <td class="flag">@if (fund.isHidden) { <span nz-icon nzType="check" aria-label="Yes"></span> }</td>
+                <td>{{ ownerName(fund.owner) }}</td>
+                <td class="num">{{ fund.ordering }}</td>
+                <td>
+                  <button nz-button nzShape="circle" type="button" nz-tooltip nzTooltipTitle="Edit fund" aria-label="Edit fund" (click)="$event.stopPropagation(); openFund(fund)" (keydown.enter)="$event.stopPropagation()">
+                    <span nz-icon nzType="edit"></span>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    @if (selectedFund(); as fund) {
+      <section class="nx-panel">
+        <div class="nx-panel-head">
+          <h2>Connectors <span class="nx-muted for">for {{ fund.displayName }}</span></h2>
+          <button nz-button type="button" (click)="openConnector(null)"><span nz-icon nzType="plus"></span> Assign connector</button>
+        </div>
+        @if (loadingConnectors()) {
+          <nz-spin nzSimple></nz-spin>
+        } @else if (!connectors().length) {
+          <p class="nx-muted empty">This fund has no connectors.</p>
+        } @else {
+          <div class="nx-table-wrap">
+            <table class="nx-table">
+              <thead>
+                <tr><th>Exchange</th><th>Display name</th><th class="flag">Disabled</th><th class="flag">Lending</th><th class="flag">Market maker</th><th></th></tr>
+              </thead>
+              <tbody>
+                @for (connector of connectors(); track connector.connectorId) {
+                  <tr>
+                    <td>{{ connector.exchangeName }}</td>
+                    <td>{{ connector.displayName }}</td>
+                    <td class="flag">@if (connector.isDisabled) { <span nz-icon nzType="check" aria-label="Yes"></span> }</td>
+                    <td class="flag">@if (connector.isLendingEnabled) { <span nz-icon nzType="check" aria-label="Yes"></span> }</td>
+                    <td class="flag">@if (connector.isMarketMakerEnabled) { <span nz-icon nzType="check" aria-label="Yes"></span> }</td>
+                    <td class="row-actions">
+                      <button nz-button nzShape="circle" type="button" nz-tooltip nzTooltipTitle="Edit connector" aria-label="Edit connector" (click)="openConnector(connector)"><span nz-icon nzType="edit"></span></button>
+                      <button nz-button nzShape="circle" type="button" nz-tooltip nzTooltipTitle="Check connector's configuration" aria-label="Check connector" (click)="check(connector)"><span nz-icon nzType="check"></span></button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </section>
+    }
+  }
+
+  <nz-modal [nzVisible]="modal() === 'fund-edit'" [nzTitle]="'Edit fund: #' + editedFund()?.id + ' ' + editedFund()?.displayName" [nzFooter]="null" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nx-fund-form [fund]="editedFund()" [clients]="clients()" [saving]="saving()" (saved)="saveFund($event)" />
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal [nzVisible]="modal() === 'fund-create'" nzTitle="Create new fund" [nzFooter]="null" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nx-fund-form [clients]="clients()" [saving]="saving()" (saved)="createFund($event)" />
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal [nzVisible]="modal() === 'connector-edit'" [nzTitle]="'Edit connector: #' + editedConnector()?.connectorId + ' ' + editedConnector()?.displayName" [nzFooter]="null" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nx-connector-form [connector]="editedConnector()" [definitions]="definitions()" [saving]="saving()" (saved)="saveConnector($event)" />
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal [nzVisible]="modal() === 'connector-create'" [nzTitle]="'Assign new connector to fund: ' + selectedFund()?.displayName" [nzFooter]="null" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nx-connector-form [definitions]="definitions()" [saving]="saving()" (saved)="assignConnector($event)" />
+    </ng-container>
+  </nz-modal>
+
+  <nz-modal [nzVisible]="modal() === 'connector-check'" nzTitle="Connector check" (nzOnCancel)="closeModal()">
+    <ng-container *nzModalContent>
+      <nz-alert class="check-result" nzType="success" nzShowIcon nzMessage="Success" [nzDescription]="'Connector \'' + checked()?.displayName + '\' is working correctly'"></nz-alert>
+      <div class="nx-table-wrap">
+        <table class="nx-table">
+          <thead>
+            <tr><th>Currency</th><th class="num">Amount</th></tr>
+          </thead>
+          <tbody>
+            @for (balance of checkedBalances(); track balance.currency) {
+              <tr><td>{{ balance.currency }}</td><td class="num">{{ balance.amount | number: '1.0-6' }}</td></tr>
+            } @empty {
+              <tr><td colspan="2" class="nx-muted">No balances</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      @if (checkedTotal(); as total) {
+        <div class="nx-stats totals">
+          <div><div class="nx-stat-label">Total BTC</div><div class="nx-stat-value">{{ total.totalBtc | number: '1.3-3' }}</div></div>
+          <div><div class="nx-stat-label">BTC</div><div class="nx-stat-value">{{ total.btc | number: '1.3-3' }}</div></div>
+          <div><div class="nx-stat-label">USD</div><div class="nx-stat-value">{{ total.usd | number: '1.3-3' }}</div></div>
+        </div>
+      }
+    </ng-container>
+    <ng-container *nzModalFooter>
+      <button nz-button type="button" [nzLoading]="computingTotal()" (click)="computeTotal()">Compute total</button>
+      <button nz-button nzType="primary" type="button" (click)="closeModal()">OK</button>
+    </ng-container>
+  </nz-modal>
+</div>
