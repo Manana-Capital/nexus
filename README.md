@@ -24,13 +24,13 @@ Browser tests in `e2e/` run against the built app at `E2E_BASE_URL` (default `ht
 
 ## Deployment
 
-A static site on Cloudflare Pages, project `nexus-ui`, custom domain manana.kotas.host:
+A static site on Cloudflare Workers, the same way as the personal website and the blog:
 
     npm run build
-    npx wrangler pages deploy ./dist/nexus/browser --project-name nexus-ui --branch main    # needs CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID
+    npx wrangler deploy    # needs CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID
 
 `public/_headers` sets the security headers. Allowing the UI at another address means adding it to `Identity__AllowedOrigins__N` of the backend.
 
 ## Support
 
-Email: <info@manana.capital>
+Email: <info@mitil.ai>
